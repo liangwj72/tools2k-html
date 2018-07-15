@@ -12,6 +12,8 @@
   import PreLoading from './layer/PreLoading.vue'
 
   /** 导入样式表 */
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
   import 'toastr/toastr.less'
   import './assets/iconfont/iconfont.css'
   import './assets/less/index.less'

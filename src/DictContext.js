@@ -15,7 +15,7 @@ export default {
   debugMode: false,
 
   /** 初始化 */
-  init () {
+  init (callback) {
     let that = this
     myUtil.ajax(ApiUrl.dictPublic.getDict, {}, function (res) {
 
@@ -23,6 +23,11 @@ export default {
 
       that.data = res.data
       that.debugMode = res.debugMode
+
+      if (typeof callback === 'function') {
+        // 如果有回调函数，就回调
+        callback()
+      }
     })
   },
 

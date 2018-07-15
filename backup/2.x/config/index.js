@@ -20,7 +20,7 @@ let build = {
   index: path.resolve(__dirname, serverCodeDirTemplate + 'backend.ftl'),
   assetsRoot: path.resolve(__dirname, serverCodeDirStatic + 'statics/backend/'),
   assetsSubDirectory: '',
-  assetsPublicPath: '/statics/backend/', // 发版时，静态文件url前缀
+  assetsPublicPath: '/commons-statics/jmx_in_web/', // 发版时，静态文件url前缀
   productionSourceMap: false, // 打开源码模式，方便在正式版中调试
   productionGzip: false,
   productionGzipExtensions: ['js', 'css'],
@@ -30,11 +30,11 @@ let build = {
 let dev = {
   env: require('./dev.env'),
   autoOpenBrowser: false, // 启动开发环境时，不要自动打开浏览器
-  assetsSubDirectory: 'statics/backend',
+  assetsSubDirectory: 'commons-statics/jmx_in_web/',
   assetsPublicPath: '/',
 
   // 如果是是微信公众号项目，因为微信JS SDK 验签时只认80和443端口，我们这里就必须用80端口，如果不用微信JS SDK，爱用啥就用啥
-  port: 80,
+  port: 18080,
 
   proxyTable: [],
 
@@ -43,7 +43,7 @@ let dev = {
 }
 
 // 定义开发环境下，那些目录需要交给后端处理
-let apiServer = 'http://127.0.0.1:21000/'
+let apiServer = 'http://127.0.0.1:22000/'
 if (process.env.API_SERVER) {
   // 通过环境变量，可以切换后端的地址，例如 API_SERVER=127.0.0.1:20000
   apiServer = process.env.API_SERVER + '/'

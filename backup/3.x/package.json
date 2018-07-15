@@ -1,13 +1,16 @@
 {
-  "name": "rating-backend",
+  "name": "commons-JmxInWeb",
   "version": "1.0.0",
-  "description": "房地产评估-后台管理",
+  "description": "共用组件的JmxInWeb界面",
   "author": "梁韦江 <liangwj72@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "unit": "jest --config test/unit/jest.conf.js --coverage",
+    "e2e": "node test/e2e/runner.js",
+    "test": "npm run unit && npm run e2e",
+    "lint": "eslint --ext .js,.vue src",
+    "build": "node build/build.js"
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
@@ -43,7 +46,6 @@
     "eslint-plugin-html": "^2.0.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
-    "eslint-plugin-vue": "^4.7.0",
     "esri-loader": "^2.0.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.1",
@@ -83,7 +85,7 @@
     "vue-loader": "^11.1.4",
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.2.4",
-    "webpack": "^2.2.1",
+    "webpack": "^3.8.1",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
@@ -92,10 +94,5 @@
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  }
 }

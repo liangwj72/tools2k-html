@@ -4,25 +4,11 @@
  * Created by liangwj
  */
 export default {
-  /** 字典-用户 */
-  dictAdmin: {
-    getCurUser: '/api/dictAdmin/getCurUser', //  获得当前用户的信息，返回内容中包含是是否已登录的信息
-    login: '/api/dictAdmin/login', //  登录
-    logout: '/api/dictAdmin/logout', //  登出
-    passwordDemo: '/api/dictAdmin/passwordDemo', //  创建密码例子
-  },
-  /** 字典-附件文件管理 */
-  dictAttachments: {
-    delete: '/api/dictAttachments/delete', //  删除
-    list: '/api/dictAttachments/list', //  获取所有附件
-    save: '/api/dictAttachments/save', //  新增或者保存键值
-  },
-  /** 字典-词条管理 */
-  dictManager: {
-    delete: '/api/dictManager/delete', //  删除
-    importXml: '/api/dictManager/importXml', //  导入xml
-    save: '/api/dictManager/save', //  新增或者保存键值
-    search: '/api/dictManager/search', //  根据关键字搜索
+  /** 框架管理员 */
+  commonAdmin: {
+    getCurUser: '/api/commonAdmin/getCurUser', //  获取用户状态
+    login: '/api/commonAdmin/login', //  登录
+    logout: '/api/commonAdmin/logout', //  登出
   },
   /** 字典-公开 */
   dictPublic: {
@@ -34,8 +20,6 @@ export default {
     getMBeanInfo: '/api/jmxInWeb/getMBeanInfo', //  获取一个MBean的详情
     getMBeanList: '/api/jmxInWeb/getMBeanList', //  获取所有的MBean
     invokeOpt: '/api/jmxInWeb/invokeOpt', //  调用一个方法
-    login: '/api/jmxInWeb/login', //  登录
-    logout: '/api/jmxInWeb/logout', //  登出
   },
   /** JmxInWeb-Ws Api状态 */
   jmxInWebWs: {
