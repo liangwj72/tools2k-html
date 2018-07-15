@@ -1,7 +1,10 @@
 <template>
   <div>
     <my-nav></my-nav>
-    系统运行状态
+
+    <div class="container-fluid">
+      系统运行状态
+    </div>
   </div>
 </template>
 

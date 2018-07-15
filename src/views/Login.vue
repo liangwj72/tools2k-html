@@ -61,7 +61,10 @@
 
     /** 构建页面时 */
     mounted () {
+    },
 
+    /** 每次进入页面时 */
+    activated () {
       if (apiContext.logined) {
         // 如果已经登录了
         this.redirect()
@@ -70,6 +73,9 @@
           // 开发环境下，自动填写账号和密码
           this.form.account = window.defaultLogin.account
           this.form.password = window.defaultLogin.password
+        } else {
+          this.form.account = ''
+          this.form.password = ''
         }
       }
     },

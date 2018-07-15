@@ -1,7 +1,10 @@
 .
 <template>
   <div class="my-app">
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+
     <!-- 加载提示 -->
     <pre-loading/>
 

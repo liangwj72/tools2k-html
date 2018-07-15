@@ -105,9 +105,15 @@ export default {
         console.debug('要访问的界面不是登录界面，但是没找到当前用户的信息，导航回到登录界面')
 
         if (to.matched.length === 0) {
-          console.debug(`准备导航到: ${to.path}，但此页面不存在`)
+          // 如果页面不存在
           error = true
-          // 找不到页面时，不进行任何动作
+          // 如果不存在，就判断是否有from ，如果没有from ,就跳首页
+          if (from.matched.length === 0) {
+            console.debug(`准备导航到: ${to.path}，但此页面不存在，并且from不存在，自动重定向到${INDEX_PATH}`)
+            next(INDEX_PATH)
+          } else {
+            console.debug(`准备从 ${from.path} 导航到: ${to.path}，但此页面不存在，不做任何操作`)
+          }
         } else {
           // 如果页面存在
           if (to.meta) {
