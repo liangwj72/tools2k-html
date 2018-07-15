@@ -1,7 +1,7 @@
 .
 <template>
-  <div>
-    <router-view id="help-router-view"/>
+  <div class="my-app">
+    <router-view/>
     <!-- 加载提示 -->
     <pre-loading/>
 

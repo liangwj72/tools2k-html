@@ -6,6 +6,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import layers from '../layer/LayerIndex.js'
 import eventDispatcher from '../MyEventDispatcher.js'
+import apiContext from '../ApiContext.js'
 
 const PATH_PREFIX = '/jmxInWeb/'
 const INDEX_PATH = PATH_PREFIX // 首页的url
@@ -32,13 +33,16 @@ function getRouteDefine () {
   addToRoute(routers, 'mbean/MBeanList', ext)
   addToRoute(routers, 'mbean/MBeanView', ext)
 
+  addToRoute(routers, 'status/WsApi', ext)
+  addToRoute(routers, 'status/Runtime', ext)
+
   return routers
 }
 
 /** 检查是否登录的方法 */
 function checkRightFun () {
   // 登录就可以看到
-  return (window.curUser && window.curUser.logined)
+  return apiContext.logined
 }
 
 /**
@@ -95,26 +99,40 @@ export default {
     })
 
     router.beforeEach(function (to, from, next) {
-      if (to.path !== INDEX_PATH && !window.curUser) {
+      let error = false
+      if (to.path !== INDEX_PATH) {
+        // 只检查费索引页
         console.debug('要访问的界面不是登录界面，但是没找到当前用户的信息，导航回到登录界面')
-        next(INDEX_PATH)
-      } else {
-        if (to.matched.length === 0) {
-          console.debug(`From:`, from)
-          if (from.matched.length === 0) {
-            const msg = `准备导航到: ${to.path}，但此页面不存在，并且from不存在，自动重定向到${INDEX_PATH}`
-            console.debug(msg)
-            next(INDEX_PATH)
-          } else {
-            const msg = `页面 ${to.path} 不存在`
-            console.debug(msg)
-          }
-        } else {
-          // 隐藏加载层
-          eventDispatcher.hideAppLoading()
 
-          next()
+        if (to.matched.length === 0) {
+          console.debug(`准备导航到: ${to.path}，但此页面不存在`)
+          error = true
+          // 找不到页面时，不进行任何动作
+        } else {
+          // 如果页面存在
+          if (to.meta) {
+            let checkRightFun = to.meta.checkRightFun
+            if (typeof checkRightFun === 'function') {
+              // 目标页面需要权限检查，就先这些检查的方法
+              let ok = checkRightFun()
+              if (!ok) {
+                // 如果检查权限不通过
+                console.debug(`准备导航到: ${to.path}，但此页面的权限校验不通过，自动重定向到${INDEX_PATH}`)
+                error = true
+                next(INDEX_PATH)
+              }
+            }
+          }
         }
+      }
+
+      // 如果没有错误，就跳转到目的页面
+      if (!error) {
+        // 隐藏加载层
+        eventDispatcher.hideAppLoading()
+
+        // 转到目的页面
+        next()
       }
     })
 

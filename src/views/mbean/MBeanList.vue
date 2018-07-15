@@ -1,15 +1,11 @@
 <template>
   <div>
-    list
+    <my-nav></my-nav>
   </div>
 </template>
 
 <script>
-
   export default {
-
-    /** 本页面用到的组件 */
-    components: {},
 
     /** 组件的属性，只有是组件的时候才有用 */
     props: {},

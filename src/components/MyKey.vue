@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import context from '../DictContext'
+  import context from '../ApiContext'
 
   export default {
     name: 'my-key',
@@ -23,7 +23,7 @@
     },
 
     mounted: function () {
-      this.thisValue = context.getValue(this.vkey)
+      this.thisValue = context.getDictValue(this.vkey)
     },
   }
 </script>

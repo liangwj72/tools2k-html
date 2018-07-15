@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div>
     <b-navbar variant="light">
       <b-navbar-brand class="system-name">
         <my-key vkey="system.name"/>
@@ -7,7 +7,7 @@
       </b-navbar-brand>
     </b-navbar>
 
-    <div class="container-fluid">
+    <div class="container-fluid login">
       <b-card title="用户登录"
               class="login-card">
 
@@ -41,6 +41,7 @@
 <script>
   import myUtil from '../util/MyUtils'
   import apiUrl from '../ApiUrl'
+  import apiContext from '../ApiContext.js'
   import routerConfig from '../config/RouterConfig.js'
 
   export default {
@@ -61,7 +62,8 @@
     /** 构建页面时 */
     mounted () {
 
-      if (window.curUser.logined) {
+      if (apiContext.logined) {
+        // 如果已经登录了
         this.redirect()
       } else {
         if (window.defaultLogin) {
@@ -79,9 +81,7 @@
 
         const that = this
         myUtil.ajax(apiUrl.commonAdmin.login, this.form, function (res) {
-
-          window.curUser = res.userInfo
-          window.curUser.logined = true
+          apiContext.onDataLoaded(res)
 
           that.redirect()
         })
