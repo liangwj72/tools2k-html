@@ -1,47 +1,104 @@
 <template>
   <div>
-    <b-navbar variant="light">
-      <b-navbar-brand class="system-name">
+    <div class="nav-bar">
+      <div class="system-name">
         <my-key vkey="system.name"/>
-        JMX
-      </b-navbar-brand>
-    </b-navbar>
-
-    <div class="container-fluid login">
-      <b-card title="用户登录"
-              class="login-card">
-
-        <b-form @submit.prevent="onSubmit">
-          <b-form-group label="账号">
-            <b-form-input type="text"
-                          v-model.trim="form.account"
-                          required
-                          placeholder="请输入账号">
-            </b-form-input>
-          </b-form-group>
-          <b-form-group label="密码">
-            <b-form-input type="password"
-                          v-model.trim="form.password"
-                          required
-                          placeholder="请输入密码">
-            </b-form-input>
-          </b-form-group>
-          <b-form-group>
-            <b-form-checkbox v-model="form.rememberMe">保存登录</b-form-checkbox>
-          </b-form-group>
-          <b-button type="submit" variant="info">登录</b-button>
-        </b-form>
-
-      </b-card>
-
+      </div>
     </div>
+
+    <el-container>
+      <el-main>
+        <el-row :gutter="20">
+          <el-col :span="10">
+            <el-card header="用户登录">
+              <el-form label-width="100px"
+                       size="mini"
+                       @submit.native.prevent="onSubmit">
+                <el-form-item label="确认密码" prop="checkPass">
+                  <el-input type="text"
+                            v-model.trim="form.account"
+                            required
+                            placeholder="请输入账号">
+                    auto-complete="on">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-input type="password"
+                            required
+                            placeholder="请输入密码"
+                            v-model.trim="form.password"
+                            auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-checkbox label="保持登录"
+                               v-model="form.rememberMe"></el-checkbox>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" nativeType="submit">登录</el-button>
+                </el-form-item>
+              </el-form>
+            </el-card>
+          </el-col>
+          <el-col :span="14">
+            <el-card header="说明">
+              <div v-if="adminInProp">
+                <div>
+                  <h4>账号配置:</h4>
+                  <p>密码存储与配置文件中，请程序员修改以下两个参数配置管理员账号</p>
+                  <ul>
+                    <li>loginCheck.admin.account</li>
+                    <li>loginCheck.admin.password</li>
+                  </ul>
+                  <p>
+                    也可以用数据库管理，
+                    需要一个实现了<code>IWebUserProvider&lt;CommonAdminWebUser&gt;</code>接口的类
+                  </p>
+                </div>
+                <hr/>
+
+                <div>
+                  <h4>如何生成配置文件中的密码:</h4>
+                  <p class="text-muted">
+                    请在下面的输入框中输入密码名为，可生成加密后的密码，
+                    然后这个密文放到配置文件中，这样就可以用这个密码登陆了。
+                    默认的用户名是admin
+                  </p>
+                  <el-form label-width="100px"
+                           size="mini"
+                           @submit.native.prevent="createPassword">
+                    <el-form-item label="密码明文">
+                      <el-input type="text"
+                                v-model.trim="form1.password"
+                                required
+                                placeholder="请输入密码明文">
+                        auto-complete="on">
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item>
+                      <el-button type="success" nativeType="submit">生成</el-button>
+                    </el-form-item>
+                    <el-form-item label="生成的密文">
+                      {{encodedPwd}}
+                    </el-form-item>
+                  </el-form>
+                </div>
+              </div>
+              <div v-else>
+                请使用外部账号登陆
+              </div>
+            </el-card>
+
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
   import myUtil from '../util/MyUtils'
   import apiUrl from '../ApiUrl'
-  import apiContext from '../ApiContext.js'
+  import serverContext from '../util/ServerContext.js'
   import routerConfig from '../config/RouterConfig.js'
 
   export default {
@@ -53,6 +110,14 @@
           password: '',
           rememberMe: true,
         },
+
+        form1: {
+          password: '',
+        },
+
+        encodedPwd: '', // 生成的密文
+
+        adminInProp: serverContext.serverInfo.adminInProp,
       }
     },
 
@@ -65,7 +130,7 @@
 
     /** 每次进入页面时 */
     activated () {
-      if (apiContext.logined) {
+      if (serverContext.logined) {
         // 如果已经登录了
         this.redirect()
       } else {
@@ -87,9 +152,21 @@
 
         const that = this
         myUtil.ajax(apiUrl.commonAdmin.login, this.form, function (res) {
-          apiContext.onDataLoaded(res)
+          serverContext.onLogin(res)
 
           that.redirect()
+        })
+      },
+
+      createPassword () {
+        const param = {
+          password: this.form1.password,
+        }
+
+        const that = this
+        that.encodedPwd = ''
+        myUtil.ajax(apiUrl.commonAdmin.passwordDemo, param, function (res) {
+          that.encodedPwd = res.message
         })
       },
 

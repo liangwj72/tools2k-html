@@ -1,8 +1,8 @@
 <template>
   <div>
-    <my-nav></my-nav>
+    <my-nav activeName="runtime"></my-nav>
 
-    <div class="container-fluid">
+    <div class="main-content">
       系统运行状态
     </div>
   </div>

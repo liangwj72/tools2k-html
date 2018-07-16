@@ -6,7 +6,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import layers from '../layer/LayerIndex.js'
 import eventDispatcher from '../MyEventDispatcher.js'
-import apiContext from '../ApiContext.js'
+import serverContext from '../util/ServerContext.js'
 
 const PATH_PREFIX = '/jmxInWeb/'
 const INDEX_PATH = PATH_PREFIX // 首页的url
@@ -42,7 +42,7 @@ function getRouteDefine () {
 /** 检查是否登录的方法 */
 function checkRightFun () {
   // 登录就可以看到
-  return apiContext.logined
+  return serverContext.logined
 }
 
 /**
@@ -55,7 +55,7 @@ function addToRoute (routers, path, ext) {
   const fullUrl = getMyPath(path)
 
   let r = {
-    component: resolve => { require(['../views/' + path + '.vue'], resolve) },
+    component: resolve => { require(['@/views/' + path + '.vue'], resolve) },
     path: getMyPath(path),
   }
 

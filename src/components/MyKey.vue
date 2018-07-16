@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import context from '../ApiContext'
+  import context from '../util/ServerContext'
 
   export default {
     name: 'my-key',

@@ -1,5 +1,4 @@
 # common项目中 spring-jmx模块的页面
 
-使用 `bootstrap-vue` 组件库
-
-文档: http://dev.bootstrap-vue.netlify.com/docs/components/table
+组件库: 使用'饿了吗'的 element 组件库
+文档: http://element-cn.eleme.io/#/zh-CN/component/installation

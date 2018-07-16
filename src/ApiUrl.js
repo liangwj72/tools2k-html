@@ -6,9 +6,10 @@
 export default {
   /** 框架管理员 */
   commonAdmin: {
-    getCurUser: '/api/commonAdmin/getCurUser', //  获取用户状态
+    getServerStatus: '/api/commonAdmin/getServerStatus', //  获取服务器信息
     login: '/api/commonAdmin/login', //  登录
     logout: '/api/commonAdmin/logout', //  登出
+    passwordDemo: '/api/commonAdmin/passwordDemo', //  创建密码例子
   },
   /** 字典-公开 */
   dictPublic: {

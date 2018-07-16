@@ -1,10 +1,10 @@
 /**
- * 全局上下文，用于各个控件之间共享的变量
- * Created by liangwj on 2017/5/11 0011.
+ * 和服务器状态相关的上下文
+ * Created by liangwj
  */
 
-import apiUrl from './ApiUrl'
-import myUtil from './util/MyUtils'
+import apiUrl from '../ApiUrl'
+import myUtil from './MyUtils'
 
 export default {
 
@@ -17,17 +17,20 @@ export default {
   /** 是否已经登录 */
   logined: false,
 
-  /** 字典 */
-  debugMode: false,
-
-  hasWsApiImpl: false,
+  /** 服务器状态 */
+  serverInfo: {
+    adminInProp: false, // 框架管理账号是否是在配置文件中配置的
+    debugMode: false, // 服务器是否debug模式
+    hasMonitorClient: false, // 是否有配置了监控服务器
+    hasWsApiImpl: false, // 是否有WebSocket Api接口
+  },
 
   /** 字典 */
   dict: {},
 
   init (callback) {
     const that = this
-    myUtil.ajax(apiUrl.commonAdmin.getCurUser, {}, function (res) {
+    myUtil.ajax(apiUrl.commonAdmin.getServerStatus, {}, function (res) {
       that.onDataLoaded(res)
 
       if (typeof callback === 'function') {
@@ -45,18 +48,22 @@ export default {
 
   /** 当数据获取成功时 */
   onDataLoaded (res) {
+    this.onLogin(res)
+
+    this.dict = res.dict
+    this.serverInfo = res.serverInfo
+
+    console.debug(`更新系统状态 是否已登录:${this.logined}, 用户账号：${this.getCurUserName()}`)
+  },
+
+  /** 等当年成功是 */
+  onLogin (res) {
     if (res.curUser) {
       this.curUser = res.curUser
       this.logined = true
     } else {
       this.logined = false
     }
-
-    this.dict = res.dict
-    this.debugMode = res.debugMode
-    this.hasWsApiImpl = res.hasWsApiImpl
-
-    console.debug(`更新系统状态 是否已登录:${this.logined}, 用户账号：${this.getCurUserName()}`)
   },
 
   getCurUserName () {

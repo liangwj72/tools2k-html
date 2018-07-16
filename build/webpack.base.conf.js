@@ -23,29 +23,12 @@ module.exports = {
     publicPath: buildMode ? config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
 
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
-  ],
-
-  // 设置全局变量,我们在外面用script的方式引用js库后，需要在这说明一下，
-  externals: {
-    'lzDict': 'lzDict',
-    // 'wx': 'wx',
-  },
-
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       // 将常用的控件定义为别名，方便使用
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-
-      // 一些别名
-      'zepto': 'n-zepto',
-      'wx': 'weixin-js-sdk'
     }
   },
 
@@ -54,7 +37,7 @@ module.exports = {
       {
         // 必须配置ftl文件用html-loader来加载，因为默认的loader和ftl有冲突，会企图解释ftl里面应该有服务解释的占位符
         test: /\.ftl$/,
-        use: [ {
+        use: [{
           loader: 'html-loader',
           options: {
             minimize: true

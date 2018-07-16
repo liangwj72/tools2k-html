@@ -1,39 +1,38 @@
 <template>
   <div>
-    <my-nav></my-nav>
+    <my-nav active-name="mbean"></my-nav>
 
-    <b-card title="MBean列表"
-            tag="article">
-
-      <table class="table table-light table-hover table-fixed">
-        <thead>
-        <tr>
-          <th width="33.3%">ObjectName</th>
-          <th width="33.3%">说明</th>
-          <th width="33.3%">Class</th>
-        </tr>
-        </thead>
-        <tbody>
-        <template v-for="domainVo in list">
+    <div class="main-content">
+      <el-card header="MBean列表">
+        <table class="table table-light table-hover table-fixed">
+          <thead>
           <tr>
-            <td colspan="3">
-              <div class="caption">
-                {{domainVo.name}}
-              </div>
-            </td>
+            <th>ObjectName</th>
+            <th>说明</th>
+            <th>Class</th>
           </tr>
-          <template v-for="mbeanVo in domainVo.beans">
+          </thead>
+          <tbody>
+          <template v-for="domainVo in list">
             <tr>
-              <td><a href="mbeanInfo?objectName=${mbeanVo.objectName?url('UTF-8')}">{{mbeanVo.displayName}}</a></td>
-              <td>{{mbeanVo.desc}}</td>
-              <td>{{mbeanVo.className}}</td>
+              <td colspan="3">
+                <div class="caption">
+                  {{domainVo.name}}
+                </div>
+              </td>
             </tr>
+            <template v-for="mbeanVo in domainVo.beans">
+              <tr>
+                <td><a href="#" @click.prevent="view(mbeanVo)">{{mbeanVo.displayName}}</a></td>
+                <td>{{mbeanVo.desc}}</td>
+                <td>{{mbeanVo.className}}</td>
+              </tr>
+            </template>
           </template>
-        </template>
-        </tbody>
-      </table>
-    </b-card>
-
+          </tbody>
+        </table>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -71,11 +70,17 @@
           that.list = res.list
         })
       },
+
+      /** 查看mbean */
+      view (mbeanVo) {
+        this.$router.push({
+          path: 'MBeanView',
+          query: {
+            objectName: mbeanVo.objectName,
+          },
+        })
+      },
     },
   }
 </script>
 
-<!--<style scoped>-->
-<style>
-
-</style>

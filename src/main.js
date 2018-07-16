@@ -3,7 +3,7 @@ import App from './App.vue'
 import routerConfig from './config/RouterConfig'
 import vueConfig from './config/AppVueConfig.js'
 import myUtil from './util/MyUtils.js'
-import apiContext from './ApiContext.js'
+import serverContext from './util/ServerContext.js'
 
 /** 初始化工具 */
 myUtil.init(Vue)
@@ -13,7 +13,7 @@ vueConfig.init()
 
 const router = routerConfig.initRouter()
 
-apiContext.init(function () {
+serverContext.init(function () {
   let app = new Vue({
     el: '#app',
     router: router,

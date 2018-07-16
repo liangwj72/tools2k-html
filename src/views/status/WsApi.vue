@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-nav></my-nav>
+    <my-nav activeName="wsapi"></my-nav>
   </div>
 </template>
 

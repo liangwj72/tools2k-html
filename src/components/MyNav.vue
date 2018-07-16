@@ -1,46 +1,42 @@
 <template>
-  <b-navbar toggleable="md" variant="light">
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-    <b-navbar-brand class="system-name">
+  <div class="nav-bar">
+    <div class="system-name">
       <my-key vkey="system.name"/>
-      JMX
-    </b-navbar-brand>
-
-    <b-collapse is-nav id="nav_collapse">
-      <b-navbar-nav>
-        <router-link to="../mbean/MBeanList"
-                     tag="li"
-                     active-class="active">
-          <a class="nav-link">MBean</a>
-        </router-link>
-        <router-link to="../status/WsApi"
-                     v-if="hasWsApiImpl"
-                     tag="li"
-                     active-class="active">
-          <a class="nav-link">WsApi</a>
-        </router-link>
-        <router-link to="../status/Runtime"
-                     tag="li"
-                     active-class="active">
-          <a class="nav-link">系统状态</a>
-        </router-link>
-      </b-navbar-nav>
-
-      <b-navbar-nav class="ml-auto">
-
-        <b-nav-item-dropdown :text="userName" right>
-          <b-dropdown-item @click="logout">登出</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-
-    </b-collapse>
-
-  </b-navbar>
+    </div>
+    <div class="menu">
+      <el-menu router
+               ref="menuEl"
+               mode="horizontal">
+        <el-menu-item index="mbean"
+                      :class="getClass('mbean')"
+                      route="../mbean/MBeanList">MBean
+        </el-menu-item>
+        <el-menu-item index="wsapi"
+                      :class="getClass('wsapi')"
+                      v-if="hasWsApiImpl"
+                      route="../status/WsApi">WsApi
+        </el-menu-item>
+        <el-menu-item index="runtime"
+                      :class="getClass('runtime')"
+                      route="../status/Runtime">系统状态
+        </el-menu-item>
+      </el-menu>
+    </div>
+    <div class="user-name">
+      <el-dropdown @command="logout">
+        <span class="el-dropdown-link">
+          {{userName}} <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>登出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+  </div>
 </template>
 
 <script>
-  import apiContext from '../ApiContext.js'
+  import serverContext from '../util/ServerContext'
   import apiUrl from '../ApiUrl'
   import myUtil from '../util/MyUtils'
   import routeConfig from '../config/RouterConfig'
@@ -52,41 +48,44 @@
     components: {},
 
     /** 组件的属性，只有是组件的时候才有用 */
-    props: {},
+    props: {
+      // 激活的菜单
+      activeName: {
+        type: String,
+        default: '',
+      },
+    },
 
     /** 本页面的属性 */
     data () {
       return {
-        userName: apiContext.curUser.account,
-        hasWsApiImpl: apiContext.hasWsApiImpl,
+        userName: serverContext.curUser.account,
+        hasWsApiImpl: serverContext.hasWsApiImpl,
+
+        index: '',
       }
-    },
-
-    /** 计算属性 */
-    computed: {},
-
-    /** 构建页面时 */
-    mounted () {
-      console.debug('mounted()')
     },
 
     /** 每次进入页面时 */
     activated () {
-      console.debug('activated()')
-    },
-
-    /** 每次退出页面时 */
-    deactivated () {
-      console.debug('activated()')
+      console.debug('activated()-------', this.activeName)
+      this.index = this.activeName
     },
 
     /** 本页面可用的方法 */
     methods: {
+
+      getClass (name) {
+        return {
+          'active': this.activeName === name,
+        }
+      },
+
       logout () {
         const that = this
         myUtil.ajax(apiUrl.commonAdmin.logout, {}, function () {
           console.debug('用户登出成功')
-          apiContext.onLogout()
+          serverContext.onLogout()
 
           that.$router.push(routeConfig.getRoutePath('Login'))
         })
@@ -94,8 +93,3 @@
     },
   }
 </script>
-
-<!--<style scoped>-->
-<style>
-
-</style>

@@ -1,0 +1,78 @@
+// 上方导航栏的样式
+@nav-height: 50px;
+
+// 顶部菜单分：左边系统名字、中间菜单、右边当前用户，需要用flex布局
+.nav-bar {
+  display: flex;
+  height: @nav-height;
+  line-height: @nav-height;
+  //border-bottom: solid 1px ;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+
+  &:after {
+    .setBottomLine(#e6e6e6)
+  }
+
+  /** 左上方系统名字 */
+  .system-name {
+    color: #4DB3A2 !important;
+    font-weight: 700;
+    padding: 0 10px;
+  }
+
+  // 中间的菜单，自适应宽度，需要flex=1
+  .menu {
+    flex: 1;
+
+    // 需要修改原来的高度，禁止原来的激活样式
+    .el-menu-item {
+      height: @nav-height;
+      line-height: @nav-height;
+      border-bottom-color: transparent;
+
+      // 鼠标在上的样式
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .el-menu {
+      border: none;
+
+      // 我们重写的激活样式，原组件有bug，没办法
+      .active {
+        &:after {
+          content: " ";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          top: auto;
+          right: 0;
+          height: 2px;
+          border-bottom: 2px solid #4DB3A2;
+          transform-origin: 0 100%;
+          transform: scaleY(0.5);
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .user-name {
+    padding: 0 10px;
+  }
+}
+
+/** 下方的主容器 */
+.main-content {
+  min-height: 500px;
+  min-width: 900px;
+  position: absolute;
+  top: @nav-height + 5px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  overflow: auto;
+}
+
