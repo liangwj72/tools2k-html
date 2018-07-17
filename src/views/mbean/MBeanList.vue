@@ -4,33 +4,46 @@
 
     <div class="main-content">
       <el-card header="MBean列表">
-        <table class="table table-light table-hover table-fixed">
-          <thead>
-          <tr>
-            <th>ObjectName</th>
-            <th>说明</th>
-            <th>Class</th>
-          </tr>
-          </thead>
-          <tbody>
-          <template v-for="domainVo in list">
-            <tr>
-              <td colspan="3">
-                <div class="caption">
-                  {{domainVo.name}}
-                </div>
-              </td>
-            </tr>
-            <template v-for="mbeanVo in domainVo.beans">
-              <tr>
-                <td><a href="#" @click.prevent="view(mbeanVo)">{{mbeanVo.displayName}}</a></td>
-                <td>{{mbeanVo.desc}}</td>
-                <td>{{mbeanVo.className}}</td>
-              </tr>
-            </template>
-          </template>
-          </tbody>
-        </table>
+
+        <el-table border
+                  class="table-fixed only-header">
+          <div slot="empty"></div>
+          <el-table-column
+            label="ObjectName">
+          </el-table-column>
+          <el-table-column
+            label="说明">
+          </el-table-column>
+          <el-table-column
+            label="Class">
+          </el-table-column>
+        </el-table>
+
+        <div v-for="domainVo in list">
+          <div class="table-caption">
+            {{domainVo.name}}
+          </div>
+          <el-table border
+                    :showHeader="false"
+                    :data="domainVo.beans"
+                    class="table-fixed">
+            <el-table-column
+              label="ObjectName">
+              <template slot-scope="scope">
+                <a href="#" @click.prevent="view(scope.row)">{{scope.row.displayName}}</a>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="desc"
+              label="说明">
+            </el-table-column>
+            <el-table-column
+              prop="className"
+              label="Class">
+            </el-table-column>
+          </el-table>
+
+        </div>
       </el-card>
     </div>
   </div>

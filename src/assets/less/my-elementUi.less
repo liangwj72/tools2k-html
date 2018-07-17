@@ -1,0 +1,23 @@
+/** 扩展elementUi的样式 */
+
+.el-table {
+
+  /** 平均每列宽度的表格 */
+  &.table-fixed {
+    table-layout: fixed;
+  }
+
+  &.only-header {
+    .el-table__empty-block {
+      display: none;
+    }
+  }
+}
+
+.table-caption {
+  border-left: 1px solid #ebeef5;
+  border-right: 1px solid #ebeef5;
+  color: #4DB3A2;
+  font-weight: 700;
+  padding: 6px 10px;
+}
