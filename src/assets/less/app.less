@@ -21,19 +21,54 @@
   }
 
   .table-caption {
-    border-left: 1px solid #ebeef5;
-    border-right: 1px solid #ebeef5;
+    border-left: 1px solid @color-border;
+    border-right: 1px solid @color-border;
     color: @color-caption;
     font-weight: 700;
     padding: 6px 10px;
   }
 
   table.my-table {
-    border: 1px solid #ebeef5;
-    width: 100%;
+    border: 1px solid @color-border;
+    table-layout: fixed;
 
     td, th {
       padding-left: 10px;
+      border-bottom: 1px solid @color-border;
+      border-right: 1px solid @color-border;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:last-child {
+      border-right: none;
+    }
+    th:last-child {
+      border-right: none;
+    }
+  }
+
+  .link {
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  hr {
+    height: 1px;
+    margin: 10px 0;
+    border-style: none;
+    border-bottom: 1px solid @color-border;
+  }
+
+  .el-dialog__body {
+    position: relative;
+    &:after {
+      .setTopLine(@color-border);
     }
   }
 }

@@ -68,7 +68,6 @@
 
     /** 每次进入页面时 */
     activated () {
-      console.debug('activated()-------', this.activeName)
       this.index = this.activeName
     },
 

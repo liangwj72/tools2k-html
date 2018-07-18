@@ -1,6 +1,6 @@
 <!-- 编辑模式按钮 -->
 <template>
-  <span style="padding-left: 5px">
+  <span class="edit-btn">
      <!-- 查看模式 -->
       <el-button
         v-show="!editMode"

@@ -2,7 +2,7 @@
   <div>
     <my-nav active-name="mbean"></my-nav>
 
-    <div class="main-content">
+    <div class="main-content" v-if="!loading">
       <el-card header="MBean列表">
 
         <el-table border
@@ -62,6 +62,8 @@
     data () {
       return {
         list: [],
+
+        loading: false,
       }
     },
 
@@ -77,10 +79,12 @@
     methods: {
       reloadList () {
         console.debug('加载MBean列表')
+        this.loading = true
 
         const that = this
         myUtil.ajax(apiUrl.jmxInWeb.getMBeanList, {}, function (res) {
           that.list = res.list
+          that.loading = false
         })
       },
 

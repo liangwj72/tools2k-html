@@ -44,8 +44,3 @@
     methods: {},
   }
 </script>
-
-<!--<style scoped>-->
-<style>
-
-</style>

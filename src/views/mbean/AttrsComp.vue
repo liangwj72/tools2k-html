@@ -1,8 +1,8 @@
 <!-- 属性列表组件 -->
 <template>
   <el-card>
-    <div slot="header" class="col2-container">
-      <div class="col1 text-caption">
+    <div slot="header" class="flex-container">
+      <div class="flex1">
         属性
       </div>
       <div>
@@ -11,18 +11,17 @@
       </div>
     </div>
 
-    <table class="el-table el-table--border my-table">
+    <table class="el-table my-table">
       <thead>
       <tr>
-        <th width="250" v-show="showAllCol">名字</th>
+        <th v-show="showAllCol">名字</th>
         <th width="150">说明</th>
         <th>值</th>
       </tr>
       </thead>
       <tbody>
 
-      <tr class="el-table__row"
-          v-for="row in attrs">
+      <tr v-for="row in attrs">
         <td v-show="showAllCol">
           <span class="text-caption">{{row.info.name}}</span>
           <el-tag type="warning"
@@ -61,7 +60,7 @@
 
             </div>
 
-            <div v-else class="view-textarea">
+            <div v-else>
               <!-- 不是boolean，就用普通的输入框 -->
 
               <div class="flex-container">
