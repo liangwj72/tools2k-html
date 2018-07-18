@@ -12,6 +12,7 @@
   a {
     color: #337ab7;
     text-decoration: none;
+    cursor: pointer;
   }
 
   a:hover {
@@ -19,4 +20,29 @@
     text-decoration: underline;
   }
 
+  .table-caption {
+    border-left: 1px solid #ebeef5;
+    border-right: 1px solid #ebeef5;
+    color: @color-caption;
+    font-weight: 700;
+    padding: 6px 10px;
+  }
+
+  table.my-table {
+    border: 1px solid #ebeef5;
+    width: 100%;
+
+    td, th {
+      padding-left: 10px;
+    }
+  }
+}
+
+.flex-container {
+  display: flex;
+
+  .flex1 {
+    flex: 1;
+    width: 100%;
+  }
 }

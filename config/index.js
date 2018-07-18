@@ -2,11 +2,11 @@
 const path = require('path')
 
 // 静态资源的路径前缀，注意，前面不能有 '/'
-const assetsPrefix = 'commons-statics/jmx_in_web/'
+const assetsPrefix = 'commons-statics/common-admin/'
 // 服务器端代码资源目录的根目录
 const serverCodeDirPrefix = '../../_commons/spring-jmx/src/main/resources/'
 // 服务器端代码资源目录:模板目录
-const serverCodeIndexPath = serverCodeDirPrefix + 'templates/jmx_in_web/index.ftl'
+const serverCodeIndexPath = serverCodeDirPrefix + 'templates/common-admin/index.ftl'
 // 服务器端代码资源目录:静态资源目录
 const serverCodeAssertDir = serverCodeDirPrefix + 'static/' + assetsPrefix
 
