@@ -4,12 +4,17 @@
  * Created by liangwj
  */
 export default {
-  /** 框架管理员 */
-  commonAdmin: {
-    getServerStatus: '/api/commonAdmin/getServerStatus', //  获取服务器信息
-    login: '/api/commonAdmin/login', //  登录
-    logout: '/api/commonAdmin/logout', //  登出
-    passwordDemo: '/api/commonAdmin/passwordDemo', //  创建密码例子
+  /** 框架-公开 */
+  commonPublic: {
+    getServerStatus: '/api/commonPublic/getServerStatus', //  获取服务器信息
+    login: '/api/commonPublic/login', //  登录
+    logout: '/api/commonPublic/logout', //  登出
+    passwordDemo: '/api/commonPublic/passwordDemo', //  创建密码例子
+  },
+  /** 框架-运行状态 */
+  commonRuntime: {
+    runtimeHistory: '/api/commonRuntime/runtimeHistory', //  运行图表
+    wsConnectList: '/api/commonRuntime/wsConnectList', //  链接列表
   },
   /** 字典-公开 */
   dictPublic: {

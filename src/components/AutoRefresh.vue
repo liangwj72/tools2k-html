@@ -1,0 +1,100 @@
+<!--
+  自动刷新按钮
+-->
+<template>
+  <el-button
+    style="width: 65px"
+    size="mini"
+    @click="handleClick">
+    刷新 ({{remainInSec}})
+  </el-button>
+</template>
+
+<script>
+  let timerHandler = null
+
+  export default {
+    name: 'auto-refresh', // 只有是组件的时候才有用
+
+    /** 本页面用到的组件 */
+    components: {},
+
+    /** 组件的属性，只有是组件的时候才有用 */
+    props: {
+      // 自动刷新的周期，默认10秒
+      interval: {
+        type: Number,
+        default: 10,
+      },
+    },
+
+    /** 本页面的属性 */
+    data () {
+      return {
+        remainInSec: 0,
+      }
+    },
+
+    /** 计算属性 */
+    computed: {},
+
+    /** 每次进入页面时 */
+    activated () {
+      this.startTimer()
+    },
+
+    /** 每次退出页面时 */
+    deactivated () {
+      this.clearTimer()
+    },
+
+    /** 本页面可用的方法 */
+    methods: {
+
+      startTimer () {
+        // 初始化 剩余时间，先加1秒，然后再减
+        this.remainInSec = this.interval + 1
+        this.clearTimer() // 清理原来的定时器
+
+        // 启动计时器
+        this.onTimer()
+      },
+
+      /** 定时器处理者 */
+      onTimer () {
+        const that = this
+        timerHandler = setTimeout(function () {
+          that.onTimer()
+        }, 1000)
+
+        // 时间减少
+        this.remainInSec--
+
+        if (this.remainInSec === 0) {
+          // 如果时间到了，就触发事件,并充值计数器
+          this.remainInSec = this.interval
+          this.fireEvent()
+        }
+      },
+
+      /** 停止倒计时 */
+      clearTimer () {
+        if (timerHandler !== null) {
+          // 如果原来有定时器存在，就清除
+          clearTimeout(timerHandler)
+          timerHandler = null
+        }
+      },
+
+      /** 派发事件 */
+      fireEvent () {
+        this.$emit('refresh')
+      },
+
+      handleClick () {
+        this.startTimer()
+        this.fireEvent()
+      },
+    },
+  }
+</script>

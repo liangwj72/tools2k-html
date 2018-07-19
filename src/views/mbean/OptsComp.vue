@@ -10,7 +10,7 @@
     <div class="opt-nav">
       <ul>
         <li
-          class="link"
+          class="text-link"
           v-for="opt in info.opts"
           @click="onNavClick(opt)"
           :key="opt.info.name"

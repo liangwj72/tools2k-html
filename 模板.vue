@@ -37,7 +37,7 @@
 
     /** 每次退出页面时 */
     deactivated () {
-      console.debug('activated()')
+      console.debug('deactivated()')
     },
 
     /** 本页面可用的方法 */

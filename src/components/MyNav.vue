@@ -11,11 +11,13 @@
                       :class="getClass('mbean')"
                       route="../mbean/MBeanList">MBean
         </el-menu-item>
+        <!--
         <el-menu-item index="wsapi"
                       :class="getClass('wsapi')"
                       v-if="hasWsApiImpl"
                       route="../status/WsApi">WsApi
         </el-menu-item>
+        -->
         <el-menu-item index="runtime"
                       :class="getClass('runtime')"
                       route="../status/Runtime">系统状态
@@ -23,14 +25,11 @@
       </el-menu>
     </div>
     <div class="user-name">
-      <el-dropdown @command="logout">
-        <span class="el-dropdown-link">
-          {{userName}} <i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>登出</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <span class="mr-10">{{userName}}</span>
+      <el-button
+        @click="logout"
+        size="mini">退出登录
+      </el-button>
     </div>
   </div>
 </template>
@@ -60,7 +59,7 @@
     data () {
       return {
         userName: serverContext.curUser.account,
-        hasWsApiImpl: serverContext.hasWsApiImpl,
+        hasWsApiImpl: serverContext.serverInfo.hasWsApiImpl,
 
         index: '',
       }
@@ -82,7 +81,7 @@
 
       logout () {
         const that = this
-        myUtil.ajax(apiUrl.commonAdmin.logout, {}, function () {
+        myUtil.ajax(apiUrl.commonPublic.logout, {}, function () {
           console.debug('用户登出成功')
           serverContext.onLogout()
 

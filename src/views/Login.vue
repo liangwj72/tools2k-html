@@ -44,12 +44,14 @@
               <div v-if="adminInProp">
                 <div>
                   <h4>账号配置:</h4>
-                  <p>密码存储与配置文件中，请程序员修改以下两个参数配置管理员账号</p>
+                  <p class="text-muted">
+                    密码存储与配置文件中，请程序员修改以下两个参数配置管理员账号
+                  </p>
                   <ul>
                     <li>loginCheck.admin.account</li>
                     <li>loginCheck.admin.password</li>
                   </ul>
-                  <p>
+                  <p class="text-muted">
                     也可以用数据库管理，
                     需要一个实现了<code>IWebUserProvider&lt;CommonAdminWebUser&gt;</code>接口的类
                   </p>
@@ -74,11 +76,11 @@
                         auto-complete="on">
                       </el-input>
                     </el-form-item>
+                    <el-form-item label="生成的密文:">
+                      {{encodedPwd}}
+                    </el-form-item>
                     <el-form-item>
                       <el-button type="success" nativeType="submit">生成</el-button>
-                    </el-form-item>
-                    <el-form-item label="生成的密文">
-                      {{encodedPwd}}
                     </el-form-item>
                   </el-form>
                 </div>
@@ -151,7 +153,7 @@
         console.debug('form', this.form)
 
         const that = this
-        myUtil.ajax(apiUrl.commonAdmin.login, this.form, function (res) {
+        myUtil.ajax(apiUrl.commonPublic.login, this.form, function (res) {
           serverContext.onLogin(res)
 
           that.redirect()
@@ -165,7 +167,7 @@
 
         const that = this
         that.encodedPwd = ''
-        myUtil.ajax(apiUrl.commonAdmin.passwordDemo, param, function (res) {
+        myUtil.ajax(apiUrl.commonPublic.passwordDemo, param, function (res) {
           that.encodedPwd = res.message
         })
       },

@@ -6,8 +6,12 @@ import $ from 'n-zepto'
 import RouterConfig from '../config/RouterConfig'
 import loading from './impl/LoadingImpl.js' // 显示加载中的代理
 import toast from './impl/ToastToastrImpl.js' // toast的代理
+import verify from './VerifyUtils'
 
 export default {
+
+  /** 校验类的工具 */
+  verifyUtils: verify,
 
   /** 初始化 */
   init (vue) {
@@ -213,6 +217,11 @@ export default {
     return str
   },
 
+  timeFormat (time, fmt) {
+    const date = new Date(time)
+    return this.dateFormat(date, fmt)
+  },
+
   /**
    * 格式时间
    * - Format('yyyy-MM-dd hh:mm:ss.S') ==> 2006-07-02 08:09:04.423
@@ -259,45 +268,38 @@ export default {
     }
   },
 
-  /** 是否是手机号 */
-  isPhone (str) {
-    if (this.isEmpty(str)) {
-      return false
-    }
+  /** 将字符串型的颜色转为 rgba数组 */
+  colorHexToRgba (sColor, alpha) {
+    // 十六进制颜色值的正则表达式
+    let reg = /^#([0-9a-fA-F]{6})$/
+    // 如果是16进制颜色
+    if (sColor && reg.test(sColor)) {
+      // 处理六位的颜色值
+      let sColorChange = []
+      for (let i = 1; i < 7; i += 2) {
+        sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)))
+      }
 
-    let isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/
-    let isMobile = /^[1][34578][0-9]{9}$/
-    return isMobile.test(str) || isPhone.test(str)
+      sColorChange.push(alpha)
+
+      return 'rgba(' + sColorChange.join(',') + ')'
+    }
+    return sColor
   },
 
-  /** 是否是手机号 */
-  isSmsCode (str) {
-    if (this.isEmpty(str)) {
-      return false
+  /** 友好的硬盘大小字符串, 用 K M G 表示 */
+  toSizeStr (size) {
+    let k = size / 1024
+    if (k > 1024) {
+      let m = k / 1024
+      if (m > 1024) {
+        return (m / 1024).toFixed(2) + 'G'
+      } else {
+        return m.toFixed(2) + 'M'
+      }
+    } else {
+      return k.toFixed(2) + 'K'
     }
-
-    let isCode = /^[0-9]{6}$/
-    return isCode.test(str)
-  },
-
-  /** 是否邮箱 */
-  isEmail (str) {
-    if (this.isEmpty(str)) {
-      return false
-    }
-
-    let reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-    return reg.test(str)
-  },
-
-  /** 是否身份证号 */
-  isIDCard (str) {
-    if (this.isEmpty(str)) {
-      return false
-    }
-
-    let reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
-    return reg.test(str)
   },
 
 }

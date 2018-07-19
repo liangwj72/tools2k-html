@@ -2,13 +2,6 @@
 
 .my-app {
 
-  /** 原来的表格的间隙太大了，减小一点 */
-  .table th, .table td {
-    //padding: 10px;
-
-    //.text_wrap();
-  }
-
   a {
     color: #337ab7;
     text-decoration: none;
@@ -28,49 +21,13 @@
     padding: 6px 10px;
   }
 
-  table.my-table {
-    border: 1px solid @color-border;
-    table-layout: fixed;
+}
 
-    td, th {
-      padding-left: 10px;
-      border-bottom: 1px solid @color-border;
-      border-right: 1px solid @color-border;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    td:last-child {
-      border-right: none;
-    }
-    th:last-child {
-      border-right: none;
-    }
-  }
-
-  .link {
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  hr {
-    height: 1px;
-    margin: 10px 0;
-    border-style: none;
-    border-bottom: 1px solid @color-border;
-  }
-
-  .el-dialog__body {
-    position: relative;
-    &:after {
-      .setTopLine(@color-border);
-    }
-  }
+.chart-panel {
+  /*width: 100%;*/
+  border: 1px solid @color-border;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .flex-container {

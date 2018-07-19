@@ -22,3 +22,11 @@
 .el-button--mini {
   padding: 7px;
 }
+
+/** 模式窗口的标题下面加条分隔先 */
+.el-dialog__body {
+  position: relative;
+  &:after {
+    .setTopLine(@color-border);
+  }
+}

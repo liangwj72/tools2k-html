@@ -2,13 +2,13 @@
 const path = require('path')
 
 // 静态资源的路径前缀，注意，前面不能有 '/'
-const assetsPrefix = 'commons-statics/common-admin/'
+const assetsPrefix = 'commons_statics/commonAdmin/'
 // 服务器端代码资源目录的根目录
-const serverCodeDirPrefix = '../../_commons/spring-jmx/src/main/resources/'
+const serverCodeDirPrefix = '../../commons/spring-api-server/src/main/resources/'
 // 服务器端代码资源目录:模板目录
-const serverCodeIndexPath = serverCodeDirPrefix + 'templates/common-admin/index.ftl'
+const serverCodeIndexPath = serverCodeDirPrefix + 'templates/commonAdmin/index.ftl'
 // 服务器端代码资源目录:静态资源目录
-const serverCodeAssertDir = serverCodeDirPrefix + 'static/' + assetsPrefix
+const serverCodeAssertDir = serverCodeDirPrefix + assetsPrefix
 
 // 后端的地址，例如 API_SERVER=http://192.168.1.10:20000，可以通过环境变量 API_SERVER 修改
 const defaultApiServer = 'http://127.0.0.1:22000/'

@@ -30,7 +30,7 @@ export default {
 
   init (callback) {
     const that = this
-    myUtil.ajax(apiUrl.commonAdmin.getServerStatus, {}, function (res) {
+    myUtil.ajax(apiUrl.commonPublic.getServerStatus, {}, function (res) {
       that.onDataLoaded(res)
 
       if (typeof callback === 'function') {
