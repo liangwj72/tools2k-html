@@ -22,6 +22,14 @@
                       :class="getClass('runtime')"
                       route="../status/Runtime">系统状态
         </el-menu-item>
+        <el-menu-item index="dict"
+                      :class="getClass('dict')"
+                      route="../dict/Dict">字典管理
+        </el-menu-item>
+        <el-menu-item index="upload"
+                      :class="getClass('upload')"
+                      route="../dict/Upload">图床
+        </el-menu-item>
       </el-menu>
     </div>
     <div class="user-name">

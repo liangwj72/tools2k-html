@@ -65,7 +65,7 @@
         </el-col>
       </el-row>
 
-      <el-row :gutter="10" class="mt-10">
+      <el-row :gutter="10" class="mt-10" v-if="hasWsApiImpl">
         <el-col :span="12">
           <!-- ws 次数-->
           <line-chart
@@ -93,6 +93,7 @@
   import chartHelper from './ChartHelper'
   import LineChart from '../../components/LineCharts'
   import AutoRefresh from '../../components/AutoRefresh'
+  import serverContext from '../../util/ServerContext'
 
   export default {
 
@@ -107,6 +108,8 @@
     /** 本页面的属性 */
     data () {
       return {
+        hasWsApiImpl: serverContext.serverInfo.hasWsApiImpl,
+
         // 内存使用的图表
         memoryChart: {
           data: chartHelper.memoryChart.data,
@@ -230,8 +233,11 @@
         this.updateCpuChart(labels, cpuSystem, cpuJvm) // 更新cpu图
         this.updateThreadChart(labels, thread) // 更新线程图
         this.updateActionChart(labels, action) // 更新动态请求图
-        this.updateWsCountChart(labels, wsCountUp, wsCountDown) // 更新ws次数
-        this.updateWsPayloadChart(labels, wsPayloadUp, wsPayloadDown) // 更新ws流量
+
+        if (this.hasWsApiImpl) {
+          this.updateWsCountChart(labels, wsCountUp, wsCountDown) // 更新ws次数
+          this.updateWsPayloadChart(labels, wsPayloadUp, wsPayloadDown) // 更新ws流量
+        }
       },
 
       /** 更新ws 次数图表 */
