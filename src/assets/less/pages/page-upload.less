@@ -14,5 +14,80 @@
   .edit-pannel {
     right: 0;
     width: @edit-pannel-width;
+
+    .p-body {
+      padding: 0 15px;
+
+      input:read-only {
+        color: @color-caption;
+        border-color: transparent;
+      }
+
+      h4 {
+        margin-top: 20px;
+      }
+
+      pre {
+        padding: 10px 15px;
+        color: @pre-color;
+        background-color: @pre-bg;
+        margin: 0;
+        .text_wrap;
+        border: 1px solid @pre-border-color;
+      }
+    }
   }
+
+  .attach_div {
+    cursor: pointer;
+    float: left;
+    width: 170px;
+    height: 215px;
+    margin: 5px;
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid @thumbnail-border;
+    border-radius: 4px;
+    transition: border .2s ease-in-out;
+
+    .memo {
+      padding: 5px 5px;
+    }
+
+    .imgDiv {
+      width: 150px;
+      height: 150px;
+
+      img {
+        display: block;
+        vertical-align: middle;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    p {
+      padding: 0;
+      margin: 2px;
+      .ellipsis;
+    }
+
+    .other-file {
+      display: block;
+      width: 150px;
+      height: 150px;
+      background-image: url("../img/file.png");
+      text-align: center;
+      line-height: 150px;
+      font-size: 20px;
+    }
+
+    &:hover, &:active {
+      border-color: @input-border-focus;
+    }
+  }
+
 }

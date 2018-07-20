@@ -15,7 +15,7 @@
           @click="onNavClick(opt)"
           :key="opt.info.name"
           :index="opt.info.name">
-          <div class="text_wrap" style="width: 209px">
+          <div class="text-wrap" style="width: 209px">
             {{opt.info.name}}
             <span class="text-muted">{{opt.info.description}}</span>
           </div>

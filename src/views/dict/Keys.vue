@@ -230,6 +230,7 @@
 
     /** 本页面可用的方法 */
     methods: {
+      /** 刷新页面 */
       reload (showMsg) {
         let data = this.searchArea
 
