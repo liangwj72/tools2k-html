@@ -16,7 +16,6 @@
 
   /** 导入样式表 */
   import 'element-ui/lib/theme-chalk/index.css'
-  import 'toastr/toastr.less'
   import './assets/iconfont/iconfont.css'
   import './assets/less/index.less'
 

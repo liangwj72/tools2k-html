@@ -1,0 +1,50 @@
+/** Keys.vue 的样式 */
+.page-keys {
+
+  @key-pannel-width: 600px;
+
+  // 左边栏
+  .keys-pannel {
+    left: 0;
+    width: @key-pannel-width;
+  }
+
+  // 左边搜索栏的样式
+  .key-row {
+    display: flex;
+    border-bottom: 1px solid @color-border;
+
+    // key的值
+    .key-value, .key-name {
+      padding: 10px 15px;
+    }
+
+    // Key的名字
+    .key-name {
+      width: 200px;
+      border-right: 1px solid @color-border;
+      .text_wrap;
+
+      // 名字中的包含的搜索关键字
+      .search_mark {
+        color: #ff0000;
+      }
+    }
+
+    .key-value {
+      flex: 1;
+    }
+  }
+
+  /** 上面的tab的宽度需要基本相等 */
+  .el-tabs__item {
+    min-width: 82px;
+    text-align: center;
+  }
+
+  .edit-pannel {
+    left: @key-pannel-width + 15px;
+    right: 0;
+    padding: 0 15px 15px 15px;
+  }
+}

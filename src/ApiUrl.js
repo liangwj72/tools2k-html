@@ -16,9 +16,18 @@ export default {
     runtimeHistory: '/api/commonRuntime/runtimeHistory', //  运行图表
     wsConnectList: '/api/commonRuntime/wsConnectList', //  链接列表
   },
-  /** 字典-公开 */
-  dictPublic: {
-    getDict: '/api/dictPublic/getDict', //  获得字典定义的所有内容
+  /** 字典-附件文件管理 */
+  dictAttachments: {
+    delete: '/api/dictAttachments/delete', //  删除
+    list: '/api/dictAttachments/list', //  获取所有附件
+    save: '/api/dictAttachments/save', //  新增或者保存键值
+  },
+  /** 字典-词条管理 */
+  dictManager: {
+    delete: '/api/dictManager/delete', //  删除
+    importXml: '/api/dictManager/importXml', //  导入xml
+    save: '/api/dictManager/save', //  新增或者保存键值
+    search: '/api/dictManager/search', //  根据关键字搜索
   },
   /** JmxInWeb-JMX管理 */
   jmxInWeb: {

@@ -1,17 +1,26 @@
+<style lang="less">
+  .fixed-refresh {
+    position: fixed;
+    top: 78px;
+    right: 35px;
+    width: 92px;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  }
+</style>
+
 <template>
   <div>
     <my-nav activeName="runtime"></my-nav>
 
-    <div class="main-content">
+    <!-- 自动刷新按钮 -->
+    <auto-refresh
+      class="fixed-refresh"
+      @refresh="reload(false)"></auto-refresh>
 
+    <div class="main-content">
       <el-card>
-        <div slot="header" class="flex-container">
-          <div class="flex1">
-            系统运行状态
-          </div>
-          <!-- 自动刷新按钮 -->
-          <auto-refresh @refresh="reload(false)"></auto-refresh>
-        </div>
 
         <div class="flex-container">
           <div>

@@ -1,6 +1,25 @@
 <template>
-  <div>
+  <div class="page-upload">
     <my-nav activeName="upload"></my-nav>
+
+    <div>
+      <!-- 左边图片列表 -->
+      <div class="my-pannel pic-pannel">
+        <div class="my-header">
+          附件列表
+        </div>
+      </div>
+      <!-- /左边图片列表 -->
+
+      <!-- 右边的编辑区 -->
+      <div class="my-pannel edit-pannel">
+        <div class="my-header">
+          附件编辑
+        </div>
+      </div>
+      <!-- /右边的编辑区 -->
+    </div>
+
   </div>
 </template>
 
@@ -25,11 +44,6 @@
 
     /** 每次进入页面时 */
     activated () {
-      console.debug('activated()')
-    },
-
-    /** 每次退出页面时 */
-    deactivated () {
       console.debug('activated()')
     },
 

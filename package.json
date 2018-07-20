@@ -13,7 +13,6 @@
     "chart.js": "^2.7.2",
     "element-ui": "^2.4.4",
     "n-zepto": "^1.2.0",
-    "toastr": "^2.1.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

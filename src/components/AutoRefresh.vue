@@ -3,8 +3,6 @@
 -->
 <template>
   <el-button
-    style="width: 65px"
-    size="mini"
     @click="handleClick">
     刷新 ({{remainInSec}})
   </el-button>

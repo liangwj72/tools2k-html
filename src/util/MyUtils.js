@@ -5,8 +5,9 @@
 import $ from 'n-zepto'
 import RouterConfig from '../config/RouterConfig'
 import loading from './impl/LoadingImpl.js' // 显示加载中的代理
-import toast from './impl/ToastToastrImpl.js' // toast的代理
+import toastAgent from './impl/ToastElImpl' // toast的实现类
 import verify from './VerifyUtils'
+import confirmAgent from './impl/ConfirmElImpl'
 
 export default {
 
@@ -14,25 +15,31 @@ export default {
   verifyUtils: verify,
 
   /** 初始化 */
-  init (vue) {
+  init () {
     // toast 的初始化
-    toast.init(vue)
+    toastAgent.init()
+    confirmAgent.init()
+  },
+
+  /** 弹窗确认 */
+  confirm (msg, callback) {
+    confirmAgent.confirm(msg, callback)
   },
 
   /** 为baseJsonResponse显示参数错误 **/
   showErrorForJsonResponse (res) {
     console.debug('调用ajax时，返回错误信息', res.message)
-    toast.showErrorMsg(res.message)
+    this.showErrorMsg(res.message)
   },
 
   /** 显示错误信息 */
   showErrorMsg (msg) {
-    toast.showErrorMsg(msg)
+    toastAgent.showErrorMsg(msg)
   },
 
   /** 正常的显示信息 */
   showMsg (msg) {
-    toast.showMsg(msg)
+    toastAgent.showMsg(msg)
   },
 
   /** 默认的ajax错误处理方法 */

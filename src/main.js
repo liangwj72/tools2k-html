@@ -5,11 +5,11 @@ import vueConfig from './config/AppVueConfig.js'
 import myUtil from './util/MyUtils.js'
 import serverContext from './util/ServerContext.js'
 
-/** 初始化工具 */
-myUtil.init(Vue)
-
 /** 初始化vue的配置 */
 vueConfig.init()
+
+/** 初始化工具 */
+myUtil.init(Vue)
 
 const router = routerConfig.initRouter()
 

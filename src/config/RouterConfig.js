@@ -36,7 +36,7 @@ function getRouteDefine () {
   addToRoute(routers, 'status/WsApi', ext)
   addToRoute(routers, 'status/Runtime', ext)
 
-  addToRoute(routers, 'dict/Dict', ext)
+  addToRoute(routers, 'dict/Keys', ext)
   addToRoute(routers, 'dict/Upload', ext)
 
   return routers
