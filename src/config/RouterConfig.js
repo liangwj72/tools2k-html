@@ -34,7 +34,7 @@ function getRouteDefine () {
   addToRoute(routers, 'mbean/MBeanView', ext)
 
   addToRoute(routers, 'status/Summary', ext)
-  addToRoute(routers, 'status/WsApi', ext)
+  addToRoute(routers, 'status/WsConns', ext)
   addToRoute(routers, 'status/Runtime', ext)
 
   addToRoute(routers, 'dict/Keys', ext)

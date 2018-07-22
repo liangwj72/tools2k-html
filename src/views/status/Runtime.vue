@@ -4,7 +4,6 @@
 
     <!-- 自动刷新按钮 -->
     <auto-refresh
-      class="fixed-refresh"
       @refresh="reload(false)"></auto-refresh>
 
     <div class="main-content">

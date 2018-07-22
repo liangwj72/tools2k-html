@@ -16,6 +16,7 @@ export default {
     osInfo: '/api/commonRuntime/osInfo', //  操作系统和虚拟机信息
     runtimeHistory: '/api/commonRuntime/runtimeHistory', //  运行图表
     wsConnectList: '/api/commonRuntime/wsConnectList', //  链接列表
+    wsResetCounter: '/api/commonRuntime/wsResetCounter', //  重试ws计数器
   },
   /** 字典-附件文件管理 */
   dictAttachments: {

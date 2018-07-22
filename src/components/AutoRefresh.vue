@@ -1,12 +1,46 @@
 <!--
   自动刷新按钮
 -->
+<style lang="less">
+  .auto-refresh {
+    /*width: 92px;*/
+    z-index: 10;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+
+    .el-button {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .iconfont {
+      line-height: 14px;
+    }
+
+    .btn-left {
+      width: 50px;
+      padding: 9px 5px;
+      text-align: left;
+    }
+
+    &.fixed-refresh {
+      position: fixed;
+      top: 78px;
+      right: 35px;
+    }
+  }
+</style>
+
 <template>
-  <el-button
-    @click="handleClick">
-    刷新
-    <span v-if="timer">({{remainInSec}})</span>
-  </el-button>
+
+  <el-button-group class="auto-refresh" :class="getClass()">
+    <el-button size="medium"
+               @click="handleClick">刷新
+    </el-button>
+    <el-button size="medium"
+               @click="playOrPause"
+               class="btn-left"><i class="iconfont" :class="getIconClass()"></i>
+      <span v-if="playing">{{remainInSec}}</span>
+    </el-button>
+  </el-button-group>
 </template>
 
 <script>
@@ -26,6 +60,11 @@
         default: 10,
       },
 
+      fixed: {
+        type: Boolean,
+        default: true,
+      },
+
       timer: {
         type: Boolean,
         default: true,
@@ -36,6 +75,9 @@
     data () {
       return {
         remainInSec: 0,
+
+        /** 是否在倒计时 */
+        playing: this.timer,
       }
     },
 
@@ -54,14 +96,25 @@
 
     /** 本页面可用的方法 */
     methods: {
+      getIconClass () {
+        return {
+          'icon-play': this.playing,
+          'icon-pause': !this.playing,
+        }
+      },
+
+      getClass () {
+        return {
+          'fixed-refresh': this.fixed,
+        }
+      },
 
       startTimer () {
-        if (this.timer) {
+        this.clearTimer() // 清理原来的定时器
+        // 初始化 剩余时间，先加1秒，然后再减
+        this.remainInSec = this.interval + 1
 
-          // 初始化 剩余时间，先加1秒，然后再减
-          this.remainInSec = this.interval + 1
-          this.clearTimer() // 清理原来的定时器
-
+        if (this.playing) {
           // 启动计时器
           this.onTimer()
         }
@@ -69,6 +122,10 @@
 
       /** 定时器处理者 */
       onTimer () {
+        if (!this.playing) {
+          return
+        }
+
         const that = this
         timerHandler = setTimeout(function () {
           that.onTimer()
@@ -101,6 +158,12 @@
       handleClick () {
         this.startTimer()
         this.fireEvent()
+      },
+
+      /** 继续，或者暂停 */
+      playOrPause () {
+        this.playing = !this.playing
+        this.startTimer()
       },
     },
   }

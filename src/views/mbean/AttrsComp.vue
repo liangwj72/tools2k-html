@@ -4,6 +4,7 @@
     <div slot="header" class="flex-container">
       <div class="flex1">
         属性
+        <el-button @click="backToList" size="mini" type="primary">返回列表</el-button>
       </div>
       <div>
         <el-button @click="allColumn" size="mini">{{showAllColText}}</el-button>
@@ -173,6 +174,10 @@
       reloadEvt () {
         this.$emit('reload')
       },
+
+      backToList () {
+        this.$router.push('MBeanList')
+      }
     },
   }
 </script>

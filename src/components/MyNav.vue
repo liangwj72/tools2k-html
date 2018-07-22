@@ -92,6 +92,12 @@
             checkRights: checkRights.defaultFn,
           },
           {
+            key: 'wsConns',
+            name: 'WS连接',
+            link: '../status/WsConns',
+            checkRights: checkRights.hasWsApiImpl,
+          },
+          {
             key: 'keys',
             name: '字典管理',
             link: '../dict/Keys',

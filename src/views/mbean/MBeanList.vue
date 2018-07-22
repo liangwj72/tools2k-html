@@ -3,7 +3,6 @@
     <my-nav active-name="mbean"></my-nav>
 
     <div class="main-content" v-if="!loading">
-      <el-card header="MBean列表">
 
         <el-table border
                   class="table-fixed only-header">
@@ -44,7 +43,6 @@
           </el-table>
 
         </div>
-      </el-card>
     </div>
   </div>
 </template>

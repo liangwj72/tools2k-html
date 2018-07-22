@@ -2,7 +2,6 @@
   <div>
     <!-- 自动刷新按钮 -->
     <auto-refresh
-      class="fixed-refresh"
       :timer="false"
       @refresh="reload(true)"></auto-refresh>
 

@@ -1,0 +1,26 @@
+// WsConns 页面样式
+.ws-conns {
+  @summary-width: 300px;
+
+  // 左边的摘要
+  .summary-pannel {
+    left: 0;
+    width: @summary-width;
+    padding: 10px 15px;
+
+    .info-label {
+      width: 150px;
+    }
+    .info-value {
+      text-align: right;
+      flex: 1;
+      color: @color-caption;
+    }
+  }
+
+  // 连接信息
+  .conns-pannel {
+    left: @summary-width + 15px;
+    right: 0;
+  }
+}
