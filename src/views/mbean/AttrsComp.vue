@@ -177,7 +177,7 @@
 
       backToList () {
         this.$router.push('MBeanList')
-      }
+      },
     },
   }
 </script>
