@@ -13,6 +13,7 @@ export default {
   },
   /** 框架-运行状态 */
   commonRuntime: {
+    osInfo: '/api/commonRuntime/osInfo', //  操作系统和虚拟机信息
     runtimeHistory: '/api/commonRuntime/runtimeHistory', //  运行图表
     wsConnectList: '/api/commonRuntime/wsConnectList', //  链接列表
   },

@@ -4,7 +4,8 @@
 <template>
   <el-button
     @click="handleClick">
-    刷新 ({{remainInSec}})
+    刷新
+    <span v-if="timer">({{remainInSec}})</span>
   </el-button>
 </template>
 
@@ -23,6 +24,11 @@
       interval: {
         type: Number,
         default: 10,
+      },
+
+      timer: {
+        type: Boolean,
+        default: true,
       },
     },
 
@@ -50,12 +56,15 @@
     methods: {
 
       startTimer () {
-        // 初始化 剩余时间，先加1秒，然后再减
-        this.remainInSec = this.interval + 1
-        this.clearTimer() // 清理原来的定时器
+        if (this.timer) {
 
-        // 启动计时器
-        this.onTimer()
+          // 初始化 剩余时间，先加1秒，然后再减
+          this.remainInSec = this.interval + 1
+          this.clearTimer() // 清理原来的定时器
+
+          // 启动计时器
+          this.onTimer()
+        }
       },
 
       /** 定时器处理者 */

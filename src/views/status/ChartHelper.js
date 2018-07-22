@@ -51,6 +51,7 @@ export default {
       ],
     },
     options: {
+      animation: false,
       scales: {
         yAxes: [{
           ticks: {
@@ -201,7 +202,7 @@ export default {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            suggestedMax: 100,
+            suggestedMax: 10,
           },
           gridLines: {
             display: false,

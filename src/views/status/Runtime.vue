@@ -1,15 +1,3 @@
-<style lang="less">
-  .fixed-refresh {
-    position: fixed;
-    top: 78px;
-    right: 35px;
-    width: 92px;
-    z-index: 10;
-    background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  }
-</style>
-
 <template>
   <div>
     <my-nav activeName="runtime"></my-nav>
@@ -25,7 +13,7 @@
         <div class="flex-container">
           <div>
             硬盘空间: <span class="mr-10 text-caption">{{diskInfo.total}}</span>
-            已使用容量: <span class="mr-10 text-caption">{{diskInfo.used}}</span>
+            可使用容量: <span class="mr-10 text-caption">{{diskInfo.free}}</span>
           </div>
           <div class="flex1">
             <el-progress
@@ -157,6 +145,7 @@
         diskInfo: {
           total: '',
           used: '',
+          free: '',
 
           percent: 0,
         },
@@ -201,6 +190,7 @@
 
         this.diskInfo.total = myUtil.toSizeStr(info.totalSpace)
         this.diskInfo.used = myUtil.toSizeStr(used)
+        this.diskInfo.free = myUtil.toSizeStr(info.usableSpace)
       },
 
       /** 更新图表信息 */

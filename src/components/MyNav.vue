@@ -1,34 +1,26 @@
 <template>
-  <div class="nav-bar">
+  <div class="nav-bar flex-container">
     <div class="system-name">
       <my-key vkey="system.name"/>
     </div>
-    <div class="menu">
-      <el-menu router
-               ref="menuEl"
-               mode="horizontal">
-        <el-menu-item index="mbean"
-                      :class="getClass('mbean')"
-                      route="../mbean/MBeanList">MBean
+    <div class="flex1">
+      <el-menu mode="horizontal">
+        <el-menu-item v-for="row in menus"
+                      v-if="row.checkRights()"
+                      :key="row.key"
+                      :index="row.key"
+                      :class="getClass(row.key)">
+          <router-link :to="row.link">{{row.name}}</router-link>
         </el-menu-item>
-        <!--
-        <el-menu-item index="wsapi"
-                      :class="getClass('wsapi')"
-                      v-if="hasWsApiImpl"
-                      route="../status/WsApi">WsApi
+      </el-menu>
+    </div>
+    <div>
+      <el-menu mode="horizontal">
+        <el-menu-item index="ajax">
+          <a href="/dev/" target="_blank">Ajax Api调试</a>
         </el-menu-item>
-        -->
-        <el-menu-item index="runtime"
-                      :class="getClass('runtime')"
-                      route="../status/Runtime">系统状态
-        </el-menu-item>
-        <el-menu-item index="keys"
-                      :class="getClass('keys')"
-                      route="../dict/Keys">字典管理
-        </el-menu-item>
-        <el-menu-item index="upload"
-                      :class="getClass('upload')"
-                      route="../dict/Upload">图床
+        <el-menu-item index="ws">
+          <a href="/dev/ws" target="_blank">WS Api调试</a>
         </el-menu-item>
       </el-menu>
     </div>
@@ -47,6 +39,16 @@
   import apiUrl from '../ApiUrl'
   import myUtil from '../util/MyUtils'
   import routeConfig from '../config/RouterConfig'
+
+  const checkRights = {
+    defaultFn () {
+      return true
+    },
+
+    hasWsApiImpl () {
+      return serverContext.serverInfo.hasWsApiImpl
+    },
+  }
 
   export default {
     name: 'my-nav', // 只有是组件的时候才有用
@@ -69,13 +71,40 @@
         userName: serverContext.curUser.account,
         hasWsApiImpl: serverContext.serverInfo.hasWsApiImpl,
 
-        index: '',
+        /** 菜单 */
+        menus: [
+          { // 摘要
+            key: 'summary',
+            name: '系统摘要',
+            link: '../status/Summary',
+            checkRights: checkRights.defaultFn,
+          },
+          { // 查看jmx
+            key: 'mbean',
+            name: 'JMX',
+            link: '../mbean/MBeanList',
+            checkRights: checkRights.defaultFn,
+          },
+          {
+            key: 'runtime',
+            name: '系统状态',
+            link: '../status/Runtime',
+            checkRights: checkRights.defaultFn,
+          },
+          {
+            key: 'keys',
+            name: '字典管理',
+            link: '../dict/Keys',
+            checkRights: checkRights.defaultFn,
+          },
+          {
+            key: 'upload',
+            name: '图床',
+            link: '../dict/Upload',
+            checkRights: checkRights.defaultFn,
+          },
+        ],
       }
-    },
-
-    /** 每次进入页面时 */
-    activated () {
-      this.index = this.activeName
     },
 
     /** 本页面可用的方法 */

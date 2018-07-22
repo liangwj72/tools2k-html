@@ -14,7 +14,7 @@
               <el-form label-width="100px"
                        size="mini"
                        @submit.native.prevent="onSubmit">
-                <el-form-item label="确认密码" prop="checkPass">
+                <el-form-item label="账号" prop="checkPass">
                   <el-input type="text"
                             v-model.trim="form.account"
                             required
@@ -40,8 +40,8 @@
             </el-card>
           </el-col>
           <el-col :span="14">
-            <el-card header="说明">
-              <div v-if="adminInProp">
+            <el-card header="说明" >
+              <div v-if="adminInProp" class="article">
                 <div>
                   <h4>账号配置:</h4>
                   <p class="text-muted">
@@ -174,7 +174,7 @@
 
       /** 登录成功时，跳转到列表页 */
       redirect () {
-        const next = routerConfig.getRoutePath('mbean/MBeanList')
+        const next = routerConfig.getRoutePath('status/Summary')
 
         console.debug('登录成功，准备跳转到', next)
 

@@ -33,6 +33,7 @@ function getRouteDefine () {
   addToRoute(routers, 'mbean/MBeanList', ext)
   addToRoute(routers, 'mbean/MBeanView', ext)
 
+  addToRoute(routers, 'status/Summary', ext)
   addToRoute(routers, 'status/WsApi', ext)
   addToRoute(routers, 'status/Runtime', ext)
 
