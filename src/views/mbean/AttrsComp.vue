@@ -1,17 +1,17 @@
 <!-- 属性列表组件 -->
 <template>
-  <el-card>
-    <div slot="header" class="flex-container">
+  <div class="my-pannel attr-pannel">
+    <div class="p-header flex-container">
       <div class="flex1">
         属性
         <el-button @click="backToList" size="mini" type="primary">返回列表</el-button>
       </div>
       <div>
         <el-button @click="allColumn" size="mini">{{showAllColText}}</el-button>
-        <el-button @click="reloadEvt" size="mini">刷新</el-button>
       </div>
     </div>
 
+    <div class="p-body">
     <table class="el-table my-table">
       <thead>
       <tr>
@@ -97,7 +97,8 @@
       </tr>
       </tbody>
     </table>
-  </el-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -168,11 +169,6 @@
         myUtil.ajax(apiUri.jmxInWeb.changeAttr, param, function (res) {
           that.reloadEvt()
         })
-      },
-
-      /** 用事件通知父页面刷新 */
-      reloadEvt () {
-        this.$emit('reload')
       },
 
       backToList () {

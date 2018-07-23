@@ -3,7 +3,7 @@
     <!-- 自动刷新按钮 -->
     <auto-refresh
       :timer="false"
-      @refresh="reload(true)"></auto-refresh>
+      @refresh="reload"></auto-refresh>
 
     <my-nav activeName="summary"></my-nav>
 

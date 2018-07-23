@@ -1,24 +1,24 @@
 <template>
   <div class="mbean-view">
+
+    <auto-refresh
+      :timer="false"
+      @refresh="reload"></auto-refresh>
+
     <my-nav activeName="mbean"></my-nav>
 
     <div v-if="!loading">
       <!-- 属性列表 vue-->
-      <div class="attr_container">
-        <attrs-comp
-          :objectName="info.objectName"
-          :attrs="info.attrs"
-          @reload="reload(true)">
-        </attrs-comp>
-      </div>
+      <attrs-comp
+        :objectName="info.objectName"
+        :attrs="info.attrs">
+      </attrs-comp>
       <!-- /属性列表 -->
 
       <!-- opt列表 -->
-      <div class="opt-container">
-        <opts-comp
-          :info="info">
-        </opts-comp>
-      </div>
+      <opts-comp
+        :info="info">
+      </opts-comp>
       <!-- /opt列表 -->
     </div>
   </div>
@@ -68,6 +68,7 @@
 
     /** 每次进入页面时 */
     activated () {
+      this.loading = true
       this.objectName = this.$route.query.objectName
       this.reload(false)
     },
@@ -84,7 +85,6 @@
           objectName: this.objectName,
         }
 
-        that.loading = true
         myUtil.ajax(apiUrl.jmxInWeb.getMBeanInfo, param, function (res) {
           that.onDateLoad(res.info)
           that.loading = false

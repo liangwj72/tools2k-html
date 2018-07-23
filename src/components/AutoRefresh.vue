@@ -33,7 +33,7 @@
 
   <el-button-group class="auto-refresh" :class="getClass()">
     <el-button size="medium"
-               @click="handleClick">刷新
+               @click="onClickRefresh">刷新
     </el-button>
     <el-button size="medium"
                @click="playOrPause"
@@ -98,8 +98,8 @@
     methods: {
       getIconClass () {
         return {
-          'icon-play': this.playing,
-          'icon-pause': !this.playing,
+          'icon-play': !this.playing,
+          'icon-pause': this.playing,
         }
       },
 
@@ -137,7 +137,7 @@
         if (this.remainInSec === 0) {
           // 如果时间到了，就触发事件,并充值计数器
           this.remainInSec = this.interval
-          this.fireEvent()
+          this.fireEvent(false)
         }
       },
 
@@ -151,13 +151,13 @@
       },
 
       /** 派发事件 */
-      fireEvent () {
-        this.$emit('refresh')
+      fireEvent (showMsg) {
+        this.$emit('refresh', showMsg)
       },
 
-      handleClick () {
+      onClickRefresh () {
         this.startTimer()
-        this.fireEvent()
+        this.fireEvent(true)
       },
 
       /** 继续，或者暂停 */

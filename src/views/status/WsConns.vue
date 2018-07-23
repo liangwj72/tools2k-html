@@ -2,7 +2,7 @@
   <div class="ws-conns">
     <!-- 自动刷新按钮 -->
     <auto-refresh
-      @refresh="reload(false)"></auto-refresh>
+      @refresh="reload"></auto-refresh>
 
     <my-nav activeName="wsapi"></my-nav>
 
@@ -169,6 +169,7 @@
     /** 本页面可用的方法 */
     methods: {
       reload (showMsg) {
+
         myUtil.ajax(apiUrl.commonRuntime.wsConnectList, {}, res => {
           this.loading = false
           this.downCounter = res.downCounter

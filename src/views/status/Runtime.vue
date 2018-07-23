@@ -4,7 +4,7 @@
 
     <!-- 自动刷新按钮 -->
     <auto-refresh
-      @refresh="reload(false)"></auto-refresh>
+      @refresh="reload"></auto-refresh>
 
     <div class="main-content">
       <el-card>
@@ -146,7 +146,7 @@
           used: '',
           free: '',
 
-          percent: 0,
+          percent: 1,
         },
       }
     },
@@ -184,7 +184,9 @@
         let used = info.totalSpace - info.usableSpace
 
         if (info.totalSpace > 0) {
-          this.diskInfo.percent = (used * 100 / info.totalSpace).toFixed(2)
+          this.diskInfo.percent = Number.parseFloat((used * 100 / info.totalSpace).toFixed(2))
+        } else {
+          this.diskInfo.percent = 0
         }
 
         this.diskInfo.total = myUtil.toSizeStr(info.totalSpace)

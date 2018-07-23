@@ -4,15 +4,17 @@
  */
 
 import Vue from 'vue'
+import ElementUI from 'element-ui'
 import MyKey from '../components/MyKey.vue'
 import MyNav from '../components/MyNav.vue'
-import ElementUI from 'element-ui'
+import AutoRefresh from '../components/AutoRefresh'
 
 /** 配置组件 */
 function initComp () {
   /** 我们可以再这个地方注入全局的组件，这样就不需要在每个页面单独的声明了 */
   Vue.component('my-key', MyKey)
   Vue.component('my-nav', MyNav)
+  Vue.component('auto-refresh', AutoRefresh)
 }
 
 export default {

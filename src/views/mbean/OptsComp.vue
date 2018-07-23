@@ -1,37 +1,36 @@
 <!-- MBean 基础信息 -->
 <template>
-  <div class="el-card is-always-shadow mbean-info-card">
-    <div class="el-card__header">
+  <div class="my-pannel opt-pannel mbean-info-card">
+    <div class="p-header">
       <span class="text-caption">{{info.desc}}</span>
       <code>{{info.className}}</code>
     </div>
 
-    <!-- 左边opt导航 -->
-    <div class="opt-nav">
-      <ul>
-        <li
-          class="text-link"
-          v-for="opt in info.opts"
-          @click="onNavClick(opt)"
-          :key="opt.info.name"
-          :index="opt.info.name">
-          <div class="text-wrap" style="width: 209px">
-            {{opt.info.name}}
-            <span class="text-muted">{{opt.info.description}}</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <!-- /左边opt导航 -->
+    <div class="p-body">
+      <!-- 左边opt导航 -->
+      <div class="opt-nav">
+        <ul>
+          <li
+            class="text-link"
+            v-for="opt in info.opts"
+            @click="onNavClick(opt)"
+            :key="opt.info.name"
+            :index="opt.info.name">
+            <div class="text-wrap" style="width: 209px">
+              {{opt.info.name}}
+              <span class="text-muted">{{opt.info.description}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- /左边opt导航 -->
 
-    <!-- 右边的表单 -->
-    <div class="opt-forms" v-if="showForm">
-      <el-card>
-        <div slot="header">
+      <!-- 右边的表单 -->
+      <div class="opt-forms article" v-if="showForm">
+        <h4>
           <span class="label label-success">{{curOpt.info.returnType}}</span>
           <span class="text-caption">{{curOpt.info.name}}</span>
-        </div>
-
+        </h4>
         <div class="text-muted">
           备注: {{curOpt.info.description}}
         </div>
@@ -76,9 +75,8 @@
           </el-button>
         </el-form>
 
-      </el-card>
+      </div>
     </div>
-
     <el-dialog
       title="执行返回结果"
       :visible.sync="returnData.show"

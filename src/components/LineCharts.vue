@@ -59,7 +59,6 @@
       /** 更新图表 */
       updateChart () {
         this.chart.update()
-        console.debug('更新chartjs图表', this.chartData)
       },
     },
   }
