@@ -25,7 +25,7 @@
       </el-menu>
     </div>
     <div class="user-name">
-      <span class="mr-10">{{userName}}</span>
+      <span class="mr-10 text-caption">{{userName}}</span>
       <el-button
         @click="logout"
         size="mini">退出登录

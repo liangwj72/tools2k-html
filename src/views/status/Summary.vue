@@ -19,7 +19,7 @@
             </div>
             <div class="flex-container">
               <div class="l-width150">启动时间:</div>
-              <div class="flex1 text-caption">{{formatData(vm.startTime)}}</div>
+              <div class="flex1 text-caption">{{vm.startTime | timeFormat}}</div>
             </div>
             <div class="flex-container">
               <div class="l-width150">java版本:</div>
@@ -105,28 +105,28 @@
             </div>
             <div class="flex-container">
               <div class="l-width150">提交的虚拟内存:</div>
-              <div class="flex1 text-caption">{{toSizeM(os.committedVirtualMemorySize)}}</div>
+              <div class="flex1 text-caption">{{os.committedVirtualMemorySize | sizeToM}}</div>
             </div>
           </el-col>
           <el-col :span="12">
             <div class="flex-container">
               <div class="l-width150">总物理内存:</div>
-              <div class="l-width150 text-caption">{{toSizeM(os.totalPhysicalMemorySize)}}</div>
+              <div class="l-width150 text-caption">{{os.totalPhysicalMemorySize | sizeToM}}</div>
               <div class="flex1 text-caption"></div>
             </div>
             <div class="flex-container">
               <div class="l-width150">空闲物理内存:</div>
-              <div class="l-width150 text-caption">{{toSizeM(os.freePhysicalMemorySize)}}</div>
+              <div class="l-width150 text-caption">{{os.freePhysicalMemorySize | sizeToM}}</div>
               <div class="flex1 text-caption"></div>
             </div>
             <div class="flex-container">
               <div class="l-width150">总交换空间:</div>
-              <div class="l-width150 text-caption">{{toSizeM(os.totalSwapSpaceSize)}}</div>
+              <div class="l-width150 text-caption">{{os.totalSwapSpaceSize | sizeToM}}</div>
               <div class="flex1 text-caption"></div>
             </div>
             <div class="flex-container">
               <div class="l-width150">空闲交换空间:</div>
-              <div class="l-width150 text-caption">{{toSizeM(os.freeSwapSpaceSize)}}</div>
+              <div class="l-width150 text-caption">{{os.freeSwapSpaceSize | sizeToM}}</div>
               <div class="flex1 text-caption"></div>
             </div>
           </el-col>
@@ -139,11 +139,8 @@
 <script>
   import apiUrl from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
-  import AutoRefresh from '../../components/AutoRefresh'
 
   export default {
-    /** 本页面用到的组件 */
-    components: {AutoRefresh},
 
     /** 本页面的属性 */
     data () {
@@ -209,20 +206,6 @@
 
     /** 本页面可用的方法 */
     methods: {
-
-      formatData (time) {
-        return myUtil.timeFormat(time, 'yyyy-MM-dd hh:mm:ss')
-      },
-
-      toSizeM (size) {
-        let k = size / 1024
-        if (k > 1024) {
-          let m = k / 1024
-          return m.toFixed(2) + 'M'
-        } else {
-          return k.toFixed(2) + 'K'
-        }
-      },
 
       reload (showMsg) {
         myUtil.ajax(apiUrl.commonRuntime.osInfo, {}, res => {

@@ -59,8 +59,8 @@
         </div>
         <!-- /翻页 -->
       </div>
+      <!-- /左边栏 -->
     </div>
-    <!-- /左边栏 -->
 
     <!-- 右边栏 -->
     <div class="my-pannel edit-pannel">

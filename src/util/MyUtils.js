@@ -224,6 +224,32 @@ export default {
     return str
   },
 
+  /**
+   * 用逗号分隔显示数字,保留两位小数点
+   * @param value:int 要格式的值
+   * @param toFixed2:boolean  是否保留2位小数
+   */
+  numFormat (value, toFixed2) {
+    if (!value) {
+      return '0.00'
+    }
+
+    const intPart = Number(value).toFixed(0) // 获取整数部分
+    const intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') // 将整数部分逢三一断
+
+    let floatPart = ''
+    if (toFixed2) {
+      floatPart = '.' + parseInt(value * 100 % 100) // 小数位保留2位
+      if (floatPart.length === 2) {
+        // 如果加上小数点才2为长度，就补一个0在后面
+        floatPart += '0'
+      }
+    }
+
+    return intPartFormat + floatPart
+  },
+
+  /** unix时间 到年月日时间格式 */
   timeFormat (time, fmt) {
     const date = new Date(time)
     return this.dateFormat(date, fmt)

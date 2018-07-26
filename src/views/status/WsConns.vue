@@ -4,9 +4,10 @@
     <auto-refresh
       @refresh="reload"></auto-refresh>
 
-    <my-nav activeName="wsapi"></my-nav>
+    <my-nav activeName="wsConns"></my-nav>
 
     <div v-show="!loading">
+      <!-- 左边汇总信息 -->
       <div class="my-pannel summary-pannel">
         <div class="flex-container">
           <h4 class="flex1">汇总信息</h4>
@@ -19,11 +20,11 @@
         <hr/>
         <div class="flex-container">
           <div class="info-label">总连接数:</div>
-          <div class="info-value">{{totalConnectCount}}</div>
+          <div class="info-value">{{totalConnectCount | numFormat}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">总登录用户数</div>
-          <div class="info-value">{{totalUserCount}}</div>
+          <div class="info-value">{{totalUserCount | numFormat}}</div>
         </div>
 
         <br/>
@@ -31,19 +32,19 @@
         <hr/>
         <div class="flex-container">
           <div class="info-label">请求次数</div>
-          <div class="info-value">{{upCounter.count}}</div>
+          <div class="info-value">{{upCounter.count | numFormat}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">平均耗时(微秒)</div>
-          <div class="info-value">{{upCounter.timeAvg / 1000}}</div>
+          <div class="info-value">{{upCounter.timeAvg / 1000 | numFormat}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">平均带宽</div>
-          <div class="info-value">{{sizeToK(upCounter.payloadAvg)}} B</div>
+          <div class="info-value">{{upCounter.payloadAvg | sizeToM}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">总带宽</div>
-          <div class="info-value">{{sizeToK(upCounter.payloadTotal)}}</div>
+          <div class="info-value">{{upCounter.payloadTotal | sizeToM}}</div>
         </div>
 
         <br/>
@@ -51,22 +52,24 @@
         <hr/>
         <div class="flex-container">
           <div class="info-label">发送次数</div>
-          <div class="info-value">{{downCounter.count}}</div>
+          <div class="info-value">{{downCounter.count | numFormat}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">平均耗时(微秒)</div>
-          <div class="info-value">{{downCounter.timeAvg / 1000}}</div>
+          <div class="info-value">{{downCounter.timeAvg / 1000 | numFormat}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">平均带宽</div>
-          <div class="info-value">{{sizeToK(downCounter.payloadAvg)}}</div>
+          <div class="info-value">{{downCounter.payloadAvg | sizeToM}}</div>
         </div>
         <div class="flex-container">
           <div class="info-label">总带宽</div>
-          <div class="info-value">{{sizeToK(downCounter.payloadTotal)}}</div>
+          <div class="info-value">{{downCounter.payloadTotal | sizeToM}}</div>
         </div>
       </div>
+      <!-- /左边汇总信息 -->
 
+      <!-- 右边的连接信息 -->
       <div class="my-pannel conns-pannel">
         <div class="p-header">当前连接信息</div>
         <div class="p-body">
@@ -99,7 +102,7 @@
               </td>
               <td>{{row.connectTime.full}}</td>
               <td>{{row.lastRequestTime.full}}</td>
-              <td>{{row.upCounter.count}}</td>
+              <td>{{row.upCounter.count | numFormat}}</td>
               <td>
                 <span v-if="row.upCounter.count>0">
                 {{(row.upCounter.timeAvg / 1000 / 1000).toFixed(2)}} ms
@@ -110,6 +113,7 @@
           </table>
         </div>
       </div>
+      <!-- /右边的连接信息 -->
     </div>
   </div>
 </template>
@@ -191,10 +195,6 @@
 
           myUtil.showMsg('重置成功')
         })
-      },
-
-      sizeToK (size) {
-        return (size / 1024).toFixed(2) + 'K'
       },
     },
   }
