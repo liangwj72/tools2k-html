@@ -7,6 +7,8 @@
 import Vue from 'vue'
 import myUtil from './MyUtils'
 
+const dataFormatStr = 'yyyy-MM-dd hh:mm:ss' // 时间输出格式
+
 export default {
 
   /** 初始化 */
@@ -15,13 +17,19 @@ export default {
     Vue.filter('numFormat', this.numFormat) // 逗号分隔，取整
     Vue.filter('numFormat2', this.numFormat2) // 逗号分隔，保留两位小数
     Vue.filter('timeFormat', this.timeFormat) // unix时间 到年月日时分秒
+    Vue.filter('dateFormat', this.dateFormat) // Date 到年月日时分秒
     Vue.filter('sizeToK', this.sizeToK) // 转为K
     Vue.filter('sizeToM', this.sizeToM) // 转为M
   },
 
   /** unix时间格式化为  yyyy-MM-dd hh:mm:ss */
   timeFormat (time) {
-    return myUtil.timeFormat(time, 'yyyy-MM-dd hh:mm:ss')
+    return myUtil.timeFormat(time, dataFormatStr)
+  },
+
+  /** Date时间格式化为  yyyy-MM-dd hh:mm:ss */
+  dateFormat (data) {
+    return myUtil.dateFormat(data, dataFormatStr)
   },
 
   /** 将空间大小转为K，并且用逗号分隔 */

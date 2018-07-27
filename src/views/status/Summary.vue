@@ -9,7 +9,9 @@
 
     <div class="main-content" v-show="!loading">
       <el-card class="article">
-        <h4>虚拟机信息</h4>
+        <h4>虚拟机信息
+          <small class="text-muted">{{updateTime | dateFormat}}</small>
+        </h4>
         <hr/>
         <el-row :gutter="10">
           <el-col :span="12">
@@ -147,6 +149,8 @@
       return {
         loading: false,
 
+        updateTime: new Date(), // 页面更新时间
+
         classLoading: {
           loadedClassCount: 11296,
           totalLoadedClassCount: 11296,
@@ -214,6 +218,7 @@
           this.os = res.os
           this.threading = res.threading
           this.vm = res.vm
+          this.updateTime = new Date()
 
           if (showMsg) {
             myUtil.showMsg('刷新成功')

@@ -264,6 +264,10 @@ export default {
    * @returns {string}
    */
   dateFormat (date, fmt) {
+    if (!date) {
+      return ''
+    }
+
     const o = {
       'M+': date.getMonth() + 1, // 月份
       'd+': date.getDate(), // 日

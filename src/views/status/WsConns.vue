@@ -71,7 +71,9 @@
 
       <!-- 右边的连接信息 -->
       <div class="my-pannel conns-pannel">
-        <div class="p-header">当前连接信息</div>
+        <div class="p-header">当前连接信息
+          <small class="text-muted">{{updateTime | dateFormat}}</small>
+        </div>
         <div class="p-body">
           <table class="el-table my-table">
             <thead>
@@ -133,6 +135,8 @@
       return {
         loading: false,
 
+        updateTime: new Date(), // 页面更新时间
+
         downCounter: {
           count: 0,
           payloadAvg: 0,
@@ -181,6 +185,7 @@
           this.list = res.list
           this.totalConnectCount = res.totalConnectCount
           this.totalUserCount = res.totalUserCount
+          this.updateTime = new Date()
 
           if (showMsg) {
             myUtil.showMsg('刷新成功')
