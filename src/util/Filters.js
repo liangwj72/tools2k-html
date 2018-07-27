@@ -4,9 +4,20 @@
  * Created by liangwj on 2018/7/26 0026.
  */
 
+import Vue from 'vue'
 import myUtil from './MyUtils'
 
 export default {
+
+  /** 初始化 */
+  init () {
+    // 设置格式化输出
+    Vue.filter('numFormat', this.numFormat) // 逗号分隔，取整
+    Vue.filter('numFormat2', this.numFormat2) // 逗号分隔，保留两位小数
+    Vue.filter('timeFormat', this.timeFormat) // unix时间 到年月日时分秒
+    Vue.filter('sizeToK', this.sizeToK) // 转为K
+    Vue.filter('sizeToM', this.sizeToM) // 转为M
+  },
 
   /** unix时间格式化为  yyyy-MM-dd hh:mm:ss */
   timeFormat (time) {
