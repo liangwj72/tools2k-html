@@ -81,10 +81,11 @@
               <th>SessionId</th>
               <th>用户</th>
               <th>ip</th>
-              <th>连接时间</th>
-              <th>最后消息</th>
-              <th>请求总数</th>
-              <th>平均处理时间</th>
+              <th width="155px">连接时间</th>
+              <th width="155px">最后消息</th>
+              <th width="120px">请求总数</th>
+              <th width="120px">最后10秒请求</th>
+              <th width="100px">平均处理时间</th>
             </tr>
             </thead>
             <tbody>
@@ -104,8 +105,9 @@
               </td>
               <td>{{row.connectTime.full}}</td>
               <td>{{row.lastRequestTime.full}}</td>
-              <td>{{row.upCounter.count | numFormat}}</td>
-              <td>
+              <td class="num">{{row.upCounter.count | numFormat}}</td>
+              <td class="num">{{row.lastUpCountDiff | numFormat}}</td>
+              <td class="num">
                 <span v-if="row.upCounter.count>0">
                 {{(row.upCounter.timeAvg / 1000 / 1000).toFixed(2)}} ms
                 </span>
