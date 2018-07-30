@@ -5,7 +5,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import layers from '../layer/LayerIndex.js'
-import eventDispatcher from '../MyEventDispatcher.js'
+import eventDispatcher from '../util/MyEventDispatcher.js'
 import serverContext from '../util/ServerContext.js'
 
 const PATH_PREFIX = '/commonAdmin/'

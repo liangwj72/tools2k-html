@@ -4,11 +4,11 @@
  */
 
 export default {
-  hideAppLoadingEvent: 'hideAppLoadingEvent',
+  hideAppLoadingEvent: 'hideAppLoadingEvent', // 隐藏页面加载层
 
   /** 发送事件 */
-  dispatchEvent (eventName, eventInitDict) {
-    let event = new Event(eventName, eventInitDict)
+  dispatchEvent (eventName, eventData) {
+    let event = new Event(eventName, eventData)
     window.dispatchEvent(event)
   },
 
@@ -16,4 +16,5 @@ export default {
   hideAppLoading () {
     this.dispatchEvent(this.hideAppLoadingEvent)
   },
+
 }
