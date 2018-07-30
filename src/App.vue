@@ -6,13 +6,12 @@
     </keep-alive>
 
     <!-- 加载提示 -->
-    <pre-loading/>
-
+    <loading></loading>
   </div>
 </template>
 
 <script>
-  import PreLoading from './layer/PreLoading.vue'
+  import Loading from './layer/Loading.vue'
 
   /** 导入样式表 */
   import 'element-ui/lib/theme-chalk/index.css'
@@ -22,7 +21,7 @@
   export default {
     /** 本页面用到的组件 */
     components: {
-      PreLoading, // 加载中
+      Loading, // 加载中
     },
 
     /** 本页面的属性 */
