@@ -4,10 +4,10 @@
 
 import $ from 'n-zepto'
 import RouterConfig from '../config/RouterConfig'
-import loading from './impl/LoadingImpl.js' // 显示加载中的代理
 import toastAgent from './impl/ToastElImpl' // toast的实现类
 import verify from './VerifyUtils'
 import confirmAgent from './impl/ConfirmElImpl'
+import loading from './LoadingController'
 
 export default {
 
@@ -231,7 +231,11 @@ export default {
    */
   numFormat (value, toFixed2) {
     if (!value) {
-      return '0.00'
+      if (toFixed2) {
+        return '0.00'
+      } else {
+        return 0
+      }
     }
 
     const intPart = Number(value).toFixed(0) // 获取整数部分
