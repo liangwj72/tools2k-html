@@ -40,30 +40,29 @@
             </el-card>
           </el-col>
           <el-col :span="14">
-            <el-card header="说明" >
+            <el-card header="说明">
               <div v-if="adminInProp" class="article">
                 <div>
                   <h4>账号配置:</h4>
                   <p class="text-muted">
-                    密码存储与配置文件中，请程序员修改以下两个参数配置管理员账号
+                    密码存储与配置文件<code>application.properties</code>中，
                   </p>
                   <ul>
-                    <li>loginCheck.admin.account</li>
-                    <li>loginCheck.admin.password</li>
+                    <li>loginCheck.admin.account=管理员账号</li>
+                    <li>loginCheck.admin.password=加密后的密码</li>
                   </ul>
                   <p class="text-muted">
-                    也可以用数据库管理，
-                    需要一个实现了<code>IWebUserProvider&lt;CommonAdminWebUser&gt;</code>接口的类
+                    如果不想把账号放在配置文件中，也可以用数据库管理，
+                    只需要一个实现了<code>IWebUserProvider&lt;CommonAdminWebUser&gt;</code>接口的类
                   </p>
                 </div>
                 <hr/>
 
                 <div>
-                  <h4>如何生成配置文件中的密码:</h4>
+                  <h4>如何生成配置文件中的密码？</h4>
                   <p class="text-muted">
-                    请在下面的输入框中输入密码名为，可生成加密后的密码，
-                    然后这个密文放到配置文件中，这样就可以用这个密码登陆了。
-                    默认的用户名是admin
+                    请在下面的输入框中输入密码明文，生成加密后的密码，
+                    然后这个密文放到配置文件中。
                   </p>
                   <el-form label-width="100px"
                            size="mini"
@@ -76,11 +75,17 @@
                         auto-complete="on">
                       </el-input>
                     </el-form-item>
-                    <el-form-item label="生成的密文:">
-                      {{encodedPwd}}
-                    </el-form-item>
                     <el-form-item>
                       <el-button type="success" nativeType="submit">生成</el-button>
+                    </el-form-item>
+                    <el-form-item label="生成结果:" v-if="doEncode.called">
+                      <div>
+                        被加密的明文: <code>{{doEncode.plainPwd}}</code>
+                      </div>
+                      <div>
+                        要修改的配置内容:<br/>
+                        <code>loginCheck.admin.password = {{doEncode.encodedPwd}}</code>
+                      </div>
                     </el-form-item>
                   </el-form>
                 </div>
@@ -117,7 +122,11 @@
           password: '',
         },
 
-        encodedPwd: '', // 生成的密文
+        doEncode: {
+          called: false, // 是否执行了密码生成
+          plainPwd: '', // 执行时的密码
+          encodedPwd: '', // 生成的密文
+        },
 
         adminInProp: serverContext.serverInfo.adminInProp,
       }
@@ -144,6 +153,8 @@
           this.form.account = ''
           this.form.password = ''
         }
+
+        this.doEncode.called = false
       }
     },
 
@@ -165,10 +176,13 @@
           password: this.form1.password,
         }
 
-        const that = this
-        that.encodedPwd = ''
-        myUtil.ajax(apiUrl.commonPublic.passwordDemo, param, function (res) {
-          that.encodedPwd = res.message
+        this.doEncode.encodedPwd = ''
+        this.doEncode.plainPwd = ''
+
+        myUtil.ajax(apiUrl.commonPublic.passwordDemo, param, (res) => {
+          this.doEncode.called = true
+          this.doEncode.encodedPwd = res.message
+          this.doEncode.plainPwd = this.form1.password
         })
       },
 
