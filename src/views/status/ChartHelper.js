@@ -13,7 +13,6 @@ const colors = {
     used: '#5BC0DE', // 已使用
   },
   cpu: {
-    system: '#1d83b8', // 操作系统
     jvm: '#9418de', // jvm
   },
 
@@ -86,15 +85,6 @@ export default {
       labels: [], // 时间轴数组
       datasets: [
         {
-          label: '操作系统负载',
-          fill: '1',
-          data: [],
-          pointRadius: 2.5,
-          borderWidth: 1,
-          borderColor: colors.cpu.system,
-          backgroundColor: myUtil.colorHexToRgba(colors.cpu.system, 0.4),
-        },
-        {
           label: 'JVM负载',
           fill: 'origin',
           data: [],
@@ -111,11 +101,14 @@ export default {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            suggestedMax: 1.0,
+            callback: function (value, index, values) {
+              return value.toFixed(0) + '%'
+            },
+            suggestedMax: 100,
             suggestedMin: 0,
           },
           gridLines: {
-            display: false,
+            display: true,
           },
         }],
       },
