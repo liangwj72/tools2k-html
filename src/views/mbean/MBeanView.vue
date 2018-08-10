@@ -10,13 +10,16 @@
     <div v-if="!loading">
       <!-- 属性列表 vue-->
       <attrs-comp
-        :objectName="info.objectName"
-        :attrs="info.attrs">
+        @refresh="reload"
+        :objectName="objectName"
+        :sendTime="sendTime"
+        :attrs="attrs">
       </attrs-comp>
       <!-- /属性列表 -->
 
       <!-- opt列表 -->
       <opts-comp
+        @refresh="reload"
         :info="info">
       </opts-comp>
       <!-- /opt列表 -->
@@ -44,18 +47,16 @@
     /** 本页面的属性 */
     data () {
       return {
-        objectName: '',
-
         showAllCol: false, // 是否显示所有列
 
         loading: false,
+        inited: false,
 
         attrs: [], // 属性列表
-        info: {
-          objectName: '',
-          attrs: [],
-        },
+        sendTime: 0, // 刷新时间
+        objectName: '',
 
+        info: {},
       }
     },
 
@@ -69,6 +70,7 @@
     /** 每次进入页面时 */
     activated () {
       this.loading = true
+      this.inited = false
       this.objectName = this.$route.query.objectName
       this.reload(false)
     },
@@ -80,14 +82,14 @@
 
         console.debug('刷新 mbean:', this.objectName)
 
-        const that = this
         const param = {
           objectName: this.objectName,
         }
 
-        myUtil.ajax(apiUrl.jmxInWeb.getMBeanInfo, param, function (res) {
-          that.onDateLoad(res.info)
-          that.loading = false
+        myUtil.ajax(apiUrl.jmxInWeb.getMBeanInfo, param, (res) => {
+          this.onDateLoad(res.info)
+          this.sendTime = res.sendTime
+          this.loading = false
 
           if (showMsg) {
             myUtil.showMsg('刷新成功')
@@ -103,7 +105,13 @@
           this.addEditModeData(attr)
         }
 
-        this.info = info
+        this.attrs = info.attrs
+        this.objectName = info.objectName
+
+        if (!this.inited) {
+          this.info = info
+          this.inited = true
+        }
       },
 
       /** 增加编辑模式需要的数据 */
