@@ -200,7 +200,6 @@
 
         const totalMemory = [] // 已分配内存
         const usedMemory = [] // 已经使用的内存
-        const cpuSystem = [] // 操作系统负载
         const cpuJvm = [] // JVM负载
         const thread = [] // 线程
         const action = [] // http动态请求数
@@ -218,8 +217,7 @@
           usedMemory.push(chartHelper.toMemoryM(row.memory.usedMemory))
 
           // CPU 图表
-          cpuSystem.push(row.systemCpuLoad)
-          cpuJvm.push(row.processCpuLoad)
+          cpuJvm.push(Math.round(row.processCpuLoad * 100) / 100)
 
           thread.push(row.threadCount) // 线程
           action.push(row.actionCount) // http动态请求数
@@ -230,7 +228,7 @@
         }
 
         this.updateMemoryChart(labels, totalMemory, usedMemory) // 更新内存图
-        this.updateCpuChart(labels, cpuSystem, cpuJvm) // 更新cpu图
+        this.updateCpuChart(labels, cpuJvm) // 更新cpu图
         this.updateThreadChart(labels, thread) // 更新线程图
         this.updateActionChart(labels, action) // 更新动态请求图
 
@@ -278,10 +276,9 @@
       },
 
       /** 更新cpu图表 */
-      updateCpuChart (labels, data0, data1) {
+      updateCpuChart (labels, data0) {
         const chartData = this.cpuChart.data
         chartData.datasets[0].data = data0
-        chartData.datasets[1].data = data1
         chartData.labels = labels
 
         this.$refs.cpuChart.updateChart()
