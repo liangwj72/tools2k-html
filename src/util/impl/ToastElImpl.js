@@ -18,6 +18,7 @@ export default {
     Notification({
       message: msg,
       type: 'success',
+      duration: 1000,
     })
   },
 
