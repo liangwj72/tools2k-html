@@ -156,19 +156,20 @@
 
         console.debug('执行mbean 方法', param)
 
-        const that = this
-
         // 提交前，先重置返回结果
-        that.returnData.hasReturn = false
-        that.returnData.data = ''
+        this.returnData.hasReturn = false
+        this.returnData.data = ''
 
         // 调用ajax 执行 opt
-        myUtil.ajax(apiUrl.jmxInWeb.invokeOpt, param, function (res) {
+        myUtil.ajax(apiUrl.jmxInWeb.invokeOpt, param, (res) => {
           myUtil.showMsg(`执行 ${param.optName} 成功`)
 
-          that.returnData.hasReturn = res.hasReturn
-          that.returnData.data = res.returnData
-          that.returnData.show = res.hasReturn
+          this.returnData.hasReturn = res.hasReturn
+          this.returnData.data = res.returnData
+          this.returnData.show = res.hasReturn
+
+          // 通知外面刷新
+          this.$emit('refresh', false)
         })
       },
     },
