@@ -5,13 +5,14 @@
     </div>
     <div class="flex1">
       <el-menu mode="horizontal">
-        <el-menu-item v-for="row in menus"
-                      v-if="row.checkRights()"
-                      :key="row.key"
-                      :index="row.key"
-                      :class="getClass(row.key)">
-          <router-link :to="row.link">{{row.name}}</router-link>
-        </el-menu-item>
+        <template v-for="row in menus">
+          <el-menu-item v-if="row.checkRights()"
+                        :index="row.key"
+                        :key="row.key"
+                        :class="getClass(row.key)">
+            <router-link :to="row.link">{{row.name}}</router-link>
+          </el-menu-item>
+        </template>
       </el-menu>
     </div>
     <div>
@@ -38,14 +39,14 @@
   import serverContext from '../util/ServerContext'
   import apiUrl from '../ApiUrl'
   import myUtil from '../util/MyUtils'
-  import routeConfig from '../config/RouterConfig'
+  import routeConfig from '../config/router.config'
 
   const checkRights = {
-    defaultFn () {
+    defaultFn() {
       return true
     },
 
-    hasWsApiImpl () {
+    hasWsApiImpl() {
       return serverContext.serverInfo.hasWsApiImpl
     },
   }
@@ -66,7 +67,7 @@
     },
 
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         userName: serverContext.curUser.account,
         hasWsApiImpl: serverContext.serverInfo.hasWsApiImpl,
@@ -116,13 +117,13 @@
     /** 本页面可用的方法 */
     methods: {
 
-      getClass (name) {
+      getClass(name) {
         return {
           'active': this.activeName === name,
         }
       },
 
-      logout () {
+      logout() {
         const that = this
         myUtil.ajax(apiUrl.commonPublic.logout, {}, function () {
           console.debug('用户登出成功')

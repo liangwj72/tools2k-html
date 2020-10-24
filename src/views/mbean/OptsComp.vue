@@ -104,7 +104,6 @@
       info: {
         type: Object,
         required: true,
-        default: {},
       },
     },
 

@@ -22,12 +22,10 @@
       chartData: {
         type: Object,
         required: true,
-        default: {},
       },
       chartOptions: {
         type: Object,
         required: true,
-        default: {},
       },
     },
 

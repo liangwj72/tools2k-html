@@ -106,7 +106,7 @@
   import myUtil from '../util/MyUtils'
   import apiUrl from '../ApiUrl'
   import serverContext from '../util/ServerContext.js'
-  import routerConfig from '../config/RouterConfig.js'
+  import routerConfig from '../config/router.config.js'
 
   export default {
     /** 本页面的属性 */

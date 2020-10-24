@@ -34,7 +34,8 @@
         <!-- 列表 -->
         <div class="p-body has-footer">
           <div class="key-row text-link"
-               v-for="row in searchArea.keyList"
+               v-for="(row,index) in searchArea.keyList"
+               :key="index"
                @click="viewKey(row)">
             <div class="key-name" v-html="row.keyWithMark"></div>
             <div class="key-value">{{row.valueSummary}}</div>
@@ -176,7 +177,7 @@
     props: {},
 
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         loading: false,
 
@@ -222,7 +223,7 @@
     computed: {},
 
     /** 每次进入页面时 */
-    activated () {
+    activated() {
       this.loading = true
       this.reload(false)
       this.switchToNewKey(true)
@@ -231,7 +232,7 @@
     /** 本页面可用的方法 */
     methods: {
       /** 刷新页面 */
-      reload (showMsg) {
+      reload(showMsg) {
         let data = this.searchArea
 
         myUtil.ajax(apiUrl.dictManager.search, data.form, (res) => {
@@ -245,7 +246,7 @@
       },
 
       /** 收到列表数据时 */
-      onListData (res) {
+      onListData(res) {
         let data = this.searchArea
         data.keyList = res.list
         data.itemTotal = res.itemTotal
@@ -253,18 +254,18 @@
         data.form.pageSize = res.pageSize
       },
 
-      handleSizeChange (pageSize) {
+      handleSizeChange(pageSize) {
         this.searchArea.form.pageSize = pageSize
         this.reload(false)
       },
 
-      handleCurrentChange (pageNo) {
+      handleCurrentChange(pageNo) {
         this.searchArea.form.pageNo = pageNo
         this.reload(false)
 
       },
 
-      viewKey (row) {
+      viewKey(row) {
         this.switchToNewKey(false)
         this.editArea.curKey = row
         const form = this.editArea.form
@@ -273,7 +274,7 @@
         form.memo = row.memo
       },
 
-      switchToNewKey (newMode) {
+      switchToNewKey(newMode) {
         const data = this.editArea
         data.newMode = newMode
         if (newMode) {
@@ -291,7 +292,7 @@
       },
 
       /** 当选择文件时 */
-      fileSelectd (files) {
+      fileSelectd(files) {
         const len = files.length
         if (len > 0) {
           this.fileArea.form.file = files[0]
@@ -299,7 +300,7 @@
       },
 
       /** 保存 */
-      submitSave () {
+      submitSave() {
         myUtil.ajax(apiUrl.dictManager.save, this.editArea.form, (res) => {
           // 保存成功时，后端返回的是新的列表数据
           this.onListData(res)
@@ -309,7 +310,7 @@
       },
 
       /** 删除 */
-      deleteKey () {
+      deleteKey() {
         const key = this.editArea.form.key
         myUtil.confirm(`确认删除<code>${key}</code>吗`, () => {
           // 如果确认删除
@@ -325,7 +326,7 @@
       },
 
       /** 导入 */
-      submitImport () {
+      submitImport() {
         const param = new FormData()
         param.append('cleanOld', this.fileArea.form.cleanOld)
         param.append('file', this.fileArea.form.file)

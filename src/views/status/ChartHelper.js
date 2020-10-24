@@ -55,7 +55,7 @@ export default {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            callback: function (value, index, values) {
+            callback: function (value) {
               return value + ' MB'
             },
           },
@@ -101,7 +101,7 @@ export default {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            callback: function (value, index, values) {
+            callback: function (value) { // , index, values
               return value.toFixed(0) + '%'
             },
             suggestedMax: 100,
@@ -302,7 +302,7 @@ export default {
           ticks: {
             beginAtZero: true,
             suggestedMax: 10,
-            callback: function (value, index, values) {
+            callback: function (value) { // , index, values
               return value + ' K'
             },
           },

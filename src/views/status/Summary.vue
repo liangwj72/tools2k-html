@@ -46,7 +46,7 @@
             <div class="flex-container">
               <div class="l-width150">启动参数</div>
               <div class="flex1 text-caption" style="line-height: 25px">
-                <div v-for="str in vm.inputArguments">{{str}}</div>
+                <div v-for="(str,index) in vm.inputArguments" :key="index">{{str}}</div>
               </div>
             </div>
           </el-col>

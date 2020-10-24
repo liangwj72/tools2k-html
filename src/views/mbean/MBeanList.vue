@@ -4,45 +4,45 @@
 
     <div class="main-content" v-if="!loading">
 
+      <el-table border
+                class="table-fixed only-header">
+        <div slot="empty"></div>
+        <el-table-column
+          label="ObjectName">
+        </el-table-column>
+        <el-table-column
+          label="说明">
+        </el-table-column>
+        <el-table-column
+          label="Class">
+        </el-table-column>
+      </el-table>
+
+      <div v-for="(domainVo,index) in list" :key="index">
+        <div class="table-caption">
+          {{domainVo.name}}
+        </div>
         <el-table border
-                  class="table-fixed only-header">
-          <div slot="empty"></div>
+                  :showHeader="false"
+                  :data="domainVo.beans"
+                  class="table-fixed">
           <el-table-column
             label="ObjectName">
+            <template slot-scope="scope">
+              <a href="#" @click.prevent="view(scope.row)">{{scope.row.displayName}}</a>
+            </template>
           </el-table-column>
           <el-table-column
+            prop="desc"
             label="说明">
           </el-table-column>
           <el-table-column
+            prop="className"
             label="Class">
           </el-table-column>
         </el-table>
 
-        <div v-for="domainVo in list">
-          <div class="table-caption">
-            {{domainVo.name}}
-          </div>
-          <el-table border
-                    :showHeader="false"
-                    :data="domainVo.beans"
-                    class="table-fixed">
-            <el-table-column
-              label="ObjectName">
-              <template slot-scope="scope">
-                <a href="#" @click.prevent="view(scope.row)">{{scope.row.displayName}}</a>
-              </template>
-            </el-table-column>
-            <el-table-column
-              prop="desc"
-              label="说明">
-            </el-table-column>
-            <el-table-column
-              prop="className"
-              label="Class">
-            </el-table-column>
-          </el-table>
-
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,7 +57,7 @@
     props: {},
 
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         list: [],
 
@@ -69,13 +69,13 @@
     computed: {},
 
     /** 每次进入页面时 */
-    activated () {
+    activated() {
       this.reloadList()
     },
 
     /** 本页面可用的方法 */
     methods: {
-      reloadList () {
+      reloadList() {
         console.debug('加载MBean列表')
         this.loading = true
 
@@ -87,7 +87,7 @@
       },
 
       /** 查看mbean */
-      view (mbeanVo) {
+      view(mbeanVo) {
         this.$router.push({
           path: 'MBeanView',
           query: {

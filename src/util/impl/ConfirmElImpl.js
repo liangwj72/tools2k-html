@@ -9,9 +9,6 @@ import {
 
 export default {
 
-  init (vue) {
-  },
-
   /** 弹窗确认 */
   confirm (msg, callback) {
 

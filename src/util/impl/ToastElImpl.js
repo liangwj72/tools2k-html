@@ -8,11 +8,6 @@ import {
 
 export default {
 
-  /** 初始化 */
-  init () {
-
-  },
-
   /** 正常的显示信息 */
   showMsg (msg) {
     Notification({

@@ -1,15 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import routerConfig from './config/RouterConfig'
-import vueConfig from './config/AppVueConfig.js'
-import myUtil from './util/MyUtils.js'
+import routerConfig from './config/router.config'
+import vueConfig from './config/vue.config'
 import serverContext from './util/ServerContext.js'
+import jslib from '@gztree/jslib';
 
 /** 初始化vue的配置 */
-vueConfig.init()
-
-/** 初始化工具 */
-myUtil.init(Vue)
+Vue.use(vueConfig);
+Vue.use(jslib)
 
 const router = routerConfig.initRouter()
 

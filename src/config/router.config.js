@@ -8,7 +8,8 @@ import layers from '../layer/LayerIndex.js'
 import eventDispatcher from '../util/MyEventDispatcher.js'
 import serverContext from '../util/ServerContext.js'
 
-const PATH_PREFIX = '/_common_/commonAdmin/'
+//const PATH_PREFIX = '/_common_/statics/commonAdmin/'
+const PATH_PREFIX = '/'
 const INDEX_PATH = PATH_PREFIX // 首页的url
 
 /** 所有路由的定义 */
@@ -91,7 +92,7 @@ export default {
     Vue.use(VueRouter)
 
     const router = new VueRouter({
-      mode: 'history',
+      mode: 'hash',
       routes: getRouteDefine(),
     })
 

@@ -3,23 +3,12 @@
  */
 
 import $ from 'n-zepto'
-import RouterConfig from '../config/RouterConfig'
+import RouterConfig from '../config/router.config'
 import toastAgent from './impl/ToastElImpl' // toast的实现类
-import verify from './VerifyUtils'
 import confirmAgent from './impl/ConfirmElImpl'
 import loading from './LoadingController'
 
 export default {
-
-  /** 校验类的工具 */
-  verifyUtils: verify,
-
-  /** 初始化 */
-  init () {
-    // toast 的初始化
-    toastAgent.init()
-    confirmAgent.init()
-  },
 
   /** 弹窗确认 */
   confirm (msg, callback) {
@@ -43,7 +32,7 @@ export default {
   },
 
   /** 默认的ajax错误处理方法 */
-  onAjaxError (xhr, errorType, error) {
+  onAjaxError (xhr) {
     // 如果没有传入错误处理函数，就用默认的
 
     let result = this.getJsonFromErrorResponse(xhr)
@@ -64,6 +53,7 @@ export default {
         // api server 返回的是json各式的错误信息
         result = this.parserJson(xhr.responseText)
       } catch (e) {
+        console.error(e)
       }
     }
     return result

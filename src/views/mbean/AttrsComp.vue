@@ -23,7 +23,7 @@
         </thead>
         <tbody>
 
-        <tr v-for="row in attrs">
+        <tr v-for="(row,index) in attrs" :key="index">
           <td v-show="showAllCol">
             <span class="text-caption">{{row.info.name}}</span>
             <el-tag type="warning"

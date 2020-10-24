@@ -89,7 +89,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="row in list">
+            <tr v-for="(row,index) in list" :key="index">
               <td>
                 {{row.sessionId}}
               </td>

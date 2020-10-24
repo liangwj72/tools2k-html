@@ -12,7 +12,8 @@
         <div>
           <div class="attach_div"
                @click="fileView(vo)"
-               v-for="vo in list">
+               v-for="(vo,index) in list"
+               :key="index">
             <template v-if="vo.row.imageFile">
               <div class="imgDiv">
                 <img :alt="vo.row.memo" :src="vo.fullThumbPath" class="img-responsive center-block">
@@ -110,7 +111,7 @@
     props: {},
 
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         list: [], // 附件列表
 
@@ -130,7 +131,7 @@
     computed: {},
 
     /** 每次进入页面时 */
-    activated () {
+    activated() {
       this.reload()
       this.switchToNewKey(true)
     },
@@ -138,19 +139,19 @@
     /** 本页面可用的方法 */
     methods: {
       /** 刷新页面 */
-      reload () {
+      reload() {
         myUtil.ajax(apiUrl.dictAttachments.list, {}, (res) => {
           this.onListData(res)
         })
       },
 
       /** 收到列表数据时 */
-      onListData (res) {
+      onListData(res) {
         this.list = res.list
       },
 
       /** 查看 */
-      fileView (vo) {
+      fileView(vo) {
         this.switchToNewKey(false)
 
         this.form.key = vo.row.key
@@ -159,7 +160,7 @@
       },
 
       /** 保存 */
-      onSubmit () {
+      onSubmit() {
         if (!this.editMode && this.form.file === null) {
           myUtil.showErrorMsg('请选择要上传的文件！')
         }
@@ -178,7 +179,7 @@
       },
 
       /** 当选择了文件或者取消选择时 */
-      fileSelectd (files) {
+      fileSelectd(files) {
         const len = files.length
         if (len > 0) {
           this.form.file = files[0]
@@ -189,7 +190,7 @@
       },
 
       /** 删除文件 */
-      fileDelete () {
+      fileDelete() {
         if (!this.editMode) {
           return
         }
@@ -209,7 +210,7 @@
         })
       },
 
-      switchToNewKey (newMode) {
+      switchToNewKey(newMode) {
         this.editMode = !newMode
         if (newMode) {
           this.form.key = ''

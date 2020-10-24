@@ -2,31 +2,7 @@
   自动刷新按钮
 -->
 <style lang="less">
-  .auto-refresh {
-    /*width: 92px;*/
-    z-index: 10;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 
-    .el-button {
-      background-color: rgba(255, 255, 255, 0.4);
-    }
-
-    .iconfont {
-      line-height: 14px;
-    }
-
-    .btn-left {
-      width: 50px;
-      padding: 9px 5px;
-      text-align: left;
-    }
-
-    &.fixed-refresh {
-      position: fixed;
-      top: 78px;
-      right: 35px;
-    }
-  }
 </style>
 
 <template>

@@ -2,6 +2,6 @@
 
 cd /d "%~dp0"
 
-npm run build
+call npm run build
 
 pause
