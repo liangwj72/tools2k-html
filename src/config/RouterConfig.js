@@ -8,7 +8,7 @@ import layers from '../layer/LayerIndex.js'
 import eventDispatcher from '../util/MyEventDispatcher.js'
 import serverContext from '../util/ServerContext.js'
 
-const PATH_PREFIX = '/commonAdmin/'
+const PATH_PREFIX = '/_common_/statics/'
 const INDEX_PATH = PATH_PREFIX // 首页的url
 
 /** 所有路由的定义 */

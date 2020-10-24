@@ -2,7 +2,7 @@
 const path = require('path')
 
 // 静态资源的路径前缀，注意，前面不能有 '/'
-const assetsPrefix = 'commons_statics/commonAdmin/'
+const assetsPrefix = '_common_/statics/commonAdmin/'
 // 服务器端代码资源目录的根目录
 const serverCodeDirPrefix = '../../commons/spring-api-server/src/main/resources/'
 // 服务器端代码资源目录:模板目录
