@@ -17,10 +17,10 @@
     <div>
       <el-menu mode="horizontal">
         <el-menu-item index="ajax">
-          <a href="/dev/" target="_blank">Ajax Api调试</a>
+          <a href="/_common_/dev/" target="_blank">Ajax Api调试</a>
         </el-menu-item>
         <el-menu-item index="ws">
-          <a href="/dev/ws" target="_blank">WS Api调试</a>
+          <a href="/_common_/dev/ws" target="_blank">WS Api调试</a>
         </el-menu-item>
       </el-menu>
     </div>
