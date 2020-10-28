@@ -47,3 +47,4 @@ settings.gradle
 /dist
 /node_modules
 npm-debug.log
+/debug.log
