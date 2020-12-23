@@ -7,6 +7,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "serve-nnland": "vue-cli-service serve --mode dev-nnland",
+    "serve-nnric": "vue-cli-service serve --mode dev-nnric",
+    "serve-localhost": "vue-cli-service serve --mode dev-localhost",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -36,6 +38,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.4",
+    "sass": "1.26.8",
+    "sass-loader": "8.0.2",
     "transliteration": "^1.1.11",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.11"

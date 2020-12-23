@@ -1,16 +1,19 @@
 <template>
-  <div>
-    <div class="nav-bar">
-      <div class="system-name">
+  <el-container class="main-frame">
+    <el-header class="main-frame-header tc-header" height="60px">
+      <div class="tc-title">
         <my-key vkey="system.name"/>
       </div>
-    </div>
+    </el-header>
 
     <el-container>
       <el-main>
         <el-row :gutter="20">
           <el-col :span="10">
-            <el-card header="用户登录">
+            <el-card>
+              <div slot="header">
+                <span>请登录</span>
+              </div>
               <el-form label-width="100px"
                        size="mini"
                        @submit.native.prevent="onSubmit">
@@ -40,7 +43,11 @@
             </el-card>
           </el-col>
           <el-col :span="14">
-            <el-card header="说明">
+            <el-card>
+              <div slot="header">
+                <span>登录说明</span>
+              </div>
+
               <div v-if="adminInProp" class="article">
                 <div>
                   <h4>账号配置:</h4>
@@ -99,7 +106,7 @@
         </el-row>
       </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -110,7 +117,7 @@
 
   export default {
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         form: {
           account: '',
@@ -136,11 +143,11 @@
     computed: {},
 
     /** 构建页面时 */
-    mounted () {
+    mounted() {
     },
 
     /** 每次进入页面时 */
-    activated () {
+    activated() {
       if (serverContext.logined) {
         // 如果已经登录了
         this.redirect()
@@ -160,7 +167,7 @@
 
     /** 本页面可用的方法 */
     methods: {
-      onSubmit () {
+      onSubmit() {
         console.debug('form', this.form)
 
         const that = this
@@ -171,7 +178,7 @@
         })
       },
 
-      createPassword () {
+      createPassword() {
         const param = {
           password: this.form1.password,
         }
@@ -187,7 +194,7 @@
       },
 
       /** 登录成功时，跳转到列表页 */
-      redirect () {
+      redirect() {
         const next = routerConfig.getRoutePath('status/Summary')
 
         console.debug('登录成功，准备跳转到', next)

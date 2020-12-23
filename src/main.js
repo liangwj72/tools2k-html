@@ -3,11 +3,13 @@ import App from './App.vue'
 import routerConfig from './config/router.config'
 import vueConfig from './config/vue.config'
 import serverContext from './util/ServerContext.js'
-import jslib from '@gztree/jslib';
+import jslib from '@nnland/jslib';
+import csslib from '@nnland/element-theme-admin1';
 
 /** 初始化vue的配置 */
 Vue.use(vueConfig);
 Vue.use(jslib)
+Vue.use(csslib)
 
 const router = routerConfig.initRouter()
 

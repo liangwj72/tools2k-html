@@ -8,132 +8,116 @@
     <my-nav activeName="summary"></my-nav>
 
     <div class="main-content" v-show="!loading">
-      <el-card class="article">
-        <h4>虚拟机信息
-          <small class="text-muted">{{updateTime | dateFormat}}</small>
-        </h4>
-        <hr/>
-        <el-row :gutter="10">
-          <el-col :span="12">
-            <div class="flex-container">
-              <div class="l-width150">名称:</div>
-              <div class="flex1 text-caption">{{vm.name}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">启动时间:</div>
-              <div class="flex1 text-caption">{{vm.startTime | timeFormat}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">java版本:</div>
-              <div class="flex1 text-caption">{{vm.specVersion}}</div>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="flex-container">
-              <div class="l-width150">型号:</div>
-              <div class="flex1 text-caption">{{vm.vmName}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">供应商:</div>
-              <div class="flex1 text-caption">{{vm.vmVendor}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">虚拟机版本:</div>
-              <div class="flex1 text-caption">{{vm.vmVersion}}</div>
-            </div>
-          </el-col>
-          <el-col :span="24">
-            <div class="flex-container">
-              <div class="l-width150">启动参数</div>
-              <div class="flex1 text-caption" style="line-height: 25px">
+      <el-row>
+        <el-col :span="12">
+          <el-card class="article-small-card">
+            <template slot="header" class="clearfix">
+              <div>主机信息</div>
+            </template>
+            <el-form labelPosition="left"
+                     label-width="120px">
+              <el-form-item label="名称:" class="text-caption">{{vm.name}}</el-form-item>
+              <el-form-item label="启动时间:" class="text-caption">{{vm.startTime | timeFormat}}</el-form-item>
+              <el-form-item label="操作系统:" class="text-caption">{{os.name}}</el-form-item>
+              <el-form-item label="体系结构:" class="text-caption">{{os.arch}}</el-form-item>
+              <el-form-item label="处理器数量:" class="text-caption">{{os.availableProcessors}}</el-form-item>
+            </el-form>
+          </el-card>
+        </el-col>
+
+        <el-col :span="12">
+          <el-card class="article-small-card">
+            <template slot="header" class="clearfix">
+              <div>内存信息</div>
+            </template>
+            <el-form labelPosition="left"
+                     label-width="120px">
+              <el-form-item label="总物理内存:" class="text-caption">{{os.totalPhysicalMemorySize | sizeToM}}</el-form-item>
+              <el-form-item label="空闲物理内存:" class="text-caption">{{os.freePhysicalMemorySize | sizeToM}}</el-form-item>
+              <el-form-item label="总交换空间:" class="text-caption">{{os.totalSwapSpaceSize | sizeToM}}</el-form-item>
+              <el-form-item label="提交的虚拟内存:" class="text-caption">{{os.committedVirtualMemorySize | sizeToM}}
+              </el-form-item>
+              <el-form-item label="空闲交换空间:" class="text-caption">{{os.freeSwapSpaceSize | sizeToM}}
+              </el-form-item>
+            </el-form>
+          </el-card>
+
+        </el-col>
+
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-card class="article-small-card">
+            <template slot="header" class="clearfix">
+              <div>JRE信息 <small class="text-muted">{{updateTime | dateFormat}}</small></div>
+            </template>
+
+            <el-form labelPosition="left"
+                     label-width="120px">
+              <el-form-item label="JRE版本:" class="text-caption">{{vm.specVersion}}</el-form-item>
+              <el-form-item label="型号:" class="text-caption">{{vm.vmName}}</el-form-item>
+              <el-form-item label="供应商:" class="text-caption">{{vm.vmVendor}}</el-form-item>
+              <el-form-item label="虚拟机版本:" class="text-caption">{{vm.vmVersion}}</el-form-item>
+            </el-form>
+          </el-card>
+
+        </el-col>
+
+        <el-col :span="12">
+          <!-- 线程  -->
+          <el-card class="article-small-card">
+            <template slot="header" class="clearfix">
+              <div>线程</div>
+            </template>
+
+            <el-form labelPosition="left"
+                     label-width="120px">
+              <el-form-item label="活动线程:" class="text-caption">{{threading.threadCount}}</el-form-item>
+              <el-form-item label="线程峰值:" class="text-caption">{{threading.peakThreadCount}}</el-form-item>
+              <el-form-item label="守护程序线程:" class="text-caption">{{threading.daemonThreadCount}}</el-form-item>
+              <el-form-item label="累计启动线程数:" class="text-caption">{{threading.totalStartedThreadCount}}</el-form-item>
+            </el-form>
+          </el-card>
+          <!-- /线程  -->
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+
+          <el-card class="article-small-card">
+            <template slot="header" class="clearfix">
+              <div>类加载</div>
+            </template>
+
+            <el-form labelPosition="left"
+                     label-width="120px">
+              <el-form-item label="当前加载类:" class="text-caption">{{classLoading.loadedClassCount}}</el-form-item>
+              <el-form-item label="累计加载类总数:" class="text-caption">{{classLoading.totalLoadedClassCount}}</el-form-item>
+              <el-form-item label="已卸载类总数:" class="text-caption">{{classLoading.unloadedClassCount}}</el-form-item>
+            </el-form>
+
+          </el-card>
+        </el-col>
+
+        <el-col :span="12">
+
+          <el-card class="article-small-card">
+            <template slot="header" class="clearfix">
+              <div>JRE启动参数</div>
+            </template>
+
+            <el-form labelPosition="left"
+                     label-width="120px">
+              <el-form-item label="启动参数:" class="text-caption">
                 <div v-for="(str,index) in vm.inputArguments" :key="index">{{str}}</div>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
+              </el-form-item>
+            </el-form>
+          </el-card>
+        </el-col>
+      </el-row>
 
-        <h4>线程和类加载</h4>
-        <hr/>
-        <el-row :gutter="10">
-          <el-col :span="12">
-            <div class="flex-container">
-              <div class="l-width150">活动线程:</div>
-              <div class="flex1 text-caption">{{threading.threadCount}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">线程峰值:</div>
-              <div class="flex1 text-caption">{{threading.peakThreadCount}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">守护程序线程:</div>
-              <div class="flex1 text-caption">{{threading.daemonThreadCount}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">累计启动线程数:</div>
-              <div class="flex1 text-caption">{{threading.totalStartedThreadCount}}</div>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="flex-container">
-              <div class="l-width150">当前加载类:</div>
-              <div class="flex1 text-caption">{{classLoading.loadedClassCount}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">累计加载类总数:</div>
-              <div class="flex1 text-caption">{{classLoading.totalLoadedClassCount}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">已卸载类总数:</div>
-              <div class="flex1 text-caption">{{classLoading.unloadedClassCount}}</div>
-            </div>
-          </el-col>
-        </el-row>
-
-        <h4>硬件和操作系统</h4>
-        <hr/>
-        <el-row :gutter="10">
-          <el-col :span="12">
-            <div class="flex-container">
-              <div class="l-width150">操作系统:</div>
-              <div class="flex1 text-caption">{{os.name}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">体系结构:</div>
-              <div class="flex1 text-caption">{{os.arch}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">处理器数量:</div>
-              <div class="flex1 text-caption">{{os.availableProcessors}}</div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">提交的虚拟内存:</div>
-              <div class="flex1 text-caption">{{os.committedVirtualMemorySize | sizeToM}}</div>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="flex-container">
-              <div class="l-width150">总物理内存:</div>
-              <div class="l-width150 text-caption">{{os.totalPhysicalMemorySize | sizeToM}}</div>
-              <div class="flex1 text-caption"></div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">空闲物理内存:</div>
-              <div class="l-width150 text-caption">{{os.freePhysicalMemorySize | sizeToM}}</div>
-              <div class="flex1 text-caption"></div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">总交换空间:</div>
-              <div class="l-width150 text-caption">{{os.totalSwapSpaceSize | sizeToM}}</div>
-              <div class="flex1 text-caption"></div>
-            </div>
-            <div class="flex-container">
-              <div class="l-width150">空闲交换空间:</div>
-              <div class="l-width150 text-caption">{{os.freeSwapSpaceSize | sizeToM}}</div>
-              <div class="flex1 text-caption"></div>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
     </div>
   </div>
 </template>
@@ -145,7 +129,7 @@
   export default {
 
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         loading: false,
 
@@ -203,7 +187,7 @@
     computed: {},
 
     /** 每次进入页面时 */
-    activated () {
+    activated() {
       this.loading = true
       this.reload(false)
     },
@@ -211,7 +195,7 @@
     /** 本页面可用的方法 */
     methods: {
 
-      reload (showMsg) {
+      reload(showMsg) {
         myUtil.ajax(apiUrl.commonRuntime.osInfo, {}, res => {
           this.loading = false
           this.classLoading = res.classLoading
