@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@gztree/jslib": "^1.0.0",
+    "@nnland/element-theme-admin1": "^1.0.12",
+    "@nnland/jslib": "^1.0.5",
     "axios": "^0.19.2",
     "chart.js": "^2.7.2",
     "core-js": "^3.6.5",
