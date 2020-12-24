@@ -21,7 +21,7 @@ function myProxy() {
 
   // 以下url要转发到后端
   const urls = [
-    '/api', '/upload'
+    '/api/', '/upload/','/_common_/'
   ]
 
   // 迭代urls，生成代理规则

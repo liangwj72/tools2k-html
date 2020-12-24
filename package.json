@@ -13,12 +13,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@nnland/element-theme-admin1": "^1.0.12",
+    "@nnland/element-theme-admin1": "^1.0.13",
     "@nnland/jslib": "^1.0.5",
     "axios": "^0.19.2",
     "chart.js": "^2.7.2",
     "core-js": "^3.6.5",
-    "element-ui": "^2.13.2",
+    "element-ui": "^2.14.1",
     "n-zepto": "^1.2.0",
     "querystring": "^0.2.0",
     "vue": "^2.6.11",

@@ -4,6 +4,20 @@
  * Created by liangwj
  */
 export default {
+  /** 框架-开发 */
+  commonDev: {
+    ajaxApi: '/api/commonDev/ajaxApi', //  ajax的api列表
+  },
+  /** 框架-监控 */
+  commonDurid: {
+    getBasic: '/api/commonDurid/getBasic', //  获取Basic
+    getDatasources: '/api/commonDurid/getDatasources', //  获取Datasources
+    getSessions: '/api/commonDurid/getSessions', //  获取session
+    getSqlByDatasourceId: '/api/commonDurid/getSqlByDatasourceId', //  获取根据datasource的Id获取该数据源的sql请求统计
+    getWebApp: '/api/commonDurid/getWebApp', //  获取应用总览
+    getWebUris: '/api/commonDurid/getWebUris', //  获取每个请求中发生的sql统计
+    resetAll: '/api/commonDurid/resetAll', //  重置所有
+  },
   /** 框架-公开 */
   commonPublic: {
     getServerStatus: '/api/commonPublic/getServerStatus', //  获取服务器信息
@@ -13,6 +27,7 @@ export default {
   },
   /** 框架-运行状态 */
   commonRuntime: {
+    getUrlStatById: '/api/commonRuntime/getUrlStatById', //  根据ID获取URL统计
     osInfo: '/api/commonRuntime/osInfo', //  操作系统和虚拟机信息
     runtimeHistory: '/api/commonRuntime/runtimeHistory', //  运行图表
     wsConnectList: '/api/commonRuntime/wsConnectList', //  链接列表

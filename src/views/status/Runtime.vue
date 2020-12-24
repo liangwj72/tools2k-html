@@ -20,14 +20,18 @@
         </el-card>
 
         <el-card class="article-table-card"
-          style="width: 500px">
+                 style="width: 500px">
           <el-table
             size="small"
             :data="uriStat">
             <el-table-column label="消耗时长">
               <template slot-scope="scope">
-                {{scope.row.timeRangeMin}}
-                <span v-if="scope.row.timeRangeMax>0"> - {{scope.row.timeRangeMax}} </span>
+                <el-button
+                  type="text"
+                  @click="showUriStatDetail(scope.row)">
+                  {{scope.row.timeRangeMin}}
+                  <span v-if="scope.row.timeRangeMax>0"> - {{scope.row.timeRangeMax}} </span>
+                </el-button>
               </template>
             </el-table-column>
 
@@ -109,6 +113,8 @@
         </el-col>
       </el-row>
     </div>
+
+    <comp-uri-detail/>
   </div>
 </template>
 
@@ -119,10 +125,13 @@
   import LineChart from '../../components/LineCharts'
   import AutoRefresh from '../../components/AutoRefresh'
   import serverContext from '../../util/ServerContext'
+  import eventBus from '@/event-bus'
+  import CompUriDetail from "./CompUriDetail";
 
   export default {
 
     components: {
+      CompUriDetail,
       AutoRefresh,
       LineChart,
     },
@@ -341,6 +350,16 @@
       sizeToK(size) {
         return (size / 1024).toFixed(2)
       },
+
+      /**
+       * 查看url时长统计详情
+       * @param id
+       */
+      showUriStatDetail(row) {
+        console.debug(`查看uri时长统计详情:id=${row.id}`)
+        eventBus.showUriStatDetail(row)
+      }
+
     },
   }
 </script>

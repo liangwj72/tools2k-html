@@ -5,6 +5,7 @@ import Vue from 'vue'
 /** 事件名称 */
 const eventName = {
   showMBeanDetail: "showMBeanDetail", // 打开MBean详情，需要的参数{objectName}
+  showUriStatDetail: "showUriStatDetail", // 查看时长段详情，需要的参数{row}
 }
 
 export default {
@@ -25,6 +26,16 @@ export default {
       objectName: objectName,
     }
     Vue.prototype.$eventBus.$emit(eventName.showMBeanDetail, param)
+  },
+
+  /**
+   * 查看时长段详情，需要的参数{row}
+   */
+  showUriStatDetail(row) {
+    const param = {
+      row: row,
+    }
+    Vue.prototype.$eventBus.$emit(eventName.showUriStatDetail, param)
   },
 
 }
