@@ -1,29 +1,58 @@
 <template>
   <div>
-    <my-nav activeName="runtime"></my-nav>
-
     <!-- 自动刷新按钮 -->
     <auto-refresh
       @refresh="reload"></auto-refresh>
 
-    <div class="main-content">
-      <el-card>
-
-        <div class="flex-container">
-          <div>
-            硬盘空间: <span class="mr-10 text-caption">{{diskInfo.total}}</span>
-            可使用容量: <span class="mr-10 text-caption">{{diskInfo.free}}</span>
-          </div>
+    <div class="article-container">
+      <div class="flex-container">
+        <el-card>
           <div class="flex1">
             <el-progress
-              :text-inside="true"
-              :stroke-width="18"
+              :width="150"
+              :stroke-width="20"
+              type="dashboard"
               :percentage="diskInfo.percent"></el-progress>
           </div>
-        </div>
-      </el-card>
+          <div>
+            硬盘空间: <span class="mr-10 text-caption">{{diskInfo.total}}</span>
+          </div>
+        </el-card>
 
-      <el-row :gutter="10" class="mt-10">
+        <el-card class="article-table-card"
+          style="width: 500px">
+          <el-table
+            size="small"
+            :data="uriStat">
+            <el-table-column label="消耗时长">
+              <template slot-scope="scope">
+                {{scope.row.timeRangeMin}}
+                <span v-if="scope.row.timeRangeMax>0"> - {{scope.row.timeRangeMax}} </span>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="次数">
+              <template slot-scope="scope">
+                {{scope.row.count}}
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              width="200px"
+              label="占比">
+              <template slot-scope="scope">
+                <el-progress
+                  :stroke-width="10"
+                  :showText="false"
+                  :percentage="scope.row.percent"></el-progress>
+              </template>
+            </el-table-column>
+
+          </el-table>
+        </el-card>
+      </div>
+
+      <el-row :gutter="10">
         <el-col :span="12">
           <!-- 内存图 -->
           <line-chart
@@ -102,7 +131,7 @@
     props: {},
 
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
         hasWsApiImpl: serverContext.serverInfo.hasWsApiImpl,
 
@@ -148,6 +177,8 @@
 
           percent: 1,
         },
+
+        uriStat: [], // 时长段范围统计
       }
     },
 
@@ -155,23 +186,24 @@
     computed: {},
 
     /** 每次进入页面时 */
-    activated () {
+    activated() {
       this.reload(false)
     },
 
     /** 每次退出页面时 */
-    deactivated () {
+    deactivated() {
       console.debug('activated()')
     },
 
     /** 本页面可用的方法 */
     methods: {
-      reload (showMsg) {
+      reload(showMsg) {
 
         const that = this
         myUtil.ajax(apiUrl.commonRuntime.runtimeHistory, {}, function (res) {
           that.onDataLoad(res.list)
           that.updateDiskInfo(res.diskInfo)
+          that.updateUirStat(res.uriStat)
 
           if (showMsg) {
             myUtil.showMsg('刷新成功')
@@ -179,8 +211,20 @@
         })
       },
 
+      updateUirStat(uriStat) {
+        let total = 0
+        uriStat.forEach(row => {
+          total += row.count
+        })
+        uriStat.forEach(row => {
+          row.percent = (total > 0) ? myUtil.percent2num(row.count * 100 / total) : 0
+        })
+        this.uriStat = uriStat
+        // console.debug('uri访问时长段统计:',uriStat)
+      },
+
       /** 更新硬盘信息 */
-      updateDiskInfo (info) {
+      updateDiskInfo(info) {
         let used = info.totalSpace - info.usableSpace
 
         if (info.totalSpace > 0) {
@@ -195,7 +239,7 @@
       },
 
       /** 更新图表信息 */
-      onDataLoad (list) {
+      onDataLoad(list) {
         const labels = [] // 时间轴
 
         const totalMemory = [] // 已分配内存
@@ -239,7 +283,7 @@
       },
 
       /** 更新ws 次数图表 */
-      updateWsCountChart (labels, data0, data1) {
+      updateWsCountChart(labels, data0, data1) {
         const chartData = this.wsCountChart.data
         chartData.datasets[0].data = data0
         chartData.datasets[1].data = data1
@@ -248,7 +292,7 @@
         this.$refs.wsCountChart.updateChart()
       },
       /** 更新ws 流量图表 */
-      updateWsPayloadChart (labels, data0, data1) {
+      updateWsPayloadChart(labels, data0, data1) {
         const chartData = this.wsPayloadChart.data
         chartData.datasets[0].data = data0
         chartData.datasets[1].data = data1
@@ -258,7 +302,7 @@
       },
 
       /** 更新线程图表 */
-      updateActionChart (labels, data0) {
+      updateActionChart(labels, data0) {
         const chartData = this.actionChart.data
         chartData.datasets[0].data = data0
         chartData.labels = labels
@@ -267,7 +311,7 @@
       },
 
       /** 更新线程图表 */
-      updateThreadChart (labels, data0) {
+      updateThreadChart(labels, data0) {
         const chartData = this.threadChart.data
         chartData.datasets[0].data = data0
         chartData.labels = labels
@@ -276,7 +320,7 @@
       },
 
       /** 更新cpu图表 */
-      updateCpuChart (labels, data0) {
+      updateCpuChart(labels, data0) {
         const chartData = this.cpuChart.data
         chartData.datasets[0].data = data0
         chartData.labels = labels
@@ -285,7 +329,7 @@
       },
 
       /** 更新内存图表 */
-      updateMemoryChart (labels, totalMemory, usedMemory) {
+      updateMemoryChart(labels, totalMemory, usedMemory) {
         const chartData = this.memoryChart.data
         chartData.datasets[0].data = totalMemory
         chartData.datasets[1].data = usedMemory
@@ -294,7 +338,7 @@
         this.$refs.memoryChart.updateChart()
       },
 
-      sizeToK (size) {
+      sizeToK(size) {
         return (size / 1024).toFixed(2)
       },
     },

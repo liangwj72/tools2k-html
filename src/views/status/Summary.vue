@@ -5,8 +5,6 @@
       :timer="false"
       @refresh="reload"></auto-refresh>
 
-    <my-nav activeName="summary"></my-nav>
-
     <div class="main-content" v-show="!loading">
       <el-row>
         <el-col :span="12">

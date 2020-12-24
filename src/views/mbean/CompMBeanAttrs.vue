@@ -3,7 +3,6 @@
   <div class="my-pannel attr-pannel">
     <div class="p-header flex-container">
       <div class="flex1">
-        <el-button @click="backToList" size="mini" type="primary">返回列表</el-button>
         属性
         <span class="text-muted">{{sendTime | timeFormat}}</span>
       </div>

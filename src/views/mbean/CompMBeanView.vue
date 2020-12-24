@@ -1,39 +1,45 @@
 <template>
-  <div class="mbean-view">
+  <el-drawer
+    :title="'MBean详情:' + objectName"
+    :visible.sync="visible"
+    size="90%">
 
-    <auto-refresh
-      :timer="false"
-      @refresh="reload"></auto-refresh>
+    <div class="mbean-view">
+      <auto-refresh
+        :timer="false"
+        @refresh="reload"></auto-refresh>
 
-    <my-nav activeName="mbean"></my-nav>
+      <div v-if="!loading">
+        <!-- 属性列表 vue-->
+        <attrs-comp
+          @refresh="reload"
+          :objectName="objectName"
+          :sendTime="sendTime"
+          :attrs="attrs">
+        </attrs-comp>
+        <!-- /属性列表 -->
 
-    <div v-if="!loading">
-      <!-- 属性列表 vue-->
-      <attrs-comp
-        @refresh="reload"
-        :objectName="objectName"
-        :sendTime="sendTime"
-        :attrs="attrs">
-      </attrs-comp>
-      <!-- /属性列表 -->
-
-      <!-- opt列表 -->
-      <opts-comp
-        @refresh="reload"
-        :info="info">
-      </opts-comp>
-      <!-- /opt列表 -->
+        <!-- opt列表 -->
+        <opts-comp
+          @refresh="reload"
+          :info="info">
+        </opts-comp>
+        <!-- /opt列表 -->
+      </div>
     </div>
-  </div>
+  </el-drawer>
 </template>
 
 <script>
   import apiUrl from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
-  import AttrsComp from './AttrsComp.vue'
-  import OptsComp from './OptsComp'
+  import AttrsComp from './CompMBeanAttrs'
+  import OptsComp from './CompMBeanOpts'
+  import eventBus from '@/event-bus'
 
   export default {
+
+    name:'mbean-detail',
 
     /** 本页面用到的组件 */
     components: {
@@ -44,13 +50,29 @@
     /** 组件的属性，只有是组件的时候才有用 */
     props: {},
 
+    /** 构建页面时 */
+    mounted() {
+      // 先关闭原来的
+      this.$eventBus.$off(eventBus.eventName.showMBeanDetail)
+      // 监听打开事件
+      this.$eventBus.$on(eventBus.eventName.showMBeanDetail,
+        ({objectName}) => {
+          console.debug(`showMBeanDetail 事件: objectName=${objectName}`)
+          this.visible=true
+          this.loading = true
+          this.objectName = objectName
+          this.reload(false)
+        }
+      )
+    },
+
     /** 本页面的属性 */
-    data () {
+    data() {
       return {
+        visible: false, // 是否显示
         showAllCol: false, // 是否显示所有列
 
         loading: false,
-        inited: false,
 
         attrs: [], // 属性列表
         sendTime: 0, // 刷新时间
@@ -67,18 +89,10 @@
       },
     },
 
-    /** 每次进入页面时 */
-    activated () {
-      this.loading = true
-      this.inited = false
-      this.objectName = this.$route.query.objectName
-      this.reload(false)
-    },
-
     /** 本页面可用的方法 */
     methods: {
 
-      reload (showMsg) {
+      reload(showMsg) {
 
         console.debug('刷新 mbean:', this.objectName)
 
@@ -97,7 +111,7 @@
         })
       },
 
-      onDateLoad (info) {
+      onDateLoad(info) {
 
         // 在原来的属性中增加用于编辑的相关属性
         for (let attr of info.attrs) {
@@ -108,14 +122,11 @@
         this.attrs = info.attrs
         this.objectName = info.objectName
 
-        if (!this.inited) {
-          this.info = info
-          this.inited = true
-        }
+        this.info = info
       },
 
       /** 增加编辑模式需要的数据 */
-      addEditModeData (row) {
+      addEditModeData(row) {
         row.editMode = false
         row._value = row.value
       },

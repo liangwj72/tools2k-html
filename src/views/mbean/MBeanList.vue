@@ -1,9 +1,8 @@
 <template>
   <div>
-    <my-nav active-name="mbean"></my-nav>
+    <div v-if="!loading">
 
-    <div class="main-content" v-if="!loading">
-
+      <!-- 显示一个空的表格头 -->
       <el-table border
                 class="table-fixed only-header">
         <div slot="empty"></div>
@@ -18,18 +17,22 @@
         </el-table-column>
       </el-table>
 
-      <div v-for="(domainVo,index) in list" :key="index">
+      <!-- 循环显示每个分组的mbean表格，不显示表格头 -->
+      <div v-for="(domainVo,index) in list"
+           :key="index">
         <div class="table-caption">
           {{domainVo.name}}
         </div>
+
         <el-table border
+                  style="width: 100%"
                   :showHeader="false"
                   :data="domainVo.beans"
-                  class="table-fixed">
+                  class="table-fixed1">
           <el-table-column
             label="ObjectName">
             <template slot-scope="scope">
-              <a href="#" @click.prevent="view(scope.row)">{{scope.row.displayName}}</a>
+              <el-button type="text" @click="view(scope.row)">{{scope.row.displayName}}</el-button>
             </template>
           </el-table-column>
           <el-table-column
@@ -44,17 +47,23 @@
 
       </div>
     </div>
+
+    <mbean-view/>
   </div>
 </template>
 
 <script>
   import apiUrl from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
+  import eventBus from '@/event-bus'
+  import MbeanView from './CompMBeanView'
 
   export default {
 
-    /** 组件的属性，只有是组件的时候才有用 */
-    props: {},
+    /** 本页面用到的组件 */
+    components: {
+      MbeanView,
+    },
 
     /** 本页面的属性 */
     data() {
@@ -88,12 +97,8 @@
 
       /** 查看mbean */
       view(mbeanVo) {
-        this.$router.push({
-          path: 'MBeanView',
-          query: {
-            objectName: mbeanVo.objectName,
-          },
-        })
+        console.debug(`点击查看MBean详情 , objname=${mbeanVo.objectName}`)
+        eventBus.showMBeanDetail(mbeanVo.objectName)
       },
     },
   }

@@ -21,7 +21,7 @@ export default {
   serverInfo: {
     adminInProp: false, // 框架管理账号是否是在配置文件中配置的
     debugMode: false, // 服务器是否debug模式
-    hasMonitorClient: false, // 是否有配置了监控服务器
+    hasDruid: false, // 是否有Druid监控
     hasWsApiImpl: false, // 是否有WebSocket Api接口
   },
 
@@ -53,7 +53,7 @@ export default {
     this.dict = res.dict
     this.serverInfo = res.serverInfo
 
-    console.debug(`更新系统状态 是否已登录:${this.logined}, 用户账号：${this.getCurUserName()}`)
+    console.debug(`更新系统状态 是否已登录:${this.logined}, 用户账号：${this.getCurUserName()}`,res.serverInfo)
   },
 
   /** 等当年成功是 */

@@ -9,6 +9,10 @@ import confirmAgent from './impl/ConfirmElImpl'
 import loading from './LoadingController'
 
 export default {
+  // 百分比转数字
+  percent2num(percent) {
+    return parseFloat(percent.toFixed(2))
+  },
 
   /** 弹窗确认 */
   confirm (msg, callback) {

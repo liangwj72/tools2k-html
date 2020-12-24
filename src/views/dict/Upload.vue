@@ -1,7 +1,5 @@
 <template>
   <div class="page-upload">
-    <my-nav activeName="upload"></my-nav>
-
     <div>
       <!-- 左边图片列表 -->
       <div class="my-pannel pic-pannel">

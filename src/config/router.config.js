@@ -4,80 +4,206 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import layers from '../layer/LayerIndex.js'
 import eventDispatcher from '../util/MyEventDispatcher.js'
 import serverContext from '../util/ServerContext.js'
+import Main from '../views/Main'
+import jslib from '@nnland/jslib'
+
 
 //const PATH_PREFIX = '/_common_/statics/commonAdmin/'
-const PATH_PREFIX = '/'
-const INDEX_PATH = PATH_PREFIX // 首页的url
+const PATH_PREFIX = ''
+const INDEX_PATH = '/' // 首页的url
 
-/** 所有路由的定义 */
-function getRouteDefine () {
-
-  // 默认的额外路由定义，默认定义有权限检查
-  const ext = {
-    meta: {
-      checkRightFun: checkRightFun,
-    },
+function addRouter(e) {
+  e.path = PATH_PREFIX + e.path
+  if (e.redirect) {
+    e.redirect = PATH_PREFIX + e.redirect
   }
-
-  // 路由配置
-  const routers = []
-
-  /** 登录页 */
-  addToRoute(routers, 'Login', {
-    alias: INDEX_PATH, // 登录页同时也是首页
-  })
-
-  /** MBean */
-  addToRoute(routers, 'mbean/MBeanList', ext)
-  addToRoute(routers, 'mbean/MBeanView', ext)
-
-  addToRoute(routers, 'status/Summary', ext)
-  addToRoute(routers, 'status/WsConns', ext)
-  addToRoute(routers, 'status/Runtime', ext)
-
-  addToRoute(routers, 'dict/Keys', ext)
-  addToRoute(routers, 'dict/Upload', ext)
-
-  return routers
+  if (e.alias) {
+    e.alias = PATH_PREFIX + e.alias
+  }
+  return e
 }
 
+const routers = [
+  // 登录页
+  addRouter({
+    path: '/Login',
+    alias: '/',
+    hidden: true,
+    component: () => import('@/views/Login'),
+  }),
+
+  // 系统信息
+  addRouter({
+    path: '/status',
+    component: Main,
+    redirect: '/status/Summary',
+    meta: {
+      title: '系统信息',
+      // icon: 'el-icon-s-platform'
+    },
+    children: [
+      {
+        path: '/status/Summary',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: '系统摘要信息',
+          icon: 'dashboard',
+        },
+        component: () => import('@/views/status/Summary'),
+      },
+      {
+        path: '/status/Runtime',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: '运行状态图',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/status/Runtime'),
+      },
+      {
+        path: '/status/WsConns',
+        hidden: function () {
+          !serverContext.serverInfo.hasWsApiImpl // 如果后端没有ws接口，就隐藏
+        },
+        meta: {
+          checkRightFun: checkRightFun,
+          title: 'Websocket信息',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/status/WsConns'),
+      },
+    ]
+  }),
+
+  // JMX
+  addRouter({
+    path: '/mbean',
+    redirect: '/mbean/MBeanList',
+    component: Main,
+    meta: {
+      title: 'JMX',
+      // icon: 'el-icon-s-platform'
+    },
+    children: [
+      {
+        path: '/mbean/MBeanList',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: 'JMX',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/mbean/MBeanList'),
+      },
+    ]
+  }),
+
+  // Durid监控
+  addRouter({
+    path: '/druid',
+    redirect: '/druid/DataSources',
+    hidden: function () {
+      return !serverContext.serverInfo.hasDruid // 如果后端没有数据库，就隐藏
+    },
+    component: Main,
+    meta: {
+      title: '数据库监控',
+      // icon: 'el-icon-s-platform'
+    },
+    children: [
+      {
+        path: '/druid/BaseInfo',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: '基础信息',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/druid/BaseInfo'),
+      },
+      {
+        path: '/druid/DataSources',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: '数据源',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/druid/DataSources'),
+      },
+      {
+        path: '/druid/SqlList',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: 'SQL监控',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/druid/SqlList'),
+      },
+      {
+        path: '/druid/UriList',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: 'URI监控',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/druid/UriList'),
+      },
+    ]
+  }),
+
+  // 字典管理
+  addRouter({
+    path: '/Keys',
+    redirect: '/dict/Keys',
+    component: Main,
+    meta: {
+      title: '字典管理',
+      // icon: 'el-icon-s-platform'
+    },
+    children: [
+      {
+        path: '/dict/Keys',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: '字典管理',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/dict/Keys'),
+      },
+    ]
+  }),
+
+  // 图床
+  addRouter({
+    path: '/Pics',
+    redirect: '/dict/Upload',
+    component: Main,
+    meta: {
+      title: '图床',
+      // icon: 'el-icon-s-platform'
+    },
+    children: [
+      {
+        path: '/dict/Upload',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: '图床',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/dict/Upload'),
+      },
+    ]
+  }),
+]
+
 /** 检查是否登录的方法 */
-function checkRightFun () {
+function checkRightFun() {
   // 登录就可以看到
   return serverContext.logined
 }
 
-/**
- * 添加路由到路由表
- * @param routers 路由表
- * @param path url路径
- * @param ext 额外的定义
- */
-function addToRoute (routers, path, ext) {
-  const fullUrl = getMyPath(path)
-
-  let r = {
-    component: resolve => { require(['@/views/' + path + '.vue'], resolve) },
-    path: getMyPath(path),
-  }
-
-  if (ext) {
-    for (let key in ext) {
-      r[key] = ext[key]
-    }
-  }
-
-  // 添加到路由表
-  console.debug(`增加路由: ${fullUrl} -`, r)
-
-  routers.push(r)
-}
-
 /** 根据前缀获得路径 */
-function getMyPath (path) {
+function getMyPath(path) {
   return PATH_PREFIX + path
 }
 
@@ -88,19 +214,16 @@ export default {
   getRoutePath: getMyPath,
 
   /** 初始化路由 */
-  initRouter () {
+  initRouter() {
     Vue.use(VueRouter)
 
     const router = new VueRouter({
       mode: 'hash',
-      routes: getRouteDefine(),
+      routes: routers,
     })
 
     router.afterEach(function (to) {
       console.debug(`成功浏览到: ${to.path}`)
-
-      // 进入一个页面时，关闭所有层
-      layers.closeAll()
     })
 
     router.beforeEach(function (to, from, next) {
@@ -123,7 +246,7 @@ export default {
           // 如果页面存在
           if (to.meta) {
             let checkRightFun = to.meta.checkRightFun
-            if (typeof checkRightFun === 'function') {
+            if (jslib.utils.isFunction(checkRightFun)) {
               // 目标页面需要权限检查，就先这些检查的方法
               let ok = checkRightFun()
               if (!ok) {

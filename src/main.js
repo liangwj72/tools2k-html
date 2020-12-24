@@ -3,13 +3,15 @@ import App from './App.vue'
 import routerConfig from './config/router.config'
 import vueConfig from './config/vue.config'
 import serverContext from './util/ServerContext.js'
-import jslib from '@nnland/jslib';
-import csslib from '@nnland/element-theme-admin1';
+import jsLib from '@nnland/jslib';
+import cssLib from '@nnland/element-theme-admin1';
+import eventBus from './event-bus';
 
 /** 初始化vue的配置 */
 Vue.use(vueConfig);
-Vue.use(jslib)
-Vue.use(csslib)
+Vue.use(jsLib)
+Vue.use(cssLib)
+Vue.use(eventBus)
 
 const router = routerConfig.initRouter()
 

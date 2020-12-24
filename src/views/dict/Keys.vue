@@ -1,7 +1,5 @@
 <template>
   <div class="page-keys">
-    <my-nav activeName="keys"></my-nav>
-
     <div v-if="!loading">
       <!-- 左边栏 -->
       <div class="my-pannel keys-pannel">

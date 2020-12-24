@@ -4,8 +4,6 @@
     <auto-refresh
       @refresh="reload"></auto-refresh>
 
-    <my-nav activeName="wsConns"></my-nav>
-
     <div v-show="!loading">
       <!-- 左边汇总信息 -->
       <div class="my-pannel summary-pannel">
