@@ -128,7 +128,7 @@
           }
           this.topMenuList.push(v)
         })
-        console.debug(`合计 ${this.topMenuList.length} 个一级菜单`, this.topMenuList)
+        // console.debug(`合计 ${this.topMenuList.length} 个一级菜单`, this.topMenuList)
       },
 
       checkIsHidden(item) {

@@ -1,6 +1,6 @@
 <template>
-  <div>
-      内容
+  <div class="article-container">
+      URI监控
   </div>
 </template>
 

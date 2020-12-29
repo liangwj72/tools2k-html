@@ -113,31 +113,13 @@ const routers = [
     },
     children: [
       {
-        path: '/druid/BaseInfo',
-        meta: {
-          checkRightFun: checkRightFun,
-          title: '基础信息',
-          icon: 'dashboard'
-        },
-        component: () => import('@/views/druid/BaseInfo'),
-      },
-      {
         path: '/druid/DataSources',
-        meta: {
-          checkRightFun: checkRightFun,
-          title: '数据源',
-          icon: 'dashboard'
-        },
-        component: () => import('@/views/druid/DataSources'),
-      },
-      {
-        path: '/druid/SqlList',
         meta: {
           checkRightFun: checkRightFun,
           title: 'SQL监控',
           icon: 'dashboard'
         },
-        component: () => import('@/views/druid/SqlList'),
+        component: () => import('@/views/druid/DataSources'),
       },
       {
         path: '/druid/UriList',
@@ -147,6 +129,15 @@ const routers = [
           icon: 'dashboard'
         },
         component: () => import('@/views/druid/UriList'),
+      },
+      {
+        path: '/druid/BaseInfo',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: 'Druid基础信息',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/druid/BaseInfo'),
       },
     ]
   }),
