@@ -3,7 +3,7 @@
  * Created by liangwj on 2018/7/19 0019.
  */
 
-import myUtil from '../../util/MyUtils'
+import myUtil from './MyUtils'
 
 /** 图表的颜色 */
 const colors = {
@@ -203,7 +203,7 @@ export default {
         }],
       },
       layout: {
-        padding: 15,
+        padding: 5,
       },
       title: {
         display: true,
@@ -312,7 +312,7 @@ export default {
         }],
       },
       layout: {
-        padding: 15,
+        padding: 5,
       },
       title: {
         display: true,
@@ -326,8 +326,60 @@ export default {
       responsive: true,
     },
   },
+
+  /** sql图表-执行时间 */
+  sqlTimeChart: {
+    data: {
+      labels: [
+        '0-1毫秒',
+        '1-10毫秒',
+        '10-100毫秒',
+        '100-1000毫秒',
+        '1-10秒次数',
+        '10-100秒',
+        '100-1000秒',
+        '大于1000秒',
+      ], // X轴数组
+      datasets: [
+        {
+          label: 'sql执行时间',
+          data: [0, 0, 0, 2, 0, 0, 0, 0],
+          pointRadius: 2.5,
+          borderWidth: 1,
+          borderColor: colors.action,
+          backgroundColor: myUtil.colorHexToRgba(colors.action, 0.4),
+        },
+      ],
+    },
+    options: {
+      animation: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            suggestedMax: 100,
+          },
+          gridLines: {
+            display: false,
+          },
+        }],
+      },
+      layout: {
+        padding: 5,
+      },
+      showLines: true,
+      scaleGridLineWidth: 2,
+      scaleShowGridLines: false,
+      scaleShowLabels: false,
+      datasetStrokeWidth: 2,
+      responsive: true,
+    },
+  },
+
   /** 将内存转为 MB各位 */
-  toMemoryM (value) {
+  toMemoryM(value) {
     return (value / 1024 / 1024).toFixed(2)
   },
+
+
 }
