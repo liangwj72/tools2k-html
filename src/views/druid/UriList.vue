@@ -1,14 +1,22 @@
 <template>
   <div>
     <div class="article-header">
-      {{this.$route.meta.title}}
+      <div>
+        {{this.$route.meta.title}}
+      </div>
+
+      <auto-refresh
+        :fixed="false"
+        :timer="false"
+        @refresh="reload"/>
+
     </div>
 
     <!-- 列表 -->
     <div class="article-container">
       <el-table border
                 size="small"
-        :data="uriList">
+                :data="uriList">
         <el-table-column
           sortable
           prop="URI"
@@ -25,7 +33,7 @@
           sortable align="right" width="110px"
           prop="JdbcExecuteCount">
           <template slot-scope="scope">
-              {{scope.row.JdbcExecuteCount | noZero}}
+            {{scope.row.JdbcExecuteCount | noZero}}
           </template>
         </el-table-column>
 

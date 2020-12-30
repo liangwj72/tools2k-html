@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="article-header">
-      {{this.$route.meta.title}}
-    </div>
+      <div>
+        {{this.$route.meta.title}}
+      </div>
 
-    <auto-refresh
-      :timer="false"
-      @refresh="reloadSqlList"/>
+      <auto-refresh
+        :fixed="false"
+        :timer="false"
+        @refresh="reloadSqlList"/>
+
+    </div>
 
     <el-tabs type="border-card"
              :value="activeTab"
@@ -40,10 +44,10 @@
 
         <!-- 该数据源的sql -->
         <el-table border
-          :data="sqlList">
-          <el-table-column
-            :show-overflow-tooltip="true"
-            label="sql">
+                  size="small"
+                  :data="sqlList">
+          <el-table-column :show-overflow-tooltip="true"
+                           label="sql">
             <template slot-scope="scope">
               <el-button type="text" @click="viewSql(scope.row)">
                 {{scope.row.SQL}}

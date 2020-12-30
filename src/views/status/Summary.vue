@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="article-header">
+      <div>
+        {{this.$route.meta.title}}
+      </div>
+    </div>
     <!-- 自动刷新按钮 -->
     <auto-refresh
       :timer="false"

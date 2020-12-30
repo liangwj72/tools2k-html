@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="article-header">
-      {{this.$route.meta.title}}
+      <div>
+        {{this.$route.meta.title}}
+      </div>
     </div>
 
     <el-card class="article-small-card">
