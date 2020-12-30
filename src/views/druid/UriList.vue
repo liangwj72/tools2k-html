@@ -199,10 +199,11 @@
       reload() {
         jsLib.ajax.post(apiUrl.commonDurid.getWebUris, {}).then(res => {
           this.uriList = res.list
-          if (res.list.length > 0) {
-            this.detail.data = res.list[0]
-          }
-          console.debug('获取了uri监控数据', this.detail.data)
+          // if (res.list.length > 0) {
+          //   开发时测试用
+          //   this.detail.data = res.list[0]
+          // }
+          // console.debug('获取了uri监控数据', this.detail.data)
         })
       },
 
