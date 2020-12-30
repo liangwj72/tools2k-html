@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="article-header">
+      {{this.$route.meta.title}}
+    </div>
+
+    <auto-refresh
+      :timer="false"
+      @refresh="reloadSqlList"/>
+
     <el-tabs type="border-card"
              :value="activeTab"
              @tab-click="onTabClick">
@@ -31,7 +39,7 @@
         <!-- /数据源的基础信息 -->
 
         <!-- 该数据源的sql -->
-        <el-table
+        <el-table border
           :data="sqlList">
           <el-table-column
             :show-overflow-tooltip="true"
@@ -44,23 +52,23 @@
           </el-table-column>
           <el-table-column
             label="执行数"
-            sortable align="right" width="100px"
+            sortable align="right" width="105px"
             prop="ExecuteCount"/>
           <el-table-column
             label="执行时间"
-            sortable align="right" width="100px"
+            sortable align="right" width="105px"
             prop="TotalTime"/>
           <el-table-column
             label="最慢"
-            sortable align="right" width="100px"
+            sortable align="right" width="105px"
             prop="MaxTimespan"/>
           <el-table-column
             label="更新行数"
-            sortable align="right" width="100px"
+            sortable align="right" width="105px"
             prop="EffectedRowCount"/>
           <el-table-column
             label="读取行数"
-            sortable align="right" width="100px"
+            sortable align="right" width="105px"
             prop="FetchRowCount"/>
         </el-table>
         <!-- /该数据源的sql -->

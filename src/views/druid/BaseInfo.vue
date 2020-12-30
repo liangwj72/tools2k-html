@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="article-header">
+      {{this.$route.meta.title}}
+    </div>
+
     <el-card class="article-small-card">
       <template slot="header" class="clearfix">
         <div>数据库连接池基础信息</div>

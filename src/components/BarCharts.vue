@@ -89,7 +89,7 @@
       xdata(value) {
         this.chartData.datasets[0].data = value
         // console.debug('更新柱图数据 watch:',this.chartData.datasets[0].data)
-        this.updateChart()
+        this.chart.update()
       },
     },
 
@@ -121,7 +121,9 @@
       },
 
       /** 更新图表 */
-      updateChart() {
+      updateChart(labels, data) {
+        this.chartData.datasets[0].data = data
+        this.chartData.labels = labels
         this.chart.update()
       },
     },

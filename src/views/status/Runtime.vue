@@ -5,58 +5,69 @@
       @refresh="reload"></auto-refresh>
 
     <div class="article-container">
-      <div class="flex-container">
-        <el-card>
-          <div class="flex1">
-            <el-progress
-              :width="150"
-              :stroke-width="20"
-              type="dashboard"
-              :percentage="diskInfo.percent"></el-progress>
-          </div>
-          <div>
-            硬盘空间: <span class="mr-10 text-caption">{{diskInfo.total}}</span>
-          </div>
-        </el-card>
 
-        <el-card class="article-table-card"
-                 style="width: 500px">
-          <el-table
-            size="small"
-            :data="uriStat">
-            <el-table-column label="消耗时长">
-              <template slot-scope="scope">
-                <el-button
-                  type="text"
-                  @click="showUriStatDetail(scope.row)">
-                  {{scope.row.timeRangeMin}}
-                  <span v-if="scope.row.timeRangeMax>0"> - {{scope.row.timeRangeMax}} </span>
-                </el-button>
-              </template>
-            </el-table-column>
-
-            <el-table-column label="次数">
-              <template slot-scope="scope">
-                {{scope.row.count}}
-              </template>
-            </el-table-column>
-
-            <el-table-column
-              width="200px"
-              label="占比">
-              <template slot-scope="scope">
-                <el-progress
-                  :stroke-width="10"
-                  :showText="false"
-                  :percentage="scope.row.percent"></el-progress>
-              </template>
-            </el-table-column>
-
-          </el-table>
-        </el-card>
-      </div>
 
       <el-row :gutter="10">
+        <el-col :span="12">
+          <div class="flex-container">
+          <el-card>
+            <div class="flex11">
+              <el-progress
+                :width="150"
+                :stroke-width="20"
+                type="dashboard"
+                :percentage="diskInfo.percent"></el-progress>
+            </div>
+            <div>
+              硬盘空间: <span class="text-caption">{{diskInfo.total}}</span>
+            </div>
+          </el-card>
+            <el-card class="article-table-card flex1">
+              <el-table
+                size="mini"
+                :data="uriStat">
+                <el-table-column label="消耗时长">
+                  <template slot-scope="scope">
+                    <el-button
+                      type="text"
+                      @click="showUriStatDetail(scope.row)">
+                      {{scope.row.timeRangeMin}}
+                      <span v-if="scope.row.timeRangeMax>0"> - {{scope.row.timeRangeMax}} </span>
+                    </el-button>
+                  </template>
+                </el-table-column>
+
+                <el-table-column label="次数">
+                  <template slot-scope="scope">
+                    {{scope.row.count}}
+                  </template>
+                </el-table-column>
+
+                <el-table-column
+                  width="200px"
+                  label="占比">
+                  <template slot-scope="scope">
+                    <el-progress
+                      :stroke-width="10"
+                      :showText="false"
+                      :percentage="scope.row.percent"></el-progress>
+                  </template>
+                </el-table-column>
+
+              </el-table>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <bar-chart
+            ref="uriStatChart"
+            title="Uri时长分布"
+            :labels="uriStatChart.labels"
+            :xdata="uriStatChart.data"/>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="10" class="mt-10">
         <el-col :span="12">
           <!-- 内存图 -->
           <line-chart
@@ -127,10 +138,12 @@
   import serverContext from '../../util/ServerContext'
   import eventBus from '@/event-bus'
   import CompUriDetail from "./CompUriDetail";
+  import BarChart from "../../components/BarCharts";
 
   export default {
 
     components: {
+      BarChart,
       CompUriDetail,
       AutoRefresh,
       LineChart,
@@ -179,6 +192,12 @@
           options: chartHelper.wsPayloadChart.options,
         },
 
+        // 时长段范围统计
+        uriStatChart: {
+          labels: [],
+          data: [],
+        },
+
         diskInfo: {
           total: '',
           used: '',
@@ -222,14 +241,27 @@
 
       updateUirStat(uriStat) {
         let total = 0
+        let labels = []
+        let data = []
         uriStat.forEach(row => {
           total += row.count
+          if (row.timeRangeMax > 0) {
+            labels.push(`${row.timeRangeMin}-${row.timeRangeMax}毫秒`)
+          } else {
+            labels.push(`大于${row.timeRangeMin}`)
+          }
+          data.push(row.count)
         })
+        // this.uriStatChart.labels = labels
+        // this.uriStatChart.data = data
+
+        this.$refs.uriStatChart.updateChart(labels,data)
+
         uriStat.forEach(row => {
           row.percent = (total > 0) ? myUtil.percent2num(row.count * 100 / total) : 0
         })
         this.uriStat = uriStat
-        // console.debug('uri访问时长段统计:',uriStat)
+        console.debug('uri访问时长段统计:',this.uriStatChart)
       },
 
       /** 更新硬盘信息 */
