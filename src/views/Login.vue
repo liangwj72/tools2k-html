@@ -52,11 +52,11 @@
                 <div>
                   <h4>账号配置:</h4>
                   <p class="text-muted">
-                    密码存储与配置文件<code>application.properties</code>中，
+                    账号和密码存储在spring boot的配置文件中，
                   </p>
                   <ul>
-                    <li>loginCheck.admin.account=管理员账号</li>
-                    <li>loginCheck.admin.password=加密后的密码</li>
+                    <li>login-check.admin.account=管理员账号</li>
+                    <li>login-check.admin.password=密码</li>
                   </ul>
                   <p class="text-muted">
                     如果不想把账号放在配置文件中，也可以用数据库管理，
@@ -64,38 +64,6 @@
                   </p>
                 </div>
                 <hr/>
-
-                <div>
-                  <h4>如何生成配置文件中的密码？</h4>
-                  <p class="text-muted">
-                    请在下面的输入框中输入密码明文，生成加密后的密码，
-                    然后这个密文放到配置文件中。
-                  </p>
-                  <el-form label-width="100px"
-                           size="mini"
-                           @submit.native.prevent="createPassword">
-                    <el-form-item label="密码明文">
-                      <el-input type="text"
-                                v-model.trim="form1.password"
-                                required
-                                placeholder="请输入密码明文">
-                        auto-complete="on">
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item>
-                      <el-button type="success" nativeType="submit">生成</el-button>
-                    </el-form-item>
-                    <el-form-item label="生成结果:" v-if="doEncode.called">
-                      <div>
-                        被加密的明文: <code>{{doEncode.plainPwd}}</code>
-                      </div>
-                      <div>
-                        要修改的配置内容:<br/>
-                        <code>loginCheck.admin.password = {{doEncode.encodedPwd}}</code>
-                      </div>
-                    </el-form-item>
-                  </el-form>
-                </div>
               </div>
               <div v-else>
                 请使用外部账号登陆
