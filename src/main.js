@@ -1,6 +1,9 @@
 /** 基础框架 */
 import Vue from 'vue'
 
+/** 导入样式表 */
+import './assets/index.scss';
+
 /** 全局变量 */
 import serverContext from './util/ServerContext.js'
 
@@ -16,8 +19,8 @@ Vue.use(cssLib)
 import eventBus from './event-bus';
 Vue.use(eventBus)
 
-/** 导入样式表 */
-import './assets/index.scss';
+import appConfig from './config/app.config';
+Vue.use(appConfig)
 
 /** 初始化vue的配置 */
 import vueConfig from './config/vue.config'

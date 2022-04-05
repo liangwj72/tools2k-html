@@ -5,7 +5,7 @@
 
 <template>
   <div class="chart-panel">
-    <canvas ref="chartCanvas" height="100px"></canvas>
+    <canvas ref="chartCanvas" height="150px"></canvas>
   </div>
 </template>
 
