@@ -7,7 +7,7 @@ import VueRouter from 'vue-router'
 import eventDispatcher from '../util/MyEventDispatcher.js'
 import serverContext from '../util/ServerContext.js'
 import Main from '../views/Main'
-import jslib from '@nnland/jslib'
+import jslib from '@gztree/jslib'
 
 
 //const PATH_PREFIX = '/_common_/statics/commonAdmin/'

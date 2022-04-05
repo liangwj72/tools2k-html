@@ -142,7 +142,7 @@
 
 <script>
   import apiUrl from '../../ApiUrl'
-  import jsLib from '@nnland/jslib'
+  import jsLib from '@gztree/jslib'
   import BarChart from "../../components/BarCharts";
 
   export default {

@@ -23,7 +23,7 @@
 
         <!-- 数据源的基础信息 -->
         <el-card class="article-small-card">
-          <template slot="header" class="clearfix">
+          <template slot="header">
             <div>数据源信息</div>
           </template>
 
@@ -84,7 +84,7 @@
                :visible.sync="detail.visible"
                size="900px">
       <el-card class="article-small-card">
-        <template slot="header" class="clearfix">
+        <template slot="header">
           <div>SQL详情</div>
         </template>
 
@@ -96,7 +96,7 @@
       </el-card>
 
       <el-card class="article-small-card">
-        <template slot="header" class="clearfix">
+        <template slot="header">
           <div>执行时间</div>
         </template>
 
@@ -128,7 +128,7 @@
       </el-card>
 
       <el-card class="article-small-card">
-        <template slot="header" class="clearfix">
+        <template slot="header">
           <div>执行时间</div>
         </template>
 
@@ -167,7 +167,7 @@
 
 <script>
   import apiUrl from '../../ApiUrl'
-  import jsLib from '@nnland/jslib'
+  import jsLib from '@gztree/jslib'
   import sqlFormatter from 'sql-formatter'
   import BarChart from "../../components/BarCharts";
 

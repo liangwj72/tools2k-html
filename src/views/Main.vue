@@ -72,7 +72,7 @@
 
     <!-- 下方主体 -->
     <div class="main-frame-body">
-      <div>
+      <div class="article-container">
         <!-- 中间区 -->
         <keep-alive>
           <router-view/>
@@ -89,7 +89,7 @@
   import serverContext from "../util/ServerContext";
   import apiUrl from "../ApiUrl";
   import routeConfig from "../config/router.config";
-  import jslib from '@nnland/jslib'
+  import jslib from '@gztree/jslib'
 
   export default {
 

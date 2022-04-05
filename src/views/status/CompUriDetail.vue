@@ -32,7 +32,7 @@
 
 <script>
   import eventBus from '@/event-bus'
-  import jsLib from '@nnland/jslib'
+  import jsLib from '@gztree/jslib'
   import apiUrl from '../../ApiUrl'
 
   export default {

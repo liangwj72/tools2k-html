@@ -7,7 +7,7 @@
     </div>
 
     <el-card class="article-small-card">
-      <template slot="header" class="clearfix">
+      <template slot="header">
         <div>数据库连接池基础信息</div>
       </template>
       <el-form labelPosition="left"
@@ -27,7 +27,7 @@
 
 <script>
   import apiUrl from '../../ApiUrl'
-  import jsLib from '@nnland/jslib'
+  import jsLib from '@gztree/jslib'
 
   export default {
 

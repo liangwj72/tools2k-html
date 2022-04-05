@@ -4,20 +4,22 @@
       <div>
         {{this.$route.meta.title}}
       </div>
+      <auto-refresh
+              :timer="false"
+              :fixed="false"
+              @refresh="reload"></auto-refresh>
     </div>
     <!-- 自动刷新按钮 -->
-    <auto-refresh
-      :timer="false"
-      @refresh="reload"></auto-refresh>
 
     <div class="main-content" v-show="!loading">
-      <el-row>
+      <el-row gutter="20">
         <el-col :span="12">
-          <el-card class="article-small-card">
-            <template slot="header" class="clearfix">
+          <el-card class="small-header">
+            <template slot="header">
               <div>主机信息</div>
             </template>
-            <el-form labelPosition="left"
+            <el-form class="info-form"
+                     labelPosition="left"
                      label-width="120px">
               <el-form-item label="名称:" class="text-caption">{{vm.name}}</el-form-item>
               <el-form-item label="启动时间:" class="text-caption">{{vm.startTime | timeFormat}}</el-form-item>
@@ -29,11 +31,12 @@
         </el-col>
 
         <el-col :span="12">
-          <el-card class="article-small-card">
-            <template slot="header" class="clearfix">
+          <el-card class="small-header">
+            <template slot="header">
               <div>内存信息</div>
             </template>
-            <el-form labelPosition="left"
+            <el-form class="info-form"
+                     labelPosition="left"
                      label-width="120px">
               <el-form-item label="总物理内存:" class="text-caption">{{os.totalPhysicalMemorySize | sizeToM}}</el-form-item>
               <el-form-item label="空闲物理内存:" class="text-caption">{{os.freePhysicalMemorySize | sizeToM}}</el-form-item>
@@ -49,14 +52,17 @@
 
       </el-row>
 
-      <el-row>
+      <br/>
+
+      <el-row gutter="20">
         <el-col :span="12">
-          <el-card class="article-small-card">
-            <template slot="header" class="clearfix">
+          <el-card class="small-header">
+            <template slot="header">
               <div>JRE信息 <small class="text-muted">{{updateTime | dateFormat}}</small></div>
             </template>
 
-            <el-form labelPosition="left"
+            <el-form class="info-form"
+                     labelPosition="left"
                      label-width="120px">
               <el-form-item label="JRE版本:" class="text-caption">{{vm.specVersion}}</el-form-item>
               <el-form-item label="型号:" class="text-caption">{{vm.vmName}}</el-form-item>
@@ -69,13 +75,14 @@
 
         <el-col :span="12">
           <!-- 线程  -->
-          <el-card class="article-small-card">
-            <template slot="header" class="clearfix">
+          <el-card class="small-header">
+            <template slot="header">
               <div>线程</div>
             </template>
 
-            <el-form labelPosition="left"
-                     label-width="120px">
+            <el-form class="info-form"
+                    labelPosition="left"
+                    label-width="120px">
               <el-form-item label="活动线程:" class="text-caption">{{threading.threadCount}}</el-form-item>
               <el-form-item label="线程峰值:" class="text-caption">{{threading.peakThreadCount}}</el-form-item>
               <el-form-item label="守护程序线程:" class="text-caption">{{threading.daemonThreadCount}}</el-form-item>
@@ -86,11 +93,13 @@
         </el-col>
       </el-row>
 
-      <el-row>
+      <br/>
+
+      <el-row gutter="20">
         <el-col :span="12">
 
           <el-card class="article-small-card">
-            <template slot="header" class="clearfix">
+            <template slot="header">
               <div>类加载</div>
             </template>
 
@@ -107,7 +116,7 @@
         <el-col :span="12">
 
           <el-card class="article-small-card">
-            <template slot="header" class="clearfix">
+            <template slot="header">
               <div>JRE启动参数</div>
             </template>
 
