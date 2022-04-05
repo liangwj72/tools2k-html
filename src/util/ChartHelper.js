@@ -70,6 +70,7 @@ export default {
       title: {
         display: true,
         text: '内存',
+        fontColor:'#ffffff',
       },
       showLines: true,
       scaleGridLineWidth: 2,
@@ -118,6 +119,7 @@ export default {
       title: {
         display: true,
         text: 'CPU使用情况',
+        fontColor:'#ffffff',
       },
       showLines: true,
       scaleGridLineWidth: 2,
@@ -163,6 +165,7 @@ export default {
       title: {
         display: true,
         text: '线程',
+        fontColor:'#ffffff',
       },
       showLines: true,
       scaleGridLineWidth: 2,
@@ -208,6 +211,7 @@ export default {
       title: {
         display: true,
         text: 'HTTP动态请求数',
+        fontColor:'#ffffff',
       },
       showLines: true,
       scaleGridLineWidth: 2,
@@ -261,7 +265,8 @@ export default {
       title: {
         display: true,
         text: 'Web socket API 接收/发送 次数',
-      },
+        fontColor:'#ffffff',
+     },
       showLines: true,
       scaleGridLineWidth: 2,
       scaleShowGridLines: false,
@@ -317,6 +322,7 @@ export default {
       title: {
         display: true,
         text: 'Web socket API 流量',
+        fontColor:'#ffffff',
       },
       showLines: true,
       scaleGridLineWidth: 2,

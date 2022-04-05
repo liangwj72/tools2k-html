@@ -1,7 +1,8 @@
+@import "utils";
 
 // 文字相关
 .text-muted {
-  color: $color-muted;
+  color: var(--color-theme);
 }
 
 .text-caption {
@@ -13,7 +14,7 @@
 }
 
 .text-wrap {
-  .text_wrap();
+  @include text_wrap;
 }
 
 .text-link {
@@ -25,5 +26,5 @@
 }
 
 .text-el {
-  .ellipsis;
+  @include ellipsis;
 }

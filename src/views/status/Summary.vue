@@ -12,7 +12,7 @@
     <!-- 自动刷新按钮 -->
 
     <div class="main-content" v-show="!loading">
-      <el-row gutter="20">
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-card class="small-header">
             <template slot="header">
@@ -54,7 +54,7 @@
 
       <br/>
 
-      <el-row gutter="20">
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-card class="small-header">
             <template slot="header">
@@ -95,15 +95,16 @@
 
       <br/>
 
-      <el-row gutter="20">
+      <el-row :gutter="20">
         <el-col :span="12">
 
-          <el-card class="article-small-card">
+          <el-card class="small-header">
             <template slot="header">
               <div>类加载</div>
             </template>
 
-            <el-form labelPosition="left"
+            <el-form class="info-form"
+                     labelPosition="left"
                      label-width="120px">
               <el-form-item label="当前加载类:" class="text-caption">{{classLoading.loadedClassCount}}</el-form-item>
               <el-form-item label="累计加载类总数:" class="text-caption">{{classLoading.totalLoadedClassCount}}</el-form-item>
@@ -115,12 +116,13 @@
 
         <el-col :span="12">
 
-          <el-card class="article-small-card">
+          <el-card class="small-header">
             <template slot="header">
               <div>JRE启动参数</div>
             </template>
 
-            <el-form labelPosition="left"
+            <el-form class="info-form"
+                     labelPosition="left"
                      label-width="120px">
               <el-form-item label="启动参数:" class="text-caption">
                 <div v-for="(str,index) in vm.inputArguments" :key="index">{{str}}</div>

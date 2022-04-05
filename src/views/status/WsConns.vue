@@ -123,12 +123,11 @@
 <script>
   import apiUrl from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
-  import AutoRefresh from '../../components/AutoRefresh'
 
   export default {
 
     /** 本页面用到的组件 */
-    components: {AutoRefresh},
+    components: {},
 
     /** 本页面的属性 */
     data () {

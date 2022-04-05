@@ -107,8 +107,8 @@
         let gradient = ctx
           .getContext("2d")
           .createLinearGradient(0, 0, 0, 500)
-        gradient.addColorStop(0, myUtil.colorHexToRgba(this.color, 0.5))
-        gradient.addColorStop(0.5, myUtil.colorHexToRgba(this.color, 0.25))
+        gradient.addColorStop(0, myUtil.colorHexToRgba(this.color, 0.8))
+        gradient.addColorStop(0.8, myUtil.colorHexToRgba(this.color, 0.25))
         // this.gradient.addColorStop(1, myUtil.colorHexToRgba(this.color,0))
         this.chartData.datasets[0].backgroundColor = gradient
 
