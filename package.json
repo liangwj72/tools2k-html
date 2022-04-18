@@ -10,9 +10,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@gztree/element-theme-dark01": "^1.0.4",
+    "@gztree/element-theme-silver01": "^1.0.0",
     "@gztree/jslib": "^2.0.1",
     "chart.js": "^2.7.2",
+    "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "n-zepto": "^1.2.0",
     "sql-formatter": "^2.3.4",

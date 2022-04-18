@@ -3,6 +3,7 @@ import Vue from 'vue'
 
 /** 导入样式表 */
 import './assets/index.scss';
+import './assets/less/index.less';
 
 /** 全局变量 */
 import serverContext from './util/ServerContext.js'
@@ -12,7 +13,7 @@ import jsLib from '@gztree/jslib';
 Vue.use(jsLib)
 
 /** 公用样式主题 */
-import cssLib from '@gztree/element-theme-dark01';
+import cssLib from '@gztree/element-theme-silver01';
 Vue.use(cssLib)
 
 /** 消息总线 */
