@@ -6,11 +6,12 @@
       </div>
     </div>
 
-    <el-card class="article-small-card">
+    <el-card class="small-header">
       <template slot="header">
         <div>数据库连接池基础信息</div>
       </template>
-      <el-form labelPosition="left"
+      <el-form class="info-form"
+               labelPosition="left"
                label-width="120px">
         <el-form-item label="版本:" class="text-caption">{{info.Version}}</el-form-item>
         <el-form-item label="是否运行重置:" class="text-caption">{{info.ResetEnable}}</el-form-item>
