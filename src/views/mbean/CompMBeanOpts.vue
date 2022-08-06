@@ -73,19 +73,19 @@
             type="primary"
             nativeType="submit">执行
           </el-button>
-        </el-form>
 
+          <div v-show="returnData.show">
+            <br/>
+            <div class="my-header">
+              <span>执行返回结果</span>
+            </div>
+            <pre>
+{{ returnData.data }}
+          </pre>
+          </div>
+        </el-form>
       </div>
     </div>
-    <el-dialog
-      title="执行返回结果"
-      :visible.sync="returnData.show"
-      width="60%"
-      center>
-      <pre>
-        {{ returnData.data }}
-      </pre>
-    </el-dialog>
 
   </div>
 </template>
