@@ -60,11 +60,11 @@
             </el-col>
             <el-col :span="12">
                 <el-card>
-                <bar-chart
-                        ref="uriStatChart"
-                        title="Uri时长分布"
-                        :labels="uriStatChart.labels"
-                        :xdata="uriStatChart.data"/>
+                    <bar-chart
+                            ref="uriStatChart"
+                            title="Uri时长分布"
+                            :labels="uriStatChart.labels"
+                            :xdata="uriStatChart.data"/>
                 </el-card>
             </el-col>
         </el-row>
@@ -89,6 +89,28 @@
             </el-col>
         </el-row>
         <br/>
+
+        <template v-if="hasSendPacketData">
+            <el-row :gutter="10" class="mt-10">
+                <el-col :span="12">
+                    <!-- ws 次数-->
+                    <line-chart
+                            ref="sendPacketCountChart"
+                            :chartData="sendPacketCountChart.data"
+                            :chartOptions="sendPacketCountChart.options">
+                    </line-chart>
+                </el-col>
+                <el-col :span="12">
+                    <!-- ws 流量-->
+                    <line-chart
+                            ref="sendPacketPayloadChart"
+                            :chartData="sendPacketPayloadChart.data"
+                            :chartOptions="sendPacketPayloadChart.options">
+                    </line-chart>
+                </el-col>
+            </el-row>
+            <br/>
+        </template>
 
         <el-row :gutter="10" class="mt-10">
             <el-col :span="12">
@@ -140,8 +162,8 @@
     import LineChart from '../../components/LineCharts'
     import serverContext from '../../util/ServerContext'
     import eventBus from '@/event-bus'
-    import CompUriDetail from "./CompUriDetail";
-    import BarChart from "../../components/BarCharts";
+    import CompUriDetail from './CompUriDetail'
+    import BarChart from '../../components/BarCharts'
 
     export default {
 
@@ -158,6 +180,7 @@
         data() {
             return {
                 hasWsApiImpl: serverContext.serverInfo.hasWsApiImpl,
+                hasSendPacketData: serverContext.serverInfo.hasSendPacketData,
 
                 // 内存使用的图表
                 memoryChart: {
@@ -192,6 +215,18 @@
                 wsPayloadChart: {
                     data: chartHelper.wsPayloadChart.data,
                     options: chartHelper.wsPayloadChart.options,
+                },
+
+                // 发包次数
+                sendPacketCountChart: {
+                    data: chartHelper.sendPacketCountChart.data,
+                    options: chartHelper.sendPacketCountChart.options,
+                },
+
+                // 发包流量
+                sendPacketPayloadChart: {
+                    data: chartHelper.sendPacketPayloadChart.data,
+                    options: chartHelper.sendPacketPayloadChart.options,
                 },
 
                 // 时长段范围统计
@@ -294,6 +329,8 @@
                 const wsCountDown = [] // ws发送次数
                 const wsPayloadUp = [] // ws上行流行
                 const wsPayloadDown = [] // ws下行流量
+                const sendPacketCount = [] // 发包数
+                const sendPacketPayload = [] // 发包流量
 
                 for (let row of list) {
                     // 时间轴数据
@@ -312,6 +349,8 @@
                     wsCountDown.push(row.wsUpCount) // ws发送次数
                     wsPayloadUp.push(this.sizeToK(row.wsUpPayload)) // ws上行流行
                     wsPayloadDown.push(this.sizeToK(row.wsDownPayload)) // ws下行流量
+                    sendPacketCount.push(row.sendPacketCount) // 发包数量
+                    sendPacketPayload.push(this.sizeToK(row.sendPacketPayload / 10)) // 发包流量
                 }
 
                 this.updateMemoryChart(labels, totalMemory, usedMemory) // 更新内存图
@@ -323,6 +362,12 @@
                     this.updateWsCountChart(labels, wsCountUp, wsCountDown) // 更新ws次数
                     this.updateWsPayloadChart(labels, wsPayloadUp, wsPayloadDown) // 更新ws流量
                 }
+
+                if (this.hasSendPacketData) {
+                    this.updateSendPacketCountChart(labels, sendPacketCount) // 发包数量
+                    this.updateSendPacketPayloadChart(labels, sendPacketPayload) // 发包流量
+                }
+
             },
 
             /** 更新ws 次数图表 */
@@ -351,6 +396,24 @@
                 chartData.labels = labels
 
                 this.$refs.actionChart.updateChart()
+            },
+
+            /** 更新发包数量图表 */
+            updateSendPacketCountChart(labels, data0) {
+                const chartData = this.sendPacketCountChart.data
+                chartData.datasets[0].data = data0
+                chartData.labels = labels
+
+                this.$refs.sendPacketCountChart.updateChart()
+            },
+
+            /** 更新发包流量图表 */
+            updateSendPacketPayloadChart(labels, data0) {
+                const chartData = this.sendPacketPayloadChart.data
+                chartData.datasets[0].data = data0
+                chartData.labels = labels
+
+                this.$refs.sendPacketPayloadChart.updateChart()
             },
 
             /** 更新线程图表 */
@@ -392,7 +455,7 @@
             showUriStatDetail(row) {
                 console.debug(`查看uri时长统计详情:id=${row.id}`)
                 eventBus.showUriStatDetail(row)
-            }
+            },
 
         },
     }

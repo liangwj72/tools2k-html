@@ -23,6 +23,7 @@ export default {
     debugMode: false, // 服务器是否debug模式
     hasDruid: false, // 是否有Druid监控
     hasWsApiImpl: false, // 是否有WebSocket Api接口
+    hasSendPacketData: false, // 是否有发包数据
   },
 
   /** 字典 */
