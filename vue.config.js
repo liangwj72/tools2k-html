@@ -2,7 +2,7 @@ const path = require('path')
 const {defineConfig} = require('@vue/cli-service')
 
 /** 发版时静态资源的路径前缀 */
-const assetsPrefix = '_common_/statics/admin/'
+const assetsPrefix = '/_common_/statics/admin/'
 
 /** 是否热更新，为false的时候，页面是刷新，而不是动态更新，可避免动画卡死的现象 */
 const hotReload = true
