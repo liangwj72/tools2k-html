@@ -56,7 +56,7 @@ export default {
 
     let sysname=this.dict["system.name"];
     if (sysname) {
-      document.title="通用后台-" + sysname;
+      document.title= sysname + "-通用后台";
     }
 
     console.debug(`更新系统状态 是否已登录:${this.logined}, 用户账号：${this.getCurUserName()}`,res.serverInfo)
