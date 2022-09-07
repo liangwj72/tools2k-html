@@ -36,11 +36,10 @@ const routers = [
 
   // 系统信息
   addRouter({
-    path: '/status',
+    path: '/status/Summary',
     component: Main,
-    redirect: '/status/Summary',
     meta: {
-      title: '系统信息',
+      title: '系统摘要',
       // icon: 'el-icon-s-platform'
     },
     children: [
@@ -48,19 +47,40 @@ const routers = [
         path: '/status/Summary',
         meta: {
           checkRightFun: checkRightFun,
-          title: '系统摘要信息',
+          title: '系统摘要',
           icon: 'dashboard',
         },
         component: () => import('@/views/status/Summary'),
       },
+    ]
+  }),
+
+  // 系统信息
+  addRouter({
+    path: '/status/Runtime',
+    component: Main,
+    meta: {
+      title: '运行图表',
+      // icon: 'el-icon-s-platform'
+    },
+    children: [
       {
         path: '/status/Runtime',
         meta: {
           checkRightFun: checkRightFun,
-          title: '运行状态图',
+          title: '运行图表',
           icon: 'dashboard'
         },
         component: () => import('@/views/status/Runtime'),
+      },
+      {
+        path: '/status/ApiReport',
+        meta: {
+          checkRightFun: checkRightFun,
+          title: 'API调用',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/status/ApiReport'),
       },
       {
         path: '/status/WsConns',

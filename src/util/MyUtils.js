@@ -337,4 +337,9 @@ export default {
     }
   },
 
+  /** 将内存转为 MB各位 */
+  toMemoryM(value) {
+    return (value / 1024 / 1024).toFixed(2)
+  },
+
 }
