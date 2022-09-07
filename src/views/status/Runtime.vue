@@ -45,6 +45,7 @@
                     <line-chart
                             ref="sendPacketPayloadChart"
                             avg-post-fix="KB "
+                            :scales="10"
                             :show-avg="true"
                             :chartData="sendPacketPayloadChart.data"
                             :chartOptions="sendPacketPayloadChart.options">

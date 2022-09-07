@@ -13,7 +13,6 @@ import SqlTimeChart from './charts/SqlTimeChart'
 import SendPacketCountChart from './charts/SendPacketCountChart'
 import SendPacketPayloadChart from './charts/SendPacketPayloadChart'
 import myUtil from './MyUtils'
-import MyUtils from './MyUtils'
 import serverContext from "./ServerContext";
 
 export default {
@@ -71,7 +70,7 @@ export default {
         for (let row of list) {
             // 找到最大时间和最小时间
             let time = row.recordTime
-            if (minTime == 0 || minTime > time) {
+            if (minTime === 0 || minTime > time) {
                 minTime = time
             }
             if (maxTime < time) {
@@ -88,8 +87,8 @@ export default {
             labels.push(myUtil.timeFormat(time, 'hh:mm:ss'))
 
             // 内存图表的数据
-            totalMemory.push(MyUtils.toMemoryM(row.memory.totalMemory))
-            usedMemory.push(MyUtils.toMemoryM(row.memory.usedMemory))
+            totalMemory.push(myUtil.toMemoryM(row.memory.totalMemory))
+            usedMemory.push(myUtil.toMemoryM(row.memory.usedMemory))
 
             // CPU 图表
             cpuJvm.push(Math.round(row.processCpuLoad * 100) / 100)
@@ -98,13 +97,12 @@ export default {
             action.push(row.actionCount) // http动态请求数
             wsCountUp.push(row.wsUpCount)  // ws请求数
             wsCountDown.push(row.wsUpCount) // ws发送次数
-            wsPayloadUp.push(this.sizeToK(row.wsUpPayload)) // ws上行流行
-            wsPayloadDown.push(this.sizeToK(row.wsDownPayload)) // ws下行流量
+            wsPayloadUp.push(myUtil.sizeToK(row.wsUpPayload)) // ws上行流行
+            wsPayloadDown.push(myUtil.sizeToK(row.wsDownPayload)) // ws下行流量
 
             sendPacketCount.push(row.sendPacketCount) // 发包数量
-            sendPacketPayload.push(this.sizeToK(row.sendPacketPayload / 10)) // 发包流量
+            sendPacketPayload.push(myUtil.sizeToK(row.sendPacketPayload / 10)) // 发包流量,因为是10的流量，所以需要除以10
         }
-
 
         this.updateMemoryChart(labels, totalMemory, usedMemory) // 更新内存图
         this.updateCpuChart(labels, cpuJvm) // 更新cpu图
@@ -121,7 +119,6 @@ export default {
             this.updateSendPacketCountChart(labels, sendPacketCount) // 发包数量
             this.updateSendPacketPayloadChart(labels, sendPacketPayload) // 发包流量
         }
-
     },
 
     /** 更新ws 次数图表 */
@@ -184,7 +181,4 @@ export default {
 
     },
 
-    sizeToK(size) {
-        return (size / 1024).toFixed(2)
-    },
 }

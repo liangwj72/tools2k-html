@@ -342,4 +342,7 @@ export default {
     return (value / 1024 / 1024).toFixed(2)
   },
 
+  sizeToK(size) {
+    return (size / 1024).toFixed(2)
+  },
 }

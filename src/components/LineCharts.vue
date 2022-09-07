@@ -36,6 +36,10 @@
             avgPostFix: {
                 type: String,
                 default: ""
+            },
+            scales: {
+                type: Number,
+                default:1,
             }
         },
 
@@ -75,7 +79,7 @@
                     let total = 0.0
                     if (ds && ds.length > 0) {
                         ds[0].data.forEach(num => {
-                            total = total + parseFloat(num)
+                            total = total + parseFloat(num) * this.scales
                         })
                     }
                     let timeDiff = ChartHelper.timeDiff
