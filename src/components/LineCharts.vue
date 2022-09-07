@@ -12,6 +12,7 @@
 
 <script>
     import Chart from 'chart.js'
+    import ChartHelper from "../util/ChartHelper";
 
     export default {
         name: 'line-chart', // 只有是组件的时候才有用
@@ -29,11 +30,11 @@
                 required: true,
             },
             showAvg: {
-                type:Boolean,
-                default:false
+                type: Boolean,
+                default: false
             },
             avgPostFix: {
-                type:String,
+                type: String,
                 default: ""
             }
         },
@@ -67,6 +68,8 @@
             /** 更新图表 */
             updateChart() {
                 this.chart.update()
+
+                // 如果要显示平均值
                 if (this.showAvg) {
                     let ds = this.chartData.datasets
                     let total = 0.0
@@ -75,11 +78,11 @@
                             total = total + parseFloat(num)
                         })
                     }
-                    let timeDiff = this.chartData.timeDiff
+                    let timeDiff = ChartHelper.timeDiff
                     if (timeDiff && timeDiff > 0) {
                         this.avg = (total / timeDiff).toFixed(2)
                     } else {
-                        this.avg=0
+                        this.avg = 0
                     }
                 }
             },

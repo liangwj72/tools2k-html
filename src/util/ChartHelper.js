@@ -46,6 +46,9 @@ export default {
     /** sql图表-执行时间 */
     sqlTimeChart: SqlTimeChart,
 
+    /** 线图的时长（秒） */
+    timeDiff: 0,
+
     /** 更新图表信息 */
     onDataLoad(list) {
         const labels = [] // 时间轴
@@ -62,17 +65,23 @@ export default {
         const sendPacketCount = [] // 发包数
         const sendPacketPayload = [] // 发包流量
 
-        let minTime = -1
+        let minTime = 0
         let maxTime = 0
 
         for (let row of list) {
             // 找到最大时间和最小时间
             let time = row.recordTime
-            if (minTime == -1 || minTime > time) {
+            if (minTime == 0 || minTime > time) {
                 minTime = time
             }
             if (maxTime < time) {
                 maxTime = time
+            }
+            // 获得总时长
+            if (maxTime - minTime > 0) {
+                this.timeDiff = (maxTime - minTime) / 1000 + 10 // 最大时间和最小时间的差异变成秒，再加10秒
+            } else {
+                this.timeDiff = 0
             }
 
             // 时间轴数据
@@ -96,8 +105,6 @@ export default {
             sendPacketPayload.push(this.sizeToK(row.sendPacketPayload / 10)) // 发包流量
         }
 
-        // 获得总时长
-        let timeDiff = (maxTime - minTime) / 1000 + 10 // 最大时间和最小时间的差异变成秒，再加10秒
 
         this.updateMemoryChart(labels, totalMemory, usedMemory) // 更新内存图
         this.updateCpuChart(labels, cpuJvm) // 更新cpu图
@@ -113,8 +120,6 @@ export default {
             // console.debug("更新发包图表----")
             this.updateSendPacketCountChart(labels, sendPacketCount) // 发包数量
             this.updateSendPacketPayloadChart(labels, sendPacketPayload) // 发包流量
-            this.sendPacketCountChart.data.timeDiff = timeDiff
-            this.sendPacketPayloadChart.data.timeDiff = timeDiff
         }
 
     },
