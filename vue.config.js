@@ -37,6 +37,7 @@ function myProxy() {
 }
 
 module.exports = defineConfig({
+    productionSourceMap: process.env.NODE_ENV !== 'production', // 打包不生成map
     transpileDependencies: true,
     outputDir: '../lib-java/spring-support/src/main/resources/commons_statics/admin/',
 
