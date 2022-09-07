@@ -5,6 +5,7 @@ import myUtil from '../MyUtils'
 export default {
     data: {
         labels: [], // 时间轴数组
+        timeDiff: 0,
         datasets: [
             {
                 label: '10秒发包数量',

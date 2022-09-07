@@ -31,17 +31,21 @@
         <template v-if="hasSendPacketData">
             <el-row :gutter="10" class="mt-10">
                 <el-col :span="12">
-                    <!-- ws 次数-->
+                    <!-- 发包 次数-->
                     <line-chart
                             ref="sendPacketCountChart"
+                            avg-post-fix="个 "
+                            :show-avg="true"
                             :chartData="sendPacketCountChart.data"
                             :chartOptions="sendPacketCountChart.options">
                     </line-chart>
                 </el-col>
                 <el-col :span="12">
-                    <!-- ws 流量-->
+                    <!-- 发包 流量-->
                     <line-chart
                             ref="sendPacketPayloadChart"
+                            avg-post-fix="KB "
+                            :show-avg="true"
                             :chartData="sendPacketPayloadChart.data"
                             :chartOptions="sendPacketPayloadChart.options">
                     </line-chart>
@@ -89,7 +93,6 @@
     import chartHelper from '../../util/ChartHelper'
     import LineChart from '../../components/LineCharts'
     import serverContext from '../../util/ServerContext'
-    import MyUtils from '../../util/MyUtils'
 
     export default {
 
@@ -189,7 +192,6 @@
                 }
 
                 if (this.hasSendPacketData) {
-                    // console.debug("更新发布图表----")
                     /** 更新发包数量图表 */
                     this.$refs.sendPacketCountChart.updateChart()
                     /** 更新发包流量图表 */

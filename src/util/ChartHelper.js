@@ -14,14 +14,18 @@ import SendPacketCountChart from './charts/SendPacketCountChart'
 import SendPacketPayloadChart from './charts/SendPacketPayloadChart'
 import myUtil from './MyUtils'
 import MyUtils from './MyUtils'
+import serverContext from "./ServerContext";
 
 export default {
 
-    /** 发包-流量 */
-    sendPacketPayloadChart: SendPacketPayloadChart,
-
     /** 发包-数量 */
     sendPacketCountChart: SendPacketCountChart,
+    /** 发包-流量 */
+    sendPacketPayloadChart: SendPacketPayloadChart,
+    /** 评价发包-数量 */
+    avgSendPacketCount: 0,
+    /** 平均发包流量 */
+    avgSendPacketPayload: 0,
 
     memoryChart: MemoryChart, // 内存
 
@@ -58,9 +62,21 @@ export default {
         const sendPacketCount = [] // 发包数
         const sendPacketPayload = [] // 发包流量
 
+        let minTime = -1
+        let maxTime = 0
+
         for (let row of list) {
+            // 找到最大时间和最小时间
+            let time = row.recordTime
+            if (minTime == -1 || minTime > time) {
+                minTime = time
+            }
+            if (maxTime < time) {
+                maxTime = time
+            }
+
             // 时间轴数据
-            labels.push(myUtil.timeFormat(row.recordTime, 'hh:mm:ss'))
+            labels.push(myUtil.timeFormat(time, 'hh:mm:ss'))
 
             // 内存图表的数据
             totalMemory.push(MyUtils.toMemoryM(row.memory.totalMemory))
@@ -75,23 +91,30 @@ export default {
             wsCountDown.push(row.wsUpCount) // ws发送次数
             wsPayloadUp.push(this.sizeToK(row.wsUpPayload)) // ws上行流行
             wsPayloadDown.push(this.sizeToK(row.wsDownPayload)) // ws下行流量
+
             sendPacketCount.push(row.sendPacketCount) // 发包数量
             sendPacketPayload.push(this.sizeToK(row.sendPacketPayload / 10)) // 发包流量
         }
+
+        // 获得总时长
+        let timeDiff = (maxTime - minTime) / 1000 + 10 // 最大时间和最小时间的差异变成秒，再加10秒
 
         this.updateMemoryChart(labels, totalMemory, usedMemory) // 更新内存图
         this.updateCpuChart(labels, cpuJvm) // 更新cpu图
         this.updateThreadChart(labels, thread) // 更新线程图
         this.updateActionChart(labels, action) // 更新动态请求图
 
-        if (this.hasWsApiImpl) {
+        if (serverContext.serverInfo.hasWsApiImpl) {
             this.updateWsCountChart(labels, wsCountUp, wsCountDown) // 更新ws次数
             this.updateWsPayloadChart(labels, wsPayloadUp, wsPayloadDown) // 更新ws流量
         }
 
-        if (this.hasSendPacketData) {
+        if (serverContext.serverInfo.hasSendPacketData) {
+            // console.debug("更新发包图表----")
             this.updateSendPacketCountChart(labels, sendPacketCount) // 发包数量
             this.updateSendPacketPayloadChart(labels, sendPacketPayload) // 发包流量
+            this.sendPacketCountChart.data.timeDiff = timeDiff
+            this.sendPacketPayloadChart.data.timeDiff = timeDiff
         }
 
     },
