@@ -9,11 +9,11 @@ import './assets/less/index.less';
 import serverContext from './util/ServerContext.js'
 
 /** 公用组件库 */
-import jsLib from '@gztree/jslib';
+import jsLib from '@/jslib';
 Vue.use(jsLib)
 
 /** 公用样式主题 */
-import cssLib from '@gztree/element-theme-silver01';
+import cssLib from '@rock72/element-theme-silver01';
 Vue.use(cssLib)
 
 /** 消息总线 */

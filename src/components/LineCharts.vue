@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import Chart from 'chart.js'
+    const Chart = require('chart.js')
     import ChartHelper from "../util/ChartHelper";
 
     export default {

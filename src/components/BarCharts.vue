@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import Chart from 'chart.js'
+  const Chart = require('chart.js')
   import myUtil from "../util/MyUtils";
 
   export default {

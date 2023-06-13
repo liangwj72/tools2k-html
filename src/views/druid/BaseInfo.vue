@@ -28,7 +28,7 @@
 
 <script>
   import apiUrl from '../../ApiUrl'
-  import jsLib from '@gztree/jslib'
+  import jsLib from '@/jslib'
 
   export default {
 

@@ -6,8 +6,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import eventDispatcher from '../util/MyEventDispatcher.js'
 import serverContext from '../util/ServerContext.js'
-import Main from '../views/Main'
-import jslib from '@gztree/jslib'
+import Main from '../views/Main.vue'
+import jslib from '@/jslib'
 
 
 //const PATH_PREFIX = '/_common_/statics/commonAdmin/'
@@ -31,7 +31,7 @@ const routers = [
     path: '/Login',
     alias: '/',
     hidden: true,
-    component: () => import('@/views/Login'),
+    component: () => import('@/views/Login.vue'),
   }),
 
   // 系统信息
@@ -50,7 +50,7 @@ const routers = [
           title: '系统摘要',
           icon: 'dashboard',
         },
-        component: () => import('@/views/status/Summary'),
+        component: () => import('@/views/status/Summary.vue'),
       },
     ]
   }),
@@ -71,7 +71,7 @@ const routers = [
           title: '运行图表',
           icon: 'dashboard'
         },
-        component: () => import('@/views/status/Runtime'),
+        component: () => import('@/views/status/Runtime.vue'),
       },
       {
         path: '/status/ApiReport',
@@ -80,7 +80,7 @@ const routers = [
           title: 'API调用',
           icon: 'dashboard'
         },
-        component: () => import('@/views/status/ApiReport'),
+        component: () => import('@/views/status/ApiReport.vue'),
       },
       {
         path: '/status/WsConns',
@@ -92,7 +92,7 @@ const routers = [
           title: 'Websocket信息',
           icon: 'dashboard'
         },
-        component: () => import('@/views/status/WsConns'),
+        component: () => import('@/views/status/WsConns.vue'),
       },
     ]
   }),
@@ -114,7 +114,7 @@ const routers = [
           title: 'JMX',
           icon: 'dashboard'
         },
-        component: () => import('@/views/mbean/MBeanList'),
+        component: () => import('@/views/mbean/MBeanList.vue'),
       },
     ]
   }),
@@ -139,7 +139,7 @@ const routers = [
           title: 'SQL监控',
           icon: 'dashboard'
         },
-        component: () => import('@/views/druid/DataSources'),
+        component: () => import('@/views/druid/DataSources.vue'),
       },
       {
         path: '/druid/UriList',
@@ -148,7 +148,7 @@ const routers = [
           title: 'URI监控',
           icon: 'dashboard'
         },
-        component: () => import('@/views/druid/UriList'),
+        component: () => import('@/views/druid/UriList.vue'),
       },
       {
         path: '/druid/BaseInfo',
@@ -157,7 +157,7 @@ const routers = [
           title: 'Druid基础信息',
           icon: 'dashboard'
         },
-        component: () => import('@/views/druid/BaseInfo'),
+        component: () => import('@/views/druid/BaseInfo.vue'),
       },
     ]
   }),
@@ -179,7 +179,7 @@ const routers = [
           title: '字典管理',
           icon: 'dashboard'
         },
-        component: () => import('@/views/dict/Keys'),
+        component: () => import('@/views/dict/Keys.vue'),
       },
     ]
   }),
@@ -201,7 +201,7 @@ const routers = [
           title: '图床',
           icon: 'dashboard'
         },
-        component: () => import('@/views/dict/Upload'),
+        component: () => import('@/views/dict/Upload.vue'),
       },
     ]
   }),

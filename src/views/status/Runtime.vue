@@ -92,7 +92,7 @@
     import apiUrl from '../../ApiUrl'
     import myUtil from '../../util/MyUtils'
     import chartHelper from '../../util/ChartHelper'
-    import LineChart from '../../components/LineCharts'
+    import LineChart from '../../components/LineCharts.vue'
     import serverContext from '../../util/ServerContext'
 
     export default {

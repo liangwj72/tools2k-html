@@ -89,7 +89,7 @@
   import serverContext from "../util/ServerContext";
   import apiUrl from "../ApiUrl";
   import routeConfig from "../config/router.config";
-  import jslib from '@gztree/jslib'
+  import jslib from '@/jslib'
 
   export default {
 

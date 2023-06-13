@@ -89,11 +89,11 @@
     import apiUrl from '../../ApiUrl'
     import myUtil from '../../util/MyUtils'
     import chartHelper from '../../util/ChartHelper'
-    import LineChart from '../../components/LineCharts'
+    import LineChart from '../../components/LineCharts.vue'
     import serverContext from '../../util/ServerContext'
     import eventBus from '@/event-bus'
-    import CompUriDetail from './CompUriDetail'
-    import BarChart from '../../components/BarCharts'
+    import CompUriDetail from './CompUriDetail.vue'
+    import BarChart from '../../components/BarCharts.vue'
     import MyUtils from '../../util/MyUtils'
 
     export default {

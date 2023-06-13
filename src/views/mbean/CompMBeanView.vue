@@ -33,8 +33,8 @@
 <script>
   import apiUrl from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
-  import AttrsComp from './CompMBeanAttrs'
-  import OptsComp from './CompMBeanOpts'
+  import AttrsComp from './CompMBeanAttrs.vue'
+  import OptsComp from './CompMBeanOpts.vue'
   import eventBus from '@/event-bus'
 
   export default {

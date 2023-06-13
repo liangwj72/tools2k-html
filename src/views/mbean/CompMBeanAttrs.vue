@@ -102,7 +102,7 @@
 </template>
 
 <script>
-  import EditMode from '../../components/EditMode'
+  import EditMode from '../../components/EditMode.vue'
   import apiUri from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
 

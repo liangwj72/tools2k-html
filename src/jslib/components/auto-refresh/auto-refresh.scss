@@ -1,0 +1,22 @@
+.auto-refresh {
+  z-index: 10;
+  align-items: center;
+
+  .el-button {
+    background: rgba(255, 255, 255, 0.4);
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: none !important;
+  }
+
+  .btn-left {
+    width: 50px;
+    text-align: left;
+  }
+
+  &.fixed-refresh {
+    position: fixed;
+    top: 78px;
+    right: 35px;
+  }
+}

@@ -170,10 +170,10 @@
 
 <script>
     import apiUrl from '../../ApiUrl'
-    import jsLib from '@gztree/jslib'
+    import jsLib from '@/jslib'
     import sqlFormatter from 'sql-formatter'
-    import BarChart from '../../components/BarCharts'
-    import CompResetDruid from './CompResetDruid'
+    import BarChart from '../../components/BarCharts.vue'
+    import CompResetDruid from './CompResetDruid.vue'
 
     export default {
 

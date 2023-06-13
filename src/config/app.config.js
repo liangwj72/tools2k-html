@@ -3,7 +3,7 @@
  * Created by liangwj on 2017/6/20 0020.
  */
 
-import Chart from 'chart.js'
+const Chart = require('chart.js')
 
 export default {
   /** 初始化所有 */

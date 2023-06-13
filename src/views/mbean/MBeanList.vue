@@ -56,7 +56,7 @@
   import apiUrl from '../../ApiUrl'
   import myUtil from '../../util/MyUtils'
   import eventBus from '@/event-bus'
-  import MbeanView from './CompMBeanView'
+  import MbeanView from './CompMBeanView.vue'
 
   export default {
 
